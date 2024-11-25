@@ -1,0 +1,12 @@
+node_modules
+package-lock.json
+.env
+.vscode
+https
+videos
+zz-Sav
+.DS_Store
+audios
+videos4Client
+videosNEW
+audio4Client
