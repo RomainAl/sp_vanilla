@@ -221,6 +221,15 @@
       flex-direction: column-reverse;
       background: rgba(0,0,0,0.5);
     }
+
+    #video_webrtc {
+      transform: scale(1.2);
+      /* transform-origin: left top; */
+      background: #000000;
+      position: fixed;
+      width:100%;
+      height:100%;
+    }
   }
 
   @media screen and (orientation: portrait){
@@ -235,6 +244,15 @@
       left: 0;
       background-color: 'black';
       background: #000000;
+    }
+
+    #video_webrtc {
+      transform: rotate(90deg) scale(2);
+      /* transform-origin: left top; */
+      background: #000000;
+      position: fixed;
+      width:100%;
+      height:100%;
     }
 
     #loading-bar {

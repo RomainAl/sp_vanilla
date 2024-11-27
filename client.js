@@ -589,7 +589,7 @@ function changeScene(data){
     case 10: // FACEBOOK
       try { myPeer.stream.getTracks().forEach((track) => {track.stop();}) } catch(e) {console.log(e)};
       // if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;} catch(e) {console.log(e)};
-      try {context.suspend()} catch(e) {console.log(e)}
+      // try {context.suspend()} catch(e) {console.log(e)}
       if (streamVisualizer4Clients) try {streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
       atablee.style.display = "initial";
       userCanvas.style.display = "none";
@@ -598,6 +598,7 @@ function changeScene(data){
       adminVideo_webrtc.style.display = "initial";
       adminVideo_webrtc.play();
       adminVideo_webrtc.volume = 0;
+      // adminVideo_webrtc.style.transform = 'rotate(90deg)';
       adminVideo.volume = 0;
       adminVideo.pause();
       overlay.style.visibility = "hidden";
@@ -637,7 +638,7 @@ function changeScene(data){
     case 9: //FLASH
       try { myPeer.stream.getTracks().forEach((track) => {track.stop();}) } catch(e) {console.log(e)};
       // if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;} catch(e) {console.log(e)};
-      try {context.suspend()} catch(e) {console.log(e)}
+      // try {context.suspend()} catch(e) {console.log(e)}
       if (streamVisualizer4Clients) try {streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
       atablee.style.display = "initial";
       myGUI.style.display = "none";
@@ -756,7 +757,6 @@ function changeScene(data){
         adminVideo_webrtc.pause();
         audio_nico.pause();
         myGUI.style.display = "flex";
-        document.getElementById("loading-bar").style.display = "none";
         overlay.style.visibility = "hidden";
         overlayTHEEND.style.visibility = "hidden";
         overlayWAIT.style.visibility = "hidden";
@@ -1032,8 +1032,8 @@ function gotStream(stream, withVid) {
     videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
   }
   context.suspend();
-  document.getElementById("loading-bar").style.display = "initial";
   if (!effects_loaded){
+    document.getElementById("loading-bar").style.display = "initial";
     try {removeAllChildNodes(document.getElementById("effects-params"))} catch(e){console.log(e)};
     effects_Setup(effects)
     .then(()=>{
@@ -1046,6 +1046,7 @@ function gotStream(stream, withVid) {
         btn_rec.disabled = false;
         btn_rec.style.borderColor = "white";
         effects_loaded = true;
+        document.getElementById("loading-bar").style.display = "none";
       });
     })
     .catch(function (err) {
@@ -1053,6 +1054,7 @@ function gotStream(stream, withVid) {
         context.resume();
         console.log(`${err.name}, ${err.message}`);
         alert('Désolé, impossible pour ton smartphone de charger les effets sonores !');
+        document.getElementById("loading-bar").style.display = "none";
         source.connect(gain);
         gain.connect(analyser);
         analyser.connect(myPeer); // TODO

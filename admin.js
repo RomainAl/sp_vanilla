@@ -680,7 +680,7 @@ function onReceiveChannelMessageCallback(event) {
   data = JSON.parse(event.data)
   let client = clientS.find(c=>c.clientId == data.clientId);
   client.div.style.background = "red";
-  setTimeout(()=>{client.div.style.background = "white";}, 1000);
+  setTimeout(()=>{client.div.style.background = "black";}, 1000);
   if (data.mess){
     switch (data.mess){
       case 'NoMic':
