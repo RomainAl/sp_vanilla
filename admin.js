@@ -1,9 +1,9 @@
 //const socket = io.connect("https://maman-jk7dceleka-od.a.run.app");
 //const socket = io.connect("https://maman2-jk7dceleka-od.a.run.app");
 //const socket = io.connect("https://mywrtc-ro5o23vkzq-od.a.run.app");
-// const   socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.dev/");
-const socket = io.connect("https://192.168.10.2:1337");
-console.log("localio ok");
+const   socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.dev/");
+// const socket = io.connect("https://192.168.10.2:1337");
+console.log("flyio ok");
 //const socket = io.connect("https://192.168.10.2:1337");
 const adminVideos = document.getElementById("adminVideos");
 
@@ -23,15 +23,7 @@ document.getElementById('btn_reload').onclick = sendData;
 document.getElementById('btn_stopAll').onclick = removeAllStoped;
 // const btn_midi = document.getElementById('btn_midi');
 // const slider_midi = document.getElementById('slider_midi');
-document.getElementById('btn_scene1').onclick = changeScene;
-document.getElementById('btn_scene20').onclick = changeScene;
-document.getElementById('btn_scene21').onclick = changeScene;
-// document.getElementById('btn_scene21_random').onclick = sendData;
-document.getElementById('btn_scene3').onclick = changeScene;
-document.getElementById('btn_scene6').onclick = changeScene;
-document.getElementById('btn_sceneTHEEND').onclick = changeScene;
-document.getElementById('btn_sceneWAIT').onclick = changeScene;
-document.getElementById('btn_tech').onclick = changeScene;
+for (const child of document.getElementById("scenes").children) child.onclick = changeScene;
 document.getElementById('btn_lauch').onclick = sendData;
 document.getElementById("btn_showG").onclick = (e) => {
   if (e.target.style.background == 'white'){
@@ -167,6 +159,7 @@ function changeVideoDebut(event){
     }
   }
 }
+
 //{ sinkId: "124e612f375942fd133185c04186d1a26bc79eda5e4fc75317b508430d00e4ea" }
 //dd857c29f4637fcbf86c57824bb2a1a64bf64a1df8e63d004230d6cb31ccc748
 let ctx;
@@ -208,7 +201,7 @@ let cutFreq;
 // }
 
 function startContext(event) {
-  //console.log(navigator.mediaDevices.enumerateDevices());
+  console.log(navigator.mediaDevices.enumerateDevices());
   ctx = new AudioContext();
   ctx.destination.channelInterpretation = 'discrete';
   ctx.destination.channelCount = ctx.destination.maxChannelCount;
@@ -217,7 +210,7 @@ function startContext(event) {
   merger.connect(ctx.destination);
   console.log("Channel number: " + ctx.destination.maxChannelCount);
   console.log(ctx);
-  document.body.style.background = 'white';
+  document.body.style.background = 'black';
   document.getElementById('btn_scene1').click();
   // 4SPAT :
   // for (let i=0; i<ctx.destination.maxChannelCount; i++){
@@ -470,20 +463,20 @@ function OnTrackFunction(event) {
     clientdiv.classList.add("tel");
     clientdiv.style.width = `${document.getElementById('resizeTel').value}%`;
     let divS = document.createElement("div");
-    divS.setAttribute("name", 'divS1');
-    divS.classList.add("divS");
+    divS.setAttribute("name", "divS1");
+    divS.classList.add("divS", "divS1");
     clientdiv.appendChild(divS);
     const audio = document.createElement("audio");
-    audio.setAttribute("name", 'audio' + currentClientId); // TODO ? Why audio needed ??
+    audio.setAttribute("name", 'audio' + currentClientId);
     audio.controls = false;
     audio.autoplay = true;
     audio.muted = true;
-    divS.appendChild(audio);
     
     if (audio.srcObject !== event.streams[0]) {
       audio.srcObject = event.streams[0];
       console.log('Received audio remote stream');
     }
+
     const gain = document.createElement('input');
     gain.setAttribute("name", 'input'+currentClientId);
     gain.type = 'range';
@@ -571,8 +564,7 @@ function OnTrackFunction(event) {
     if ((currentSel!=0)&&(currentSel!=1)) divS.style.display = 'none';
 
     divS = document.createElement("div");
-    divS.setAttribute("name", 'divS2');
-    divS.classList.add("divS");
+    divS.classList.add("divS", "divS2");
     clientdiv.appendChild(divS);
     let videoMaster = document.getElementById("adminVideos");
     videoMaster = videoMaster.getElementsByTagName("video")[0];
@@ -604,8 +596,7 @@ function OnTrackFunction(event) {
     if ((currentSel!=0)&&(currentSel!=20)&&(currentSel!=21)) divS.style.display = 'none';
 
     divS = document.createElement("div");
-    divS.setAttribute("name", 'divS3');
-    divS.classList.add("divS");
+    divS.classList.add("divS", "divS3");
     clientdiv.appendChild(divS);
     let audioCrac= document.createElement("audio");
     audioCrac.setAttribute("name", 'audioCrac' + currentClientId);
@@ -636,8 +627,7 @@ function OnTrackFunction(event) {
     if ((currentSel!=0)&&(currentSel!=3)) divS.style.display = 'none';
     
     divS = document.createElement("div");
-    divS.setAttribute("name", 'divTech');
-    divS.classList.add("divS");
+    divS.classList.add("divS", "divTech");
     clientdiv.appendChild(divS);
     
     button = document.createElement("button");
@@ -658,6 +648,22 @@ function OnTrackFunction(event) {
     divS.appendChild(button);
 
     if ((currentSel!=0)&&(currentSel!=4)) divS.style.display = 'none';
+
+    divS = document.createElement("div");
+    divS.classList.add("divS", "divS9", "divS10");
+    clientdiv.appendChild(divS);
+    let vid = document.createElement("video");
+    vid.setAttribute("id", 'userVid' + currentClientId);
+    vid.classList.add("userVid");
+    vid.controls = true;
+    divS.appendChild(vid);
+    
+    if ((currentSel!=0)&&(currentSel!=9)) divS.style.display = 'none';
+
+  } else {
+    let vid = document.getElementById(`userVid${currentClientId}`);
+    vid.srcObject = event.streams[0];
+    vid.autoplay = true;
   };
 }
 
@@ -715,6 +721,14 @@ function sendData(event) {
           child.style.border = 'none';
         }
         switch (scene.getAttribute('id')){
+          case "btn_scene10":
+            currentSceneNb = 10;
+            data = {"scene": currentSceneNb};
+            break
+          case "btn_scene9":
+            currentSceneNb = 9;
+            data = {"scene": currentSceneNb, "time": document.getElementById("S9_param1").value};
+            break
           case "btn_scene1":
             if ((currentSceneNb == 20)||(currentSceneNb == 21)||(currentSceneNb == 3)||(currentSceneNb == 7)) doTwice = true;
             currentSceneNb = 1;
@@ -918,72 +932,30 @@ function changeVid(event){
 function changeScene(event){
   if (event.target.style.background == 'orange'){
     event.target.style.background = 'yellow';
-    document.getElementsByName('divS1').forEach(d=>d.style.display='flex');
-    document.getElementsByName('divS2').forEach(d=>d.style.display='flex');
-    document.getElementsByName('divS3').forEach(d=>d.style.display='flex');
-    document.getElementsByName('divTech').forEach(d=>d.style.display='flex');
+    Array.from(document.getElementsByClassName('divS')).forEach(d=>d.style.display='flex');
     currentSel = 0;
-    } else {
+  } else {
+    Array.from(document.getElementsByClassName('divS')).forEach(d=>d.style.display='none');
     for (const child of scenes.children) {
       child.style.background = 'yellow';
     }
     event.target.style.background = 'orange';
     switch (event.target.getAttribute('id')){
-      case "btn_scene1":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='flex');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='none');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='none');
-        currentSel = 1;
-        break;
       case "btn_scene20":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='flex');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='none');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='none');
+        Array.from(document.getElementsByClassName('divS2')).forEach(d=>d.style.display='flex');
         currentSel = 20;
         break;
       case "btn_scene21":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='flex');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='none');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='none');
+        Array.from(document.getElementsByClassName('divS2')).forEach(d=>d.style.display='flex');
         currentSel = 21;
         break;
-      case "btn_scene3":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='flex');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='none');
-        currentSel = 3;
-        break;
-      case "btn_scene6":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='flex');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='none');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='none');
-        currentSel = 1;
-        break;
-      case "btn_sceneTHEEND":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='flex');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='none');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='none');
-        currentSel = 1;
-        break;
       case "btn_tech":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='none');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='flex');
+        Array.from(document.getElementsByClassName('divTech')).forEach(d=>d.style.display='flex');
         currentSel = 4;
         break;
-      case "btn_sceneWAIT":
-        document.getElementsByName('divS1').forEach(d=>d.style.display='flex');
-        document.getElementsByName('divS2').forEach(d=>d.style.display='none');
-        document.getElementsByName('divS3').forEach(d=>d.style.display='none');
-        document.getElementsByName('divTech').forEach(d=>d.style.display='none');
-        currentSel = 1;
+      default:
+        const divs = Array.from(document.getElementsByClassName(`divS${event.target.getAttribute('id').substring(9)}`)).forEach(d=>d.style.display='flex');
+        currentSel = parseInt(event.target.getAttribute('id').substring(9));
         break;
     }
   }

@@ -82,7 +82,7 @@ MyWebAudio.prototype.draw = function() {
     height = this.canvas.height * percent;
     offset = this.canvas.height - height - 1;
     barWidth = this.canvas.width/this.analyser.frequencyBinCount;
-    this.drawContext.fillStyle = 'black';
+    this.drawContext.fillStyle = 'white';
     this.drawContext.fillRect(i * barWidth, offset, 10, 2);
   }
 
