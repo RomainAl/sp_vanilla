@@ -9,18 +9,42 @@
     }
   }
 
+  @keyframes rotateSp {
+    from {
+      transform: rotate(180deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
   @keyframes circle {
     to {
       background: rgba(255, 255, 255, 0.5);
     }
   }
 
+  :root{
+    --orange: rgb(255, 149, 0);
+    --strokeSize: 16;
+    --strokeSize2: 17;
+    --size: 200px;
+    --bgColor: rgb(0, 0, 0);
+  }
+
   html,
-  body
+  body,
+  #root
   {
-      font-family: 'InterVar', sans-serif;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bgColor);
+      margin: 0;
+      padding: 0;
       overflow: hidden;
-      background: #000000;
   }
 
   *
@@ -30,11 +54,88 @@
       outline: none;
   }
 
+  #sp_cin, #sp_cout{
+    fill: none;
+    stroke-width: var(--strokeSize);
+    stroke-dasharray: 565.48;
+  }
+
+  #sp_cin{
+      stroke: grey;
+      transform-origin: center;
+  }
+
+  #sp_mask{
+      fill: none;
+      stroke-width: var(--strokeSize2);
+      stroke: var(--bgColor);
+      stroke-dasharray: 565.48;
+      stroke-dashoffset: 400;
+      transform-origin: center;
+      transform: rotate(180deg);
+  }
+
+  #sp_cout{
+      stroke: var(--orange);
+      stroke-dashoffset: 282.74;
+      /* stroke-dashoffset: -282.74; */
+      transform-origin: center;
+      /* transition: transform 0.5s, stroke-dashoffset 0.5s; */
+      /* transform: rotate(180deg); */
+      animation: rotateSp 1.5s ease-in-out;
+  }
+
+  #sp_line{
+      stroke-width: var(--strokeSize);
+      stroke: var(--orange);
+      transform-origin: center;
+      /* transition: transform 0.5s; */
+      /* transform: rotate(180deg); */
+      animation: rotateSp 1.5s ease-in-out;
+  }
+
+  #sp_svg{
+      width: 100%;
+      height: 100%;
+      transform: scaleX(-1) rotate(-143deg);
+  }
+
+  #sp {
+      display: block;
+      height: var(--size);
+      width: var(--size);
+      /* border: 10px solid white; */
+  }
+
+  #sp_text{
+      position: relative;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      font-weight: bold;
+      text-align: center;
+      font-family: "InterVar";
+      font-size: medium;
+      color: var(--orange);
+      transform: translate(0, -50px);
+  }
+
   #canvas {
     background: #000000;
     position: fixed;
     width:100%;
     height:100%;
+  }
+
+  #sp_instru{
+    background: #000000;
+    position: fixed;
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
   video {
@@ -59,9 +160,9 @@
   }
 
   .overlay {
-    position: absolute;
-    font-size: 16px;
-    z-index: 2;
+    position: fixed;
+    /* font-size: 16px;
+    z-index: 2; */
     top: 0;
     left: 0;
     width: 100%;
@@ -85,13 +186,16 @@
     background: rgb(255, 255, 255);
     visibility: hidden;
   }
+  .fa-solid{
+    color: var(--orange);
+  }
 
 	.overlay button {
 		background: transparent;
 		border: 0;
-		border: 2px solid rgb(255, 255, 255);
+		border: 2px solid grey;
 		border-radius: 50%;
-		color: #ffffff;
+		color: var(--orange);
 		padding: 20px 19px;
     margin: 15px;
 		cursor: pointer;
@@ -107,13 +211,13 @@
     font-weight: bold;
   }
 
-  .overlay h1,h2,h3,h4,p,span {
+  /* .overlay h1,h2,h3,h4,p,span {
 		background: transparent;
 		border: 0;
 		color: #ffffff;
 		padding: 12px 18px;
     text-align: center;
-	}
+	} */
 
   .effect_div {
     width: 100%;
@@ -143,7 +247,7 @@
   }
 
   label {
-    color: #ffffff;
+    color: var(--orange);
   }
   @media screen and (orientation: landscape){
     #atablee {
@@ -345,7 +449,7 @@
   
   .toggle-switch {
     display: inline-block;
-    background: #5c5c5c;
+    background: grey;
     border-radius: 30px;
     width: 58px;
     height: 32px;
@@ -358,7 +462,7 @@
   }
   .toggle-switch:before {
     display: block;
-    background: linear-gradient(to bottom, #fff 0%, #5c5c5c 100%);
+    background: linear-gradient(to bottom, #fff 0%, grey 100%);
     border-radius: 50%;
     border-width: 20px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
@@ -370,7 +474,7 @@
     transition: left 0.25s;
   }
   .toggle:hover .toggle-switch:before {
-    background: linear-gradient(to bottom, #fff 0%, #5c5c5c 100%);
+    background: linear-gradient(to bottom, #fff 0%, grey 100%);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
   }
   .toggle-checkbox:checked + .toggle-switch {
@@ -412,7 +516,7 @@
     }
   
     input[type="range"] {
-      color: #ffffff;
+      color: var(--orange);
       --track-color: rgba(255, 255, 255, 0.2);
     }
   

@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./style4Clients.css" rel="stylesheet" />
-    <title>ATABLEE - Beta - v1</title>
-    <link rel="icon" href="data:,">
+    <title>smart.phonics - Beta - v0</title>
+    <!-- <link rel="icon" href="data:,"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -18,6 +18,7 @@
         <video id="video_webrtc" playsinline preload="none" autoplay muted></video>
         <audio id="audio_nico" style="display: none"></audio>
     </div>
+    <!-- <div id="sp_instru" name="sp_glitches"></div> -->
     <div id="GUI" style="display: none;">
         <div id="effects-params"> </div>
         <div id="gain-param">
@@ -28,13 +29,13 @@
         </div>
             
         <div id="Btns">
-            <button id="btn_effects" disabled style="padding: 14px 16px;"><i class="fa-solid fa-gear" style="color: #ffffff;"></i></button>
+            <button id="btn_effects" disabled style="padding: 14px 16px;"><i class="fa-solid fa-gear"></i></button>
             <button id="btn_rec" disabled style="padding: 14px 14px;">
-                <i id="rec" class="fa-solid fa-circle fa-lg" style="color: #FF0000;"></i>
-                <i id="stop" class="fa-solid fa-square fa-lg" style="color: #FFFFFF;  display: none; padding: 0px 1px;"></i>
-                <i id="trash" class="fa-regular fa-trash-can fa-lg" style="color: #ffffff; display: none; padding: 0px 2px;"></i></button>
-            <button id="btn_gain" style="padding: 14px 13px;"><i id="g1" class="fa-solid fa-volume-high fa-lg" style="color: #ffffff;"></i><i id="g2" class="fa-solid fa-volume-xmark fa-lg" style="color: #ffffff; display: none"></i></button>
-            <button id="btn_fullscreen" style="padding: 14px 16px;"><i id="fs1" class="fa-solid fa-up-right-and-down-left-from-center" style="color: #ffffff;"></i><i id="fs2" class="fa-solid fa-down-left-and-up-right-to-center" style="color: #ffffff; display: none"></i></button>
+                <i id="rec" class="fa-solid fa-circle fa-lg"></i>
+                <i id="stop" class="fa-solid fa-square fa-lg" style="display: none; padding: 0px 1px;"></i>
+                <i id="trash" class="fa-regular fa-trash-can fa-lg" style="display: none; padding: 0px 2px;"></i></button>
+            <button id="btn_gain" style="padding: 14px 13px;"><i id="g1" class="fa-solid fa-volume-high fa-lg"></i><i id="g2" class="fa-solid fa-volume-xmark fa-lg" style="display: none"></i></button>
+            <button id="btn_fullscreen" style="padding: 14px 16px;"><i id="fs1" class="fa-solid fa-up-right-and-down-left-from-center"></i><i id="fs2" class="fa-solid fa-down-left-and-up-right-to-center" style="display: none"></i></button>
     
             <!-- <button id="btn_test">TEST</button> -->
         </div>
@@ -42,16 +43,19 @@
         
     <!-- <div id="FS"></div> -->
     <div id="overlay" class="overlay">
-        <div id="titles">
-            <h2 >Bienvenue dans l'expérience<br>@TABLÉE</h2>
-            <p id="wifi">Connecte toi au wifi : <br> "<strong>attablee</strong>" mdp: "12345678"</p>
-            <p>. Monte ton volume . <br>. Monte ta luminosité . <br>
-                . Et allume ton micro :</p>
+        <div id="sp" data-pct="100">
+            <svg id="sp_svg" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <line id="sp_line" x1="182" y1="108" x2="100" y2="108" />
+                <circle id="sp_cin"  r="90" cx="100" cy="100"></circle>
+                <circle id="sp_cout" r="90" cx="100" cy="100"></circle>
+                <circle id="sp_mask"  r="90" cx="100" cy="100"></circle>
+            </svg>
+            <p id="sp_text">smart.phonics</p>
         </div>
         <p id="err" style="display: none"><i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #ffffff;"></i><br><br><br>Accès impossible à ton micro... <br> Mais tu peux rester pour la suite ! </p>
         <button id="startButton" disabled class="spinner">
-            <i id="microon" class="fa-solid fa-microphone fa-2xl" style="color: #ffffff;"></i>
-            <i id="microoff" class="fa-solid fa-microphone-slash fa-2xl" style="color: #ffffff; padding: 12px 0; display: none"></i>
+            <i id="microon" class="fa-solid fa-hand-pointer fa-2xl"></i>
+            <i id="microoff" class="fa-solid fa-microphone-slash fa-2xl" style="padding: 12px 0; display: none"></i>
         </button>
         <p class="alert" style="display: none">. Désolé, nous travaillons actuellement sur le site . <br>. (v2.02) .</p>
     </div>
@@ -62,11 +66,9 @@
     <div id="overlayTHEEND" class="overlay" style="visibility: hidden">
         <h1><strong>FIN</strong></h1>
         <p>
-            <strong>Olivia SCEMAMA</strong><br>Contrebasse <br><br>
             <strong>Romain AL.</strong><br>Développement numérique / Vidéos live <br><br>
             <strong>Nicolas CANOT</strong><br>Électronique / FX / Spatialisation sonore
         </p>
-        <p>Expérience imaginée avec<br><strong>Yann JOUSSEIN</strong></p>
     </div>
     <div id="loading-bar" ></div>
     <div id="adminID"></div>

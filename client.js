@@ -7,6 +7,8 @@ const socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.d
 // const socket = io.connect("https://192.168.10.2:1337");
 console.log("flyio ok");
 
+// const instru_div = document.getElementById("sp_instru");
+// let instru = {};
 const userCanvas = document.getElementById("canvas");
 userCanvas.width = Math.max(window.innerWidth,window.innerHeight)*2;
 userCanvas.height = Math.min(window.innerWidth,window.innerHeight)*2;
@@ -115,7 +117,6 @@ let timer_nico;
 let gain_nico;
 let isDraggingSlider = false;
 
-const displayAllEffectsParams = false;
 let effects_loaded = false;
 
 const filter = {
@@ -174,87 +175,87 @@ const effects = [
   //   }
   //   ],
   // },
-  {
-    name: "delay",
-    title: "ECHOS",
-    device: null,
-    div: null,
-    activ: false,
-    visible: true,
-    gain: null,
-    userParams: [
-    {
-      name: "input",
-      title: "IN",
-      defaultValue: 1.0,
-      param: null,
-      visible: false,
-      type: "bool"
-    },
-    {
-      name: "time",
-      title: "TIME",
-      defaultValue: 30.0,
-      param: null,
-      visible: true,
-      type: "real"
-    }
-    ],
-  },
-  {
-    name: "disto",
-    title: "DISTORSION",
-    device: null,
-    div: null,
-    activ: false,
-    visible: true,
-    gain: null,
-    userParams: [
-      {
-        name: "drive",
-        title: "DISTO",
-        defaultValue: 20.0,
-        param: null,
-        visible: true,
-        type: "real"
-      },{
-        name: "mix",
-        title: "MIX",
-        defaultValue: 100.0,
-        param: null,
-        visible: false,
-        type: "real"
-      },{
-        name: "midfreq",
-        title: "MIDFREQ",
-        defaultValue: 0.0,
-        param: null,
-        visible: false,
-        type: "real"
-      },{
-        name: "treble",
-        title: "TREBLE",
-        defaultValue: 50.0,
-        param: null,
-        visible: false,
-        type: "real"
-      },{
-        name: "mid",
-        title: "MID",
-        defaultValue: 100.0,
-        param: null,
-        visible: false,
-        type: "real"
-      },{
-        name: "bass",
-        title: "BASS",
-        defaultValue: 50.0,
-        param: null,
-        visible: false,
-        type: "real"
-      },
-  ],
-  },
+  // {
+  //   name: "delay",
+  //   title: "ECHOS",
+  //   device: null,
+  //   div: null,
+  //   activ: false,
+  //   visible: true,
+  //   gain: null,
+  //   userParams: [
+  //   {
+  //     name: "input",
+  //     title: "IN",
+  //     defaultValue: 1.0,
+  //     param: null,
+  //     visible: false,
+  //     type: "bool"
+  //   },
+  //   {
+  //     name: "time",
+  //     title: "TIME",
+  //     defaultValue: 30.0,
+  //     param: null,
+  //     visible: true,
+  //     type: "real"
+  //   }
+  //   ],
+  // },
+  // {
+  //   name: "disto",
+  //   title: "DISTORSION",
+  //   device: null,
+  //   div: null,
+  //   activ: false,
+  //   visible: true,
+  //   gain: null,
+  //   userParams: [
+  //     {
+  //       name: "drive",
+  //       title: "DISTO",
+  //       defaultValue: 20.0,
+  //       param: null,
+  //       visible: true,
+  //       type: "real"
+  //     },{
+  //       name: "mix",
+  //       title: "MIX",
+  //       defaultValue: 100.0,
+  //       param: null,
+  //       visible: false,
+  //       type: "real"
+  //     },{
+  //       name: "midfreq",
+  //       title: "MIDFREQ",
+  //       defaultValue: 0.0,
+  //       param: null,
+  //       visible: false,
+  //       type: "real"
+  //     },{
+  //       name: "treble",
+  //       title: "TREBLE",
+  //       defaultValue: 50.0,
+  //       param: null,
+  //       visible: false,
+  //       type: "real"
+  //     },{
+  //       name: "mid",
+  //       title: "MID",
+  //       defaultValue: 100.0,
+  //       param: null,
+  //       visible: false,
+  //       type: "real"
+  //     },{
+  //       name: "bass",
+  //       title: "BASS",
+  //       defaultValue: 50.0,
+  //       param: null,
+  //       visible: false,
+  //       type: "real"
+  //     },
+  // ],
+  // },
   {
     name: "downsample",
     title: "DEGRADATION",
@@ -273,32 +274,32 @@ const effects = [
       type: "real"
     }],
   },
-  {
-    name: "reverb",
-    title: "REVERBERATION",
-    device: null,
-    div: null,
-    activ: false,
-    visible: true,
-    gain: null,
-    userParams: [
-      {
-        name: "decay",
-        title: "DECAY",
-        defaultValue: null,
-        param: null,
-        visible: true,
-        type: "real"
-      },{
-        name: "mix",
-        title: "MIX",
-        defaultValue: 100.0,
-        param: null,
-        visible: false,
-        type: "real"
-      },
-    ],
-  },
+  // {
+  //   name: "reverb",
+  //   title: "REVERBERATION",
+  //   device: null,
+  //   div: null,
+  //   activ: false,
+  //   visible: true,
+  //   gain: null,
+  //   userParams: [
+  //     {
+  //       name: "decay",
+  //       title: "DECAY",
+  //       defaultValue: null,
+  //       param: null,
+  //       visible: true,
+  //       type: "real"
+  //     },{
+  //       name: "mix",
+  //       title: "MIX",
+  //       defaultValue: 100.0,
+  //       param: null,
+  //       visible: false,
+  //       type: "real"
+  //     },
+  //   ],
+  // },
   {
      name: "pitchshift",
      title: "HAUTEUR",
@@ -326,22 +327,69 @@ const effects = [
        },
      ],
    },
+  // {
+  //   name: "freeze",
+  //   title: "FREEZE (AUTO)",
+  //   device: null,
+  //   div: null,
+  //   activ: false,
+  //   visible: true,
+  //   gain: null,
+  //   userParams: [
+  //     {
+  //       name: "auto",
+  //       title: "AUTO",
+  //       defaultValue: 100.0,
+  //       param: null,
+  //       visible: false,
+  //       type: "bool"
+  //     },
+  //   ],
+  // },
   {
-    name: "freeze",
-    title: "FREEZE (AUTO)",
+    name: "glitches",
+    title: "GLITCHES (Del/Chance/Feed/Range/Speed)",
     device: null,
     div: null,
-    activ: false,
+    activ: true,
     visible: true,
     gain: null,
     userParams: [
       {
-        name: "auto",
-        title: "AUTO",
-        defaultValue: 100.0,
+        name: "DEL",
+        title: "DEL",
+        defaultValue: null,
         param: null,
-        visible: false,
-        type: "bool"
+        visible: true,
+        type: "real"
+      },{
+        name: "CHANCE",
+        title: "CHANCE",
+        defaultValue: null,
+        param: null,
+        visible: true,
+        type: "real"
+      },{
+        name: "FEED",
+        title: "FEED",
+        defaultValue: null,
+        param: null,
+        visible: true,
+        type: "real"
+      },{
+        name: "RANGE",
+        title: "RANGE",
+        defaultValue: null,
+        param: null,
+        visible: true,
+        type: "real"
+      },{
+        name: "SPEED",
+        title: "SPEED",
+        defaultValue: null,
+        param: null,
+        visible: true,
+        type: "real"
       },
     ],
   },
@@ -459,6 +507,7 @@ function init() {
   socket.connect();
   console.log(socket.id);
   socket.emit("join", roomName, false);
+  // instru_Setup(instru_div);
 };
 
 // Triggered when a room is succesfully created.
@@ -1055,6 +1104,7 @@ function gotStream(stream, withVid) {
         console.log(`${err.name}, ${err.message}`);
         alert('Désolé, impossible pour ton smartphone de charger les effets sonores !');
         document.getElementById("loading-bar").style.display = "none";
+        effects_loaded = false;
         source.connect(gain);
         gain.connect(analyser);
         analyser.connect(myPeer); // TODO
@@ -1294,11 +1344,142 @@ function changeFullScreen(){
 //   }
 // }
 
+// async function instru_Setup(div) {
+//   let response, patcher;
+//   try {
+//       response = await fetch("./"+div.getAttribute("name")+"/patch.export.json");
+//       patcher = await response.json();
+//       //if (!window.RNBO) {
+//           // Load RNBO script dynamically
+//           // Note that you can skip this by knowing the RNBO version of your patch
+//           // beforehand and just include it using a <script> tag
+//           await loadRNBOScript(patcher.desc.meta.rnboversion); // TOBACK
+//           console.log(patcher.desc.meta.rnboversion);
+//       //}
+
+//   } catch (err) {
+//       const errorContext = {
+//           error: err
+//       };
+//       if (response && (response.status >= 300 || response.status < 200)) {
+//           errorContext.header = `Couldn't load patcher export bundle`,
+//           errorContext.description = `Check app.js to see what file it's trying to load. Currently it's` +
+//           ` trying to load "${patchExportURL}". If that doesn't` + 
+//           ` match the name of the file you exported from RNBO, modify` + 
+//           ` patchExportURL in app.js.`;
+//       }
+//       if (typeof guardrails === "function") {
+//           guardrails(errorContext);
+//       } else {
+//           throw err;
+//       }
+//       return;
+//   }
+
+//   // (Optional) Fetch the dependencies
+//   let dependencies = [];
+//   try {
+//       const dependenciesResponse = await fetch("./"+div.getAttribute("name")+"/dependencies.json");
+//       dependencies = await dependenciesResponse.json();
+//       // Prepend "export" to any file dependenciies
+//       dependencies = dependencies.map(d => d.file ? Object.assign({}, d, { file: "./"+div.getAttribute("name")+"/" + d.file }) : d);
+//   } catch (e) {
+//     console.log('No dependencies in : ' + effects[i].name);
+//   }
+
+//   // Create the device
+//   try {
+//       instru.device = await RNBO.createDevice({ context, patcher });
+//   } catch (err) {
+//       alert('err');
+//   }
+
+//   // if (dependencies.length)
+//   //   await effects[i].device.loadDataBufferDependencies(dependencies);
+
+//   // attachOutports(effects[i].device);
+
+//   instru.gain = context.createGain();
+//   instru.gain.gain.value = 1.0;
+//   // Connect the device to the web audio graph
+//   instru.device.node.connect(instru.gain);
+//   console.log(instru)
+
+//   instru.device.parameters.forEach((param)=>{
+//     let label = document.createElement("label");
+//         let slider = document.createElement("input");
+//         let text = document.createElement("input");
+//         let sliderContainer = document.createElement("div");
+//         sliderContainer.appendChild(label);
+//         sliderContainer.appendChild(slider);
+//         sliderContainer.appendChild(text);
+
+//         // Add a name for the label
+//         label.setAttribute("name", param.name);
+//         label.setAttribute("for", param.name);
+//         label.setAttribute("class", "param-label");
+//         label.textContent = `${param.name}: `;
+
+//         // Make each slider reflect its parameter
+//         slider.setAttribute("type", "range");
+//         slider.setAttribute("class", "param-slider");
+//         slider.setAttribute("id", param.id);
+//         slider.setAttribute("name", param.name);
+//         slider.setAttribute("min", param.min);
+//         slider.setAttribute("max", param.max);
+//         if (param.steps > 1) {
+//             slider.setAttribute("step", (param.max - param.min) / (param.steps - 1));
+//         } else {
+//             slider.setAttribute("step", (param.max - param.min) / 1000.0);
+//         }
+//         slider.setAttribute("value", param.value);
+
+//         // Make a settable text input display for the value
+//         text.setAttribute("value", param.value.toFixed(1));
+//         text.setAttribute("type", "text");
+
+//         // Make each slider control its parameter
+//         slider.addEventListener("pointerdown", () => {
+//             isDraggingSlider = true;
+//         });
+//         slider.addEventListener("pointerup", () => {
+//             isDraggingSlider = false;
+//             slider.value = param.value;
+//             text.value = param.value.toFixed(1);
+//         });
+//         slider.addEventListener("input", () => {
+//             let value = Number.parseFloat(slider.value);
+//             param.value = value;
+//         });
+
+//         // Make the text box input control the parameter value as well
+//         text.addEventListener("keydown", (ev) => {
+//             if (ev.key === "Enter") {
+//                 let newValue = Number.parseFloat(text.value);
+//                 if (isNaN(newValue)) {
+//                     text.value = param.value;
+//                 } else {
+//                     newValue = Math.min(newValue, param.max);
+//                     newValue = Math.max(newValue, param.min);
+//                     text.value = newValue;
+//                     param.value = newValue;
+//                 }
+//             }
+//         });
+//         instru_div.appendChild(sliderContainer);
+//   });
+
+//   // Listen to parameter changes from the device
+//   // autoChangeGUI(device, uiElements);
+
+// }
+
 async function effects_Setup(effects) {
   let response, patcher;
   for (let i=0; i<effects.length; i++){
     if (window.matchMedia("(orientation: portrait)").matches){
       document.getElementById("loading-bar").style.transform = `scaleY(${(i+1)/effects.length})`;
+      console.log((i+1)/effects.length);
     }  else {
       document.getElementById("loading-bar").style.transform = `scaleX(${(i+1)/effects.length})`;
     }
@@ -1310,7 +1491,7 @@ async function effects_Setup(effects) {
             // Note that you can skip this by knowing the RNBO version of your patch
             // beforehand and just include it using a <script> tag
             await loadRNBOScript(patcher.desc.meta.rnboversion); // TOBACK
-            console.log(patcher.desc.meta.rnboversion);
+            console.log(effects[i].name + ": RNBO version " + patcher.desc.meta.rnboversion);
         //}
 
     } catch (err) {
@@ -1333,15 +1514,15 @@ async function effects_Setup(effects) {
     }
   
     // (Optional) Fetch the dependencies
-    // let dependencies = [];
-    // try {
-    //     const dependenciesResponse = await fetch(`./effects/${effects[i].name}_dependencies.json`);
-    //     dependencies = await dependenciesResponse.json();
-    //     // Prepend "export" to any file dependenciies
-    //     dependencies = dependencies.map(d => d.file ? Object.assign({}, d, { file: "./effects/" + d.file }) : d);
-    // } catch (e) {
-    //   console.log('No dependencies in : ' + effects[i].name);
-    // }
+    let dependencies = [];
+    try {
+        const dependenciesResponse = await fetch(`./effects/${effects[i].name}_dependencies.json`);
+        dependencies = await dependenciesResponse.json();
+        // Prepend "export" to any file dependenciies
+        dependencies = dependencies.map(d => d.file ? Object.assign({}, d, { file: "./effects/" + d.file }) : d);
+    } catch (e) {
+      console.log('No dependencies in : ' + effects[i].name);
+    }
 
     // Create the device
     try {
@@ -1350,8 +1531,8 @@ async function effects_Setup(effects) {
         alert('err');
     }
 
-    // if (dependencies.length)
-    //   await effects[i].device.loadDataBufferDependencies(dependencies);
+    if (dependencies.length)
+      await effects[i].device.loadDataBufferDependencies(dependencies);
 
     // attachOutports(effects[i].device);
 
@@ -1723,7 +1904,7 @@ function nodeConnection(mode){ // TODO
   };
   gain.connect(analyser);
   analyser.connect(myPeer);
-  // analyser.connect(context.destination);
+  analyser.connect(context.destination);
 }
 
 let recTimeCount = 0;
