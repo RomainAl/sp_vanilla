@@ -1,17 +1,21 @@
-if (location.protocol !== 'https:') {
+if (location.protocol !== "https:") {
   alert("Go https !");
-  location.replace(`https:${location.href.substring(location.protocol.length)}`);
+  location.replace(
+    `https:${location.href.substring(location.protocol.length)}`
+  );
 }
 
-const socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.dev/");
+const socket = io.connect(
+  "https://mywebrtcserver-thrumming-resonance-5604.fly.dev/"
+);
 // const socket = io.connect("https://192.168.10.2:1337");
 console.log("flyio ok");
 
 // const instru_div = document.getElementById("sp_instru");
 // let instru = {};
 const userCanvas = document.getElementById("canvas");
-userCanvas.width = Math.max(window.innerWidth,window.innerHeight)*2;
-userCanvas.height = Math.min(window.innerWidth,window.innerHeight)*2;
+userCanvas.width = Math.max(window.innerWidth, window.innerHeight) * 2;
+userCanvas.height = Math.min(window.innerWidth, window.innerHeight) * 2;
 const adminVideo = document.getElementById("video");
 // let adminVimeo = document.getElementById("vimeo");
 adminVideo.style.display = "none";
@@ -27,14 +31,16 @@ effectsPan.style.display = "none";
 const gainPan = document.getElementById("gain-param");
 gainPan.style.display = "none";
 const BtnsPan = document.getElementById("Btns");
-const overlay = document.getElementById('overlay');
-const overlayTHEEND = document.getElementById('overlayTHEEND');
+const overlay = document.getElementById("overlay");
+const overlayTHEEND = document.getElementById("overlayTHEEND");
 const overlayWAIT = document.getElementById("overlayWAIT");
 const myGUI = document.getElementById("GUI");
 const atablee = document.getElementById("atablee");
+const sp_insta = document.getElementById("sp_insta");
 const btn_fullscreen = document.getElementById("btn_fullscreen");
-let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
-if (fullscreenElement===undefined) btn_fullscreen.style.display = 'none';
+let fullscreenElement =
+  document.fullscreenElement || document.webkitFullscreenElement;
+if (fullscreenElement === undefined) btn_fullscreen.style.display = "none";
 const btn_gain = document.getElementById("btn_gain");
 const btn_rec = document.getElementById("btn_rec");
 btn_rec.style.background = "transparent";
@@ -46,54 +52,56 @@ const btn_effects = document.getElementById("btn_effects");
 btn_fullscreen.onclick = changeFullScreen;
 btn_effects.style.borderColor = "#5c5c5c";
 btn_rec.style.borderColor = "#5c5c5c";
-btn_effects.onclick = (ev)=>{
-
-  if (effectsPan.style.display == "flex"){
+btn_effects.onclick = (ev) => {
+  if (effectsPan.style.display == "flex") {
     effectsPan.style.display = "none";
     btn_effects.style.background = "transparent";
-    
   } else {
     effectsPan.style.display = "flex";
     btn_effects.style.backgroundColor = "#5c5c5c";
-    gainPan.style.display = 'none';
+    gainPan.style.display = "none";
     btn_gain.style.background = "transparent";
   }
-}
-btn_gain.onclick = (ev)=>{
-  if (gainPan.style.display == 'flex'){
-    gainPan.style.display = 'none';
+};
+btn_gain.onclick = (ev) => {
+  if (gainPan.style.display == "flex") {
+    gainPan.style.display = "none";
     btn_gain.style.background = "transparent";
   } else {
     effectsPan.style.display = "none";
     btn_effects.style.background = "transparent";
-    gainPan.style.display = 'flex';
+    gainPan.style.display = "flex";
     btn_gain.style.backgroundColor = "#5c5c5c";
   }
-}
-const startButton = document.getElementById( 'startButton' );
-startButton.onclick = ()=>init();
-overlay.ondblclick = ()=>{
+};
+const startButton = document.getElementById("startButton");
+startButton.onclick = () => init();
+overlay.ondblclick = () => {
   goBackHome();
   location.reload();
-}
+};
 
 BtnsPan.ondblclick = adminID;
 document.body.ondblclick = adminID;
 adminVideo.ondblclick = adminID;
 adminVideo_webrtc.ondblclick = adminID;
 // userCanvas.ondblclick = adminID;
-function adminID(e){
-    changeFullScreen();
-    console.log(rtcPeerConnection.signalingState);
-    if (sendChannel.readyState === 'open') {
-      sendChannel.send(JSON.stringify({clientId: myID}));
-    }
+function adminID(e) {
+  changeFullScreen();
+  console.log(rtcPeerConnection.signalingState);
+  if (sendChannel.readyState === "open") {
+    sendChannel.send(JSON.stringify({ clientId: myID }));
+  }
 }
 // let btn_test = document.getElementById("btn_test");
 // let testBool = true;
 // btn_test.onclick = testBtn;
 
-navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate; 
+navigator.vibrate =
+  navigator.vibrate ||
+  navigator.webkitVibrate ||
+  navigator.mozVibrate ||
+  navigator.msVibrate;
 let streamVisualizer4Clients;
 let myID;
 let roomName = "!?ATtablee007!?";
@@ -134,7 +142,7 @@ const filter = {
       defaultValue: null,
       param: null,
       visible: false,
-      type: "real"
+      type: "real",
     },
     {
       name: "Q",
@@ -142,9 +150,9 @@ const filter = {
       defaultValue: null,
       param: null,
       visible: false,
-      type: "real"
-    }
-  ]
+      type: "real",
+    },
+  ],
 };
 
 const effects = [
@@ -265,14 +273,15 @@ const effects = [
     visible: true,
     gain: null,
     userParams: [
-    {
-      name: "down-sample",
-      title: "DOWN-SAMPLE",
-      defaultValue: 10,
-      param: null,
-      visible: true,
-      type: "real"
-    }],
+      {
+        name: "down-sample",
+        title: "DOWN-SAMPLE",
+        defaultValue: 10,
+        param: null,
+        visible: true,
+        type: "real",
+      },
+    ],
   },
   // {
   //   name: "reverb",
@@ -301,32 +310,32 @@ const effects = [
   //   ],
   // },
   {
-     name: "pitchshift",
-     title: "HAUTEUR",
-     device: null,
-     div: null,
-     activ: false,
-     visible: true,
-     gain: null,
-     userParams: [
-       {
-         name: "transp",
-         title: "TRANSPOSITION",
-         defaultValue: null,
-         param: null,
-         visible: true,
-         type: "real"
-       },
-       {
-         name: "mix",
-         title: "MIX",
-         defaultValue: 100.0,
-         param: null,
-         visible: false,
-         type: "real"
-       },
-     ],
-   },
+    name: "pitchshift",
+    title: "HAUTEUR",
+    device: null,
+    div: null,
+    activ: false,
+    visible: true,
+    gain: null,
+    userParams: [
+      {
+        name: "transp",
+        title: "TRANSPOSITION",
+        defaultValue: null,
+        param: null,
+        visible: true,
+        type: "real",
+      },
+      {
+        name: "mix",
+        title: "MIX",
+        defaultValue: 100.0,
+        param: null,
+        visible: false,
+        type: "real",
+      },
+    ],
+  },
   // {
   //   name: "freeze",
   //   title: "FREEZE (AUTO)",
@@ -361,35 +370,39 @@ const effects = [
         defaultValue: null,
         param: null,
         visible: true,
-        type: "real"
-      },{
+        type: "real",
+      },
+      {
         name: "CHANCE",
         title: "CHANCE",
         defaultValue: null,
         param: null,
         visible: true,
-        type: "real"
-      },{
+        type: "real",
+      },
+      {
         name: "FEED",
         title: "FEED",
         defaultValue: null,
         param: null,
         visible: true,
-        type: "real"
-      },{
+        type: "real",
+      },
+      {
         name: "RANGE",
         title: "RANGE",
         defaultValue: null,
         param: null,
         visible: true,
-        type: "real"
-      },{
+        type: "real",
+      },
+      {
         name: "SPEED",
         title: "SPEED",
         defaultValue: null,
         param: null,
         visible: true,
-        type: "real"
+        type: "real",
       },
     ],
   },
@@ -408,7 +421,7 @@ const effects = [
         defaultValue: 1.0,
         param: null,
         visible: true,
-        type: "real"
+        type: "real",
       },
       {
         name: "metro_speed",
@@ -416,7 +429,7 @@ const effects = [
         defaultValue: null,
         param: null,
         visible: true,
-        type: "real"
+        type: "real",
       },
       {
         name: "size",
@@ -424,9 +437,10 @@ const effects = [
         defaultValue: 20.0,
         param: null,
         visible: false,
-        type: "real"
-      }],
-  }
+        type: "real",
+      },
+    ],
+  },
 ];
 
 // Contains the stun server URL we will be using.
@@ -438,7 +452,7 @@ let iceServers = {
 };
 // let iceServers;
 // async function create_iceServers() {
-//   const response = 
+//   const response =
 //     await window.fetch("https://ludicke.metered.live/api/v1/turn/credentials?apiKey=5384caa827c45b8e5c34576216e80a7430ce");
 
 //   // Saving the response in the iceServers array
@@ -449,20 +463,20 @@ let iceServers = {
 const offerOptions = {
   offerToReceiveAudio: 1,
   offerToReceiveVideo: 1,
-  voiceActivityDetection: false
+  voiceActivityDetection: false,
 };
 
 const constraints = {
   audio: {
     noiseSuppression: true,
     echoCancellation: true,
-},
+  },
   video: {
-    width: {ideal: 320}, 
-    height: {ideal: 180},
-    frameRate: {ideal: 10},
-    facingMode: 'user',
-  }
+    width: { ideal: 320 },
+    height: { ideal: 180 },
+    frameRate: { ideal: 10 },
+    facingMode: "user",
+  },
 };
 
 function init() {
@@ -478,11 +492,11 @@ function init() {
   document.getElementById("gain").addEventListener("input", (event) => {
     gain.gain.value = event.target.value;
     if (event.target.value < 0.1) {
-      document.getElementById("g2").style.display = 'inline-block';
-      document.getElementById("g1").style.display = 'none';
+      document.getElementById("g2").style.display = "inline-block";
+      document.getElementById("g1").style.display = "none";
     } else {
-      document.getElementById("g1").style.display = 'inline-block';
-      document.getElementById("g2").style.display = 'none';
+      document.getElementById("g1").style.display = "inline-block";
+      document.getElementById("g2").style.display = "none";
     }
   });
   gain_nico = context.createGain();
@@ -490,7 +504,7 @@ function init() {
   if (!audio_nico_source) {
     audio_nico_source = context.createMediaElementSource(audio_nico);
     audio_nico_source.connect(gain_nico);
-  };
+  }
   gain_nico.connect(analyser);
   clearInterval(timer_nico);
   adminVideo.muted = false;
@@ -508,7 +522,7 @@ function init() {
   console.log(socket.id);
   socket.emit("join", roomName, false);
   // instru_Setup(instru_div);
-};
+}
 
 // Triggered when a room is succesfully created.
 socket.on("create", function () {
@@ -518,8 +532,8 @@ socket.on("create", function () {
   rtcPeerConnection.ontrack = OnTrackFunction;
   rtcPeerConnection.addTrack(myPeer.stream.getTracks()[0], myPeer.stream);
   rtcPeerConnection.addTrack(userCanvasStream.getTracks()[0], userCanvasStream);
-  console.log('Adding Local Stream to peer connection');
-  sendChannel = rtcPeerConnection.createDataChannel('mySceneName');
+  console.log("Adding Local Stream to peer connection");
+  sendChannel = rtcPeerConnection.createDataChannel("mySceneName");
   sendChannel.onopen = onSendChannelStateChange;
   sendChannel.onmessage = onSendChannelMessageCallback;
   sendChannel.onclose = onSendChannelStateChange;
@@ -530,7 +544,7 @@ socket.on("create", function () {
     .then((offer) => {
       rtcPeerConnection.setLocalDescription(offer);
       socket.emit("offer", offer);
-      console.log('offer sent');
+      console.log("offer sent");
     })
 
     .catch((error) => {
@@ -538,16 +552,16 @@ socket.on("create", function () {
     });
 });
 
-socket.on("noCreate", function(){
+socket.on("noCreate", function () {
   console.log("Socket receive noCreate");
   socket.disconnect();
   alert("ARF !!! 😯\nL'administrateur n'est pas connecté !\nRéveille-le ! 🙄");
   location.reload();
-})
+});
 
 // Triggered on receiving an answer from the person who joined the room.
 socket.on("answer", function (answer) {
-  if (answer == null){
+  if (answer == null) {
     goBackHome();
     alert("ARF !!! 😯\nL'administrateur n'est pas prêt !\nRéveille-le ! 🙄");
     location.reload();
@@ -558,8 +572,8 @@ socket.on("answer", function (answer) {
   } else {
     rtcPeerConnection.setRemoteDescription(answer);
     myID = socket.id;
-    console.log('answer received');
-    console.log('My ID : ' + myID);
+    console.log("answer received");
+    console.log("My ID : " + myID);
   }
 });
 
@@ -570,16 +584,16 @@ socket.on("candidate", function (candidate) {
 });
 
 socket.on("disconnect", (reason) => {
-  console.log('Socket disconnected');
+  console.log("Socket disconnected");
   console.log(reason);
-  if ((receiveChannel)&&(receiveChannel.readyState != 'open')) {
+  if (receiveChannel && receiveChannel.readyState != "open") {
     document.getElementById("startButton").disabled = true;
     document.getElementById("startButton").classList.add("spinner");
   }
 });
 
 socket.on("connect", () => {
-  console.log('Socket connected');
+  console.log("Socket connected");
   document.getElementById("startButton").disabled = false;
   document.getElementById("startButton").classList.remove("spinner");
 });
@@ -593,7 +607,8 @@ function OnIceCandidateFunction(event) {
 }
 
 // Implementing the OnTrackFunction which is part of the RTCPeerConnection Interface.
-function OnTrackFunction(event) { // TODO : FOR SAFARI ONLY AUDIO !? (BUT IF NO VIDEO FILTER DESYNCH VIDEO/AUDIO ? TO CHECK !)
+function OnTrackFunction(event) {
+  // TODO : FOR SAFARI ONLY AUDIO !? (BUT IF NO VIDEO FILTER DESYNCH VIDEO/AUDIO ? TO CHECK !)
   // if (!navigator.userAgent.includes('Chrome') && navigator.userAgent.includes('Safari')) {
   //   adminVideo.volume = 0;
   //   adminVideo.srcObject = event.streams[0];
@@ -610,7 +625,7 @@ function OnTrackFunction(event) { // TODO : FOR SAFARI ONLY AUDIO !? (BUT IF NO 
   // adminVideo.volume = 0;
   // adminVideo.controls = true;
   // adminVideo.loop = true;
-  
+
   // adminVideo.src = `https://192.168.10.2:5502/videos/video${Math.round(Math.random()*20)+1}.webm`;
   // adminVideo.src = `./videos4Client/video${Math.round(Math.random()*20)+1}.webm`;
   // adminVideo.type="video/webm";
@@ -618,7 +633,7 @@ function OnTrackFunction(event) { // TODO : FOR SAFARI ONLY AUDIO !? (BUT IF NO 
 }
 
 function receiveChannelCallback(event) {
-  console.log('Receive Channel Callback');
+  console.log("Receive Channel Callback");
   receiveChannel = event.channel;
   receiveChannel.onmessage = onReceiveChannelMessageCallback;
   receiveChannel.onopen = onReceiveChannelStateChange;
@@ -626,20 +641,30 @@ function receiveChannelCallback(event) {
 }
 
 function onReceiveChannelMessageCallback(event) {
-  console.log('Received Message : ' + event.data);
+  console.log("Received Message : " + event.data);
   changeScene(JSON.parse(event.data));
 }
 
-function changeScene(data){
-  
+function changeScene(data) {
   adminVideo.muted = true;
   clearInterval(timer_nico);
-  switch (data.scene){
+  switch (data.scene) {
     case 10: // FACEBOOK
-      try { myPeer.stream.getTracks().forEach((track) => {track.stop();}) } catch(e) {console.log(e)};
+      try {
+        myPeer.stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch (e) {
+        console.log(e);
+      }
       // if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;} catch(e) {console.log(e)};
       // try {context.suspend()} catch(e) {console.log(e)}
-      if (streamVisualizer4Clients) try {streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
+      if (streamVisualizer4Clients)
+        try {
+          streamVisualizer4Clients.stop();
+        } catch (e) {
+          console.log(e);
+        }
       atablee.style.display = "initial";
       userCanvas.style.display = "none";
       myGUI.style.display = "none";
@@ -654,41 +679,55 @@ function changeScene(data){
       overlayTHEEND.style.visibility = "hidden";
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
-      if (!userStream.getVideoTracks()[0].getConstraints().facingMode && (userStream.getVideoTracks()[0].getConstraints().facingMode !== 'user')){
-        userStream.getTracks().forEach(track => {
+      if (
+        !userStream.getVideoTracks()[0].getConstraints().facingMode &&
+        userStream.getVideoTracks()[0].getConstraints().facingMode !== "user"
+      ) {
+        userStream.getTracks().forEach((track) => {
           track.stop();
         });
-        navigator.mediaDevices.getUserMedia(
-          {
+        navigator.mediaDevices
+          .getUserMedia({
             audio: {
               noiseSuppression: true,
               echoCancellation: true,
-          },
+            },
             video: {
-              width: {ideal: 320}, 
-              height: {ideal: 180},
-              frameRate: {ideal: 10},
-              facingMode: 'user',
-            }
-          }
-        ).then(stream=>gotStream(stream, true))
-         .then(()=>{
+              width: { ideal: 320 },
+              height: { ideal: 180 },
+              frameRate: { ideal: 10 },
+              facingMode: "user",
+            },
+          })
+          .then((stream) => gotStream(stream, true))
+          .then(() => {
             if (adminVideo_webrtc.srcObject !== userStream) {
               adminVideo_webrtc.srcObject = userStream;
             }
-         })
-         .catch(errStream);
+          })
+          .catch(errStream);
       } else {
         if (adminVideo_webrtc.srcObject !== userStream) {
           adminVideo_webrtc.srcObject = userStream;
         }
       }
-      break
+      break;
     case 9: //FLASH
-      try { myPeer.stream.getTracks().forEach((track) => {track.stop();}) } catch(e) {console.log(e)};
+      try {
+        myPeer.stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch (e) {
+        console.log(e);
+      }
       // if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;} catch(e) {console.log(e)};
       // try {context.suspend()} catch(e) {console.log(e)}
-      if (streamVisualizer4Clients) try {streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
+      if (streamVisualizer4Clients)
+        try {
+          streamVisualizer4Clients.stop();
+        } catch (e) {
+          console.log(e);
+        }
       atablee.style.display = "initial";
       myGUI.style.display = "none";
       adminVideo.style.display = "none";
@@ -702,27 +741,31 @@ function changeScene(data){
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
 
-      if (userStream.getVideoTracks()[0].getConstraints().facingMode && (userStream.getVideoTracks()[0].getConstraints().facingMode !== 'environment')){
-        userStream.getTracks().forEach(track => {
+      if (
+        userStream.getVideoTracks()[0].getConstraints().facingMode &&
+        userStream.getVideoTracks()[0].getConstraints().facingMode !==
+          "environment"
+      ) {
+        userStream.getTracks().forEach((track) => {
           track.stop();
         });
-        navigator.mediaDevices.getUserMedia(
-          {
+        navigator.mediaDevices
+          .getUserMedia({
             audio: {
               noiseSuppression: true,
               echoCancellation: true,
-          },
+            },
             video: {
-              width: {ideal: 320}, 
-              height: {ideal: 180},
-              frameRate: {ideal: 10},
-              facingMode: 'environment',
-            }
-          }
-        ).then(stream=>gotStream(stream, true))
-         .then(()=>{
-          torchflash(data.time)
-        })
+              width: { ideal: 320 },
+              height: { ideal: 180 },
+              frameRate: { ideal: 10 },
+              facingMode: "environment",
+            },
+          })
+          .then((stream) => gotStream(stream, true))
+          .then(() => {
+            torchflash(data.time);
+          })
           .catch(errStream);
       } else {
         torchflash(data.time);
@@ -739,62 +782,94 @@ function changeScene(data){
       adminVideo_webrtc.pause();
       // adminVideo_webrtc.volume = 0;
       audio_nico.pause();
-      try{myPeer.stream.getTracks().forEach((track) => {track.stop()});}catch(e){console.log(e)};
+      try {
+        myPeer.stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch (e) {
+        console.log(e);
+      }
       // try{userCanvasStream.getTracks().forEach((track) => {track.stop()});}catch(e){console.log(e)};
       // try{rtcPeerConnection.close(); rtcPeerConnection = null;}catch(e){console.log(e)};
-      try{context.suspend();}catch(e){console.log(e)};
+      try {
+        context.suspend();
+      } catch (e) {
+        console.log(e);
+      }
       document.getElementById("startButton").classList.remove("spinner");
       document.getElementById("startButton").disabled = false;
-      try{streamVisualizer4Clients.stop();}catch(e){console.log(e)};
+      try {
+        streamVisualizer4Clients.stop();
+      } catch (e) {
+        console.log(e);
+      }
       break;
     case 0: // RELOAD ALL
       goBackHome();
       location.reload();
       break;
     case 1: // @TABLEE PART1
-      if (data.freq){
-        filter.device.parameters.find(p=>p.name=="FREQ").value = data.freq;
+      if (data.freq) {
+        filter.device.parameters.find((p) => p.name == "FREQ").value =
+          data.freq;
       } else {
-
-        if ((!myPeer)||(!myPeer.stream.active)) {
+        if (!myPeer || !myPeer.stream.active) {
           myPeer = context.createMediaStreamDestination();
-          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection
+            .getSenders()
+            .find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
         }
-        if (streamVisualizer4Clients) try { streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
-        if ((!context) || (context.state=='closed') ){ // TODO
-          console.log('context1 1');
+        if (streamVisualizer4Clients)
+          try {
+            streamVisualizer4Clients.stop();
+          } catch (e) {
+            console.log(e);
+          }
+        if (!context || context.state == "closed") {
+          // TODO
+          console.log("context1 1");
           context = new AudioContext();
-          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection
+            .getSenders()
+            .find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
-          let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
+          let videoSender = rtcPeerConnection
+            .getSenders()
+            .find((s) => s.track.kind === "video");
           videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
-        } else if (context.state == 'suspended') {
-          console.log('context2 1');
+        } else if (context.state == "suspended") {
+          console.log("context2 1");
           context.resume();
-          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection
+            .getSenders()
+            .find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
-          let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
+          let videoSender = rtcPeerConnection
+            .getSenders()
+            .find((s) => s.track.kind === "video");
           videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
         }
 
         if (navigator.mediaDevices.getUserMedia === undefined) {
-          navigator.mediaDevices.getUserMedia = function(constraints) {
-        
+          navigator.mediaDevices.getUserMedia = function (constraints) {
             // First get ahold of the legacy getUserMedia, if present
-            var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        
+            var getUserMedia =
+              navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
             // Some browsers just don't implement it - return a rejected promise with an error
             // to keep a consistent interface
             if (!getUserMedia) {
-              return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+              return Promise.reject(
+                new Error("getUserMedia is not implemented in this browser")
+              );
             }
-        
+
             // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
-            return new Promise(function(resolve, reject) {
+            return new Promise(function (resolve, reject) {
               getUserMedia.call(navigator, constraints, resolve, reject);
             });
-          }
+          };
         }
         atablee.style.display = "initial";
         userCanvas.style.display = "initial";
@@ -809,40 +884,66 @@ function changeScene(data){
         overlay.style.visibility = "hidden";
         overlayTHEEND.style.visibility = "hidden";
         overlayWAIT.style.visibility = "hidden";
-        if (!source_mic){
+        if (!source_mic) {
           navigator.mediaDevices
             .getUserMedia(constraints)
-            .then(stream=>gotStream(stream, false))
-            .catch(errStream)
+            .then((stream) => gotStream(stream, false))
+            .catch(errStream);
+        } else {
+          source = context.createMediaStreamSource(source_mic);
+          context.resume();
+          source.connect(filter.device.node);
+          nodeConnection("auto");
+          btn_effects.disabled = false;
+          btn_effects.style.borderColor = "white";
+          btn_rec.disabled = false;
+          btn_rec.style.borderColor = "white";
+          if (!streamVisualizer4Clients) {
+            streamVisualizer4Clients = new StreamVisualizer4Clients(
+              analyser,
+              canvas
+            );
           } else {
-            source = context.createMediaStreamSource(source_mic);
-            context.resume();
-            source.connect(filter.device.node);
-            nodeConnection("auto");
-            btn_effects.disabled = false;
-            btn_effects.style.borderColor = "white";
-            btn_rec.disabled = false;
-            btn_rec.style.borderColor = "white";
-            if (!streamVisualizer4Clients) {
-              streamVisualizer4Clients = new StreamVisualizer4Clients(analyser, canvas);
-            } else {
-              streamVisualizer4Clients.stop();
-              streamVisualizer4Clients.setStroke(false);
-              streamVisualizer4Clients.setSize(10);
-              streamVisualizer4Clients.setFFT_SIZE(512);
-              streamVisualizer4Clients.setGAIN(1);
-            }
-            streamVisualizer4Clients.start();
+            streamVisualizer4Clients.stop();
+            streamVisualizer4Clients.setStroke(false);
+            streamVisualizer4Clients.setSize(10);
+            streamVisualizer4Clients.setFFT_SIZE(512);
+            streamVisualizer4Clients.setGAIN(1);
           }
+          streamVisualizer4Clients.start();
         }
+      }
       break;
     case 20: // @TABLEE PART2 webRTC
-      try { myPeer.stream.getTracks().forEach((track) => {track.stop();}) } catch(e) {console.log(e)};
+      try {
+        myPeer.stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch (e) {
+        console.log(e);
+      }
       // rtcPeerConnection.getSenders().forEach(t => rtcPeerConnection.removeTrack(t));
-      if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;} catch(e) {console.log(e)};
-      try {context.suspend()} catch(e) {console.log(e)}
+      if (source_mic)
+        try {
+          source_mic.getTracks().forEach(function (track) {
+            track.stop();
+          });
+          source_mic = null;
+        } catch (e) {
+          console.log(e);
+        }
+      try {
+        context.suspend();
+      } catch (e) {
+        console.log(e);
+      }
       // try {effects.forEach(e=>e.device = null) } catch (e){console.log(e)};
-      if (streamVisualizer4Clients) try {streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
+      if (streamVisualizer4Clients)
+        try {
+          streamVisualizer4Clients.stop();
+        } catch (e) {
+          console.log(e);
+        }
       atablee.style.display = "initial";
       userCanvas.style.display = "none";
       myGUI.style.display = "none";
@@ -859,15 +960,15 @@ function changeScene(data){
       audio_nico.pause();
       break;
     case 21: // @TABLEE PART2 videos
-      if (data.video){
-        if (data.video==="R"){
-          adminVideo.currentTime = Math.random()*0.8*adminVideo.duration;
+      if (data.video) {
+        if (data.video === "R") {
+          adminVideo.currentTime = Math.random() * 0.8 * adminVideo.duration;
           adminVideo.muted = false;
           adminVideo.volume = 1;
           adminVideo.play();
         } else {
           adminVideo.src = `./videosNEW/video${data.video}.mp4`;
-          if (!data.muted){
+          if (!data.muted) {
             adminVideo.muted = false;
             adminVideo.volume = 1;
           } else {
@@ -877,12 +978,35 @@ function changeScene(data){
           adminVideo.play();
         }
       } else {
-        try { myPeer.stream.getTracks().forEach((track) => {track.stop();}) } catch(e) {console.log(e)};
+        try {
+          myPeer.stream.getTracks().forEach((track) => {
+            track.stop();
+          });
+        } catch (e) {
+          console.log(e);
+        }
         // rtcPeerConnection.getSenders().forEach(t => rtcPeerConnection.removeTrack(t));
-        if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;} catch(e) {console.log(e)};
-        try {context.suspend()} catch(e) {console.log(e)}
+        if (source_mic)
+          try {
+            source_mic.getTracks().forEach(function (track) {
+              track.stop();
+            });
+            source_mic = null;
+          } catch (e) {
+            console.log(e);
+          }
+        try {
+          context.suspend();
+        } catch (e) {
+          console.log(e);
+        }
         // try { effects.forEach(e=>e.device = null) } catch (e){console.log(e)};
-        if (streamVisualizer4Clients) try { streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
+        if (streamVisualizer4Clients)
+          try {
+            streamVisualizer4Clients.stop();
+          } catch (e) {
+            console.log(e);
+          }
         atablee.style.display = "initial";
         userCanvas.style.display = "none";
         myGUI.style.display = "none";
@@ -903,12 +1027,35 @@ function changeScene(data){
       }
       break;
     case 3: // @TABLEE PART3
-      try { myPeer.stream.getTracks().forEach((track) => {track.stop();}) } catch(e) {console.log(e)};
+      try {
+        myPeer.stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch (e) {
+        console.log(e);
+      }
       // rtcPeerConnection.getSenders().forEach(t => rtcPeerConnection.removeTrack(t));
-      if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;} catch(e) {console.log(e)};
-      try {context.suspend()} catch(e) {console.log(e)}
+      if (source_mic)
+        try {
+          source_mic.getTracks().forEach(function (track) {
+            track.stop();
+          });
+          source_mic = null;
+        } catch (e) {
+          console.log(e);
+        }
+      try {
+        context.suspend();
+      } catch (e) {
+        console.log(e);
+      }
       // try {effects.forEach(e=>e.device = null) } catch (e){console.log(e)};
-      if (streamVisualizer4Clients) try {streamVisualizer4Clients.stop(); } catch(e) {console.log(e)};
+      if (streamVisualizer4Clients)
+        try {
+          streamVisualizer4Clients.stop();
+        } catch (e) {
+          console.log(e);
+        }
       atablee.style.display = "initial";
       userCanvas.style.display = "none";
       myGUI.style.display = "none";
@@ -925,15 +1072,25 @@ function changeScene(data){
       audio_nico.pause();
       break;
     case 4: // @TABLEE PART3 FALSHES
-      setTimeout(()=>{
+      setTimeout(() => {
         atablee.style.background = "white";
       }, 100);
       console.log(navigator.vibrate);
-      if (navigator.vibrate){ navigator.vibrate([400, 0, 300, 0, 200, 0, 100].map(function(x) { return (x+200) * Math.random(); })); }
-      setTimeout(()=>{atablee.style.background = "black";}, 1500);
+      if (navigator.vibrate) {
+        navigator.vibrate(
+          [400, 0, 300, 0, 200, 0, 100].map(function (x) {
+            return (x + 200) * Math.random();
+          })
+        );
+      }
+      setTimeout(() => {
+        atablee.style.background = "black";
+      }, 1500);
       break;
     case 5: // NOTHING
-      adminVideo.src = `./videos4Client/video${Math.round(Math.random()*20)+1}.webm`;
+      adminVideo.src = `./videos4Client/video${
+        Math.round(Math.random() * 20) + 1
+      }.webm`;
       adminVideo.play();
       // vimeo.loadVideo("978281628").then(()=>vimeo.play());
       // vimeo.setCurrentTime(Math.random()*100);
@@ -941,42 +1098,54 @@ function changeScene(data){
       // vimeo.play();
       break;
     case 6: // NIKOIKEDA
-      if (data.vol){
+      if (data.vol) {
         gain_nico.gain.value = data.vol;
-      } else if (data.freeze){
+      } else if (data.freeze) {
         console.log(data.freeze);
-        if (streamVisualizer4Clients) streamVisualizer4Clients.setRAND(data.freeze);
-      } else if (data.gain){
+        if (streamVisualizer4Clients)
+          streamVisualizer4Clients.setRAND(data.freeze);
+      } else if (data.gain) {
         console.log(data.gain);
-        if (streamVisualizer4Clients) streamVisualizer4Clients.setGAIN(data.gain);
-      } else if (data.fft){
+        if (streamVisualizer4Clients)
+          streamVisualizer4Clients.setGAIN(data.gain);
+      } else if (data.fft) {
         console.log(data.fft);
-        if (streamVisualizer4Clients) streamVisualizer4Clients.setFFT_SIZE(Math.pow(2,data.fft));
+        if (streamVisualizer4Clients)
+          streamVisualizer4Clients.setFFT_SIZE(Math.pow(2, data.fft));
       } else {
-        flash('white');
-        if ((!context) || (context.state=='closed') ){ // TODO
-          console.log('context1');
+        flash("white");
+        if (!context || context.state == "closed") {
+          // TODO
+          console.log("context1");
           context = new AudioContext();
-          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection
+            .getSenders()
+            .find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
-          let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
+          let videoSender = rtcPeerConnection
+            .getSenders()
+            .find((s) => s.track.kind === "video");
           videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
-        } else if (context.state == 'suspended') {
+        } else if (context.state == "suspended") {
           context.resume();
         }
         analyser.disconnect(0);
         analyser.connect(context.destination);
         gain.disconnect(0);
         clearInterval(timer_nico);
-        try{
-            if (navigator.vibrate){ 
-              timer_nico = setInterval(()=>{
-                navigator.vibrate([400, 0, 300, 0, 200, 0, 100].map(function(x) { return (x+200) * Math.random(); }));
-              }, 3000);
-            }
-          } catch (e) {
-            console.log(e);
+        try {
+          if (navigator.vibrate) {
+            timer_nico = setInterval(() => {
+              navigator.vibrate(
+                [400, 0, 300, 0, 200, 0, 100].map(function (x) {
+                  return (x + 200) * Math.random();
+                })
+              );
+            }, 3000);
           }
+        } catch (e) {
+          console.log(e);
+        }
         // context.close();
         userCanvas.style.display = "none";
         gain_nico.gain.value = 1.0;
@@ -994,10 +1163,13 @@ function changeScene(data){
         adminVideo_webrtc.pause();
         myGUI.style.display = "none";
         audio_nico.addEventListener("ended", (event) => {
-        flash('white');
+          flash("white");
         });
         if (!streamVisualizer4Clients) {
-          streamVisualizer4Clients = new StreamVisualizer4Clients(analyser, canvas);
+          streamVisualizer4Clients = new StreamVisualizer4Clients(
+            analyser,
+            canvas
+          );
         } else {
           streamVisualizer4Clients.stop();
         }
@@ -1012,104 +1184,150 @@ function changeScene(data){
         // btn_fullscreen.style.display = "initial";
         // if (source_mic) try {source_mic.getTracks().forEach(function(track) {track.stop();});} catch(e) {console.log(e)};
         // try {effects.forEach(e=>e.device = null) } catch (e){console.log(e)};
-        try {myPeer.stream.getTracks().forEach((track) => {track.stop()}) } catch(e) {console.log(e)};
+        try {
+          myPeer.stream.getTracks().forEach((track) => {
+            track.stop();
+          });
+        } catch (e) {
+          console.log(e);
+        }
       }
       break;
-      case 7: // THE END
-        overlay.style.visibility = "hidden";
-        overlayTHEEND.style.visibility = "visible";
-        overlayWAIT.style.visibility = "hidden";
-        atablee.style.display = "none";
-        myGUI.style.display = "none";
-        adminVideo.pause();
-        adminVideo.volume = 0;
-        adminVideo_webrtc.pause();
-        // adminVideo_webrtc.volume = 0;
-        audio_nico.pause();
-        try{myPeer.stream.getTracks().forEach((track) => {track.stop()});}catch(e){console.log(e)};
-        try{userCanvasStream.getTracks().forEach((track) => {track.stop()});}catch(e){console.log(e)};
-        // try{rtcPeerConnection.close(); rtcPeerConnection = null;}catch(e){console.log(e)};
-        if (source_mic) try{source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;}catch(e){console.log(e)};
-        try{context.suspend();}catch(e){console.log(e)};
-        document.getElementById("startButton").classList.remove("spinner");
-        document.getElementById("startButton").disabled = false;
-        try{streamVisualizer4Clients.stop();}catch(e){console.log(e)};
-        break;
-    default :
+    case 7: // THE END
+      overlay.style.visibility = "hidden";
+      overlayTHEEND.style.visibility = "visible";
+      overlayWAIT.style.visibility = "hidden";
+      atablee.style.display = "none";
+      myGUI.style.display = "none";
+      adminVideo.pause();
+      adminVideo.volume = 0;
+      adminVideo_webrtc.pause();
+      // adminVideo_webrtc.volume = 0;
+      audio_nico.pause();
+      try {
+        myPeer.stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      try {
+        userCanvasStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      // try{rtcPeerConnection.close(); rtcPeerConnection = null;}catch(e){console.log(e)};
+      if (source_mic)
+        try {
+          source_mic.getTracks().forEach(function (track) {
+            track.stop();
+          });
+          source_mic = null;
+        } catch (e) {
+          console.log(e);
+        }
+      try {
+        context.suspend();
+      } catch (e) {
+        console.log(e);
+      }
+      document.getElementById("startButton").classList.remove("spinner");
+      document.getElementById("startButton").disabled = false;
+      try {
+        streamVisualizer4Clients.stop();
+      } catch (e) {
+        console.log(e);
+      }
+      break;
+    default:
       console.log("No scene...");
-      flash('red');
+      flash("red");
   }
 }
 
-function errStream(err){
-    overlay.style.visibility = "visible";
-    overlayTHEEND.style.visibility = "hidden";
-    overlayWAIT.style.visibility = "hidden";
-    document.getElementById( 'titles' ).style.display = "none";
-    document.getElementById( 'err' ).style.display = "inline-block";
-    document.getElementById( 'microon' ).style.display = "none";
-    document.getElementById( 'microoff' ).style.display = "inline-block";
-    atablee.style.display = "none";
-    userCanvas.style.display = "none";
-    adminVideo.style.display = "none";
-    adminVideo.muted = true;
-    adminVideo.play();
-    adminVideo_webrtc.style.display = "none";
-    // adminVideo_webrtc.volume = 0;
-    adminVideo_webrtc.pause();
-    audio_nico.pause();
-    if (fullscreenElement===undefined) {
-      myGUI.style.display = "none";
-    } else {
-      myGUI.style.display = "flex";
-    }
-    if (sendChannel.readyState === 'open') {
-      sendChannel.send(JSON.stringify({clientId: myID, mess: "NoMic"}));
-    }
-    console.log(err);
+function errStream(err) {
+  overlay.style.visibility = "visible";
+  overlayTHEEND.style.visibility = "hidden";
+  overlayWAIT.style.visibility = "hidden";
+  document.getElementById("titles").style.display = "none";
+  document.getElementById("err").style.display = "inline-block";
+  document.getElementById("microon").style.display = "none";
+  document.getElementById("microoff").style.display = "inline-block";
+  atablee.style.display = "none";
+  userCanvas.style.display = "none";
+  adminVideo.style.display = "none";
+  adminVideo.muted = true;
+  adminVideo.play();
+  adminVideo_webrtc.style.display = "none";
+  // adminVideo_webrtc.volume = 0;
+  adminVideo_webrtc.pause();
+  audio_nico.pause();
+  if (fullscreenElement === undefined) {
+    myGUI.style.display = "none";
+  } else {
+    myGUI.style.display = "flex";
+  }
+  if (sendChannel.readyState === "open") {
+    sendChannel.send(JSON.stringify({ clientId: myID, mess: "NoMic" }));
+  }
+  console.log(err);
 }
 
 function gotStream(stream, withVid) {
   source_mic = stream;
   source = context.createMediaStreamSource(source_mic);
   userStream = stream;
-  if (withVid){
-    let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
+  if (withVid) {
+    let videoSender = rtcPeerConnection
+      .getSenders()
+      .find((s) => s.track.kind === "video");
     videoSender.replaceTrack(userStream.getVideoTracks()[0]);
   } else {
-    let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
+    let videoSender = rtcPeerConnection
+      .getSenders()
+      .find((s) => s.track.kind === "video");
     videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
   }
   context.suspend();
-  if (!effects_loaded){
+  if (!effects_loaded) {
     document.getElementById("loading-bar").style.display = "initial";
-    try {removeAllChildNodes(document.getElementById("effects-params"))} catch(e){console.log(e)};
+    try {
+      removeAllChildNodes(document.getElementById("effects-params"));
+    } catch (e) {
+      console.log(e);
+    }
     effects_Setup(effects)
-    .then(()=>{
-      filter_Setup(filter).then(()=>{
-        context.resume();
-        source.connect(filter.device.node);
-        nodeConnection("auto");
-        btn_effects.disabled = false;
-        btn_effects.style.borderColor = "white";
-        btn_rec.disabled = false;
-        btn_rec.style.borderColor = "white";
-        effects_loaded = true;
-        document.getElementById("loading-bar").style.display = "none";
+      .then(() => {
+        filter_Setup(filter).then(() => {
+          context.resume();
+          source.connect(filter.device.node);
+          nodeConnection("auto");
+          btn_effects.disabled = false;
+          btn_effects.style.borderColor = "white";
+          btn_rec.disabled = false;
+          btn_rec.style.borderColor = "white";
+          effects_loaded = true;
+          document.getElementById("loading-bar").style.display = "none";
+        });
+      })
+      .catch(function (err) {
+        try {
+          context.resume();
+          console.log(`${err.name}, ${err.message}`);
+          alert(
+            "Désolé, impossible pour ton smartphone de charger les effets sonores !"
+          );
+          document.getElementById("loading-bar").style.display = "none";
+          effects_loaded = false;
+          source.connect(gain);
+          gain.connect(analyser);
+          analyser.connect(myPeer); // TODO
+        } catch (e) {
+          alert(e);
+        }
       });
-    })
-    .catch(function (err) {
-      try {
-        context.resume();
-        console.log(`${err.name}, ${err.message}`);
-        alert('Désolé, impossible pour ton smartphone de charger les effets sonores !');
-        document.getElementById("loading-bar").style.display = "none";
-        effects_loaded = false;
-        source.connect(gain);
-        gain.connect(analyser);
-        analyser.connect(myPeer); // TODO
-      } catch (e) { alert(e) };
-    })
   } else {
     context.resume();
     nodeConnection("auto");
@@ -1137,13 +1355,13 @@ function gotStream(stream, withVid) {
 function onReceiveChannelStateChange() {
   const readyState = receiveChannel.readyState;
   console.log(`Receive channel state is: ${readyState}`);
-  if (readyState=='open') socket.disconnect();
+  if (readyState == "open") socket.disconnect();
 }
 
 function onSendChannelStateChange() {
   const readyState = sendChannel.readyState;
-  console.log('Send channel state is: ' + readyState);
-  if (readyState == 'closed'){
+  console.log("Send channel state is: " + readyState);
+  if (readyState == "closed") {
     goBackHome();
     // alert('MINCE ! 🤔\nTu as été déconnecté !?');
     location.reload();
@@ -1151,76 +1369,89 @@ function onSendChannelStateChange() {
 }
 
 function onSendChannelMessageCallback(event) {
-  console.log('Message sent');
+  console.log("Message sent");
 }
 
-function webrtcStateChange(ev){
-    switch(ev.currentTarget.connectionState) {
-      case "new":
-        console.log("New...");
-        break;
-      case "checking":
-        console.log("Connecting…");
-        break;
-      case "connected":
-        console.log("Online");
-        document.getElementById("startButton").classList.remove("spinner");
-        document.getElementById("startButton").disabled = false;
-        break;
-      case "disconnected":
-        console.log("Disconnecting…");
-        goBackHome();
-        alert('MINCE ! 🤔\nTu as été déconnecté !?');
-        location.reload();
-        break;
-      case "closed":
-        goBackHome();
-        console.log("Offline");
-        alert('MINCE ! 🤔\nTu as été sorti du jeu ?!');
-        location.reload();
-        break;
-      case "failed":
-        console.log("Error");
-        goBackHome();
-        alert('OUPS ! 🤔\nEs-tu bien connecté au wifi @TABLEE ?');
-        location.reload();
-        break;
-      default:
-        overlay.style.visibility = "visible";
-        overlayTHEEND.style.visibility = "hidden";
-        overlayWAIT.style.visibility = "hidden";
-        atablee.style.display = "none";
-        myGUI.style.display = "none";
-        adminVideo.pause();
-        adminVideo.volume = 0;
-        break;
-    }
-};
+function webrtcStateChange(ev) {
+  switch (ev.currentTarget.connectionState) {
+    case "new":
+      console.log("New...");
+      break;
+    case "checking":
+      console.log("Connecting…");
+      break;
+    case "connected":
+      console.log("Online");
+      document.getElementById("startButton").classList.remove("spinner");
+      document.getElementById("startButton").disabled = false;
+      break;
+    case "disconnected":
+      console.log("Disconnecting…");
+      goBackHome();
+      alert("MINCE ! 🤔\nTu as été déconnecté !?");
+      location.reload();
+      break;
+    case "closed":
+      goBackHome();
+      console.log("Offline");
+      alert("MINCE ! 🤔\nTu as été sorti du jeu ?!");
+      location.reload();
+      break;
+    case "failed":
+      console.log("Error");
+      goBackHome();
+      alert("OUPS ! 🤔\nEs-tu bien connecté au wifi @TABLEE ?");
+      location.reload();
+      break;
+    default:
+      overlay.style.visibility = "visible";
+      overlayTHEEND.style.visibility = "hidden";
+      overlayWAIT.style.visibility = "hidden";
+      atablee.style.display = "none";
+      myGUI.style.display = "none";
+      adminVideo.pause();
+      adminVideo.volume = 0;
+      break;
+  }
+}
 
-function flash(color){
+function flash(color) {
   document.getElementById("adminID").style.background = color;
   document.getElementById("adminID").style.visibility = "visible";
-  setTimeout(()=>document.getElementById("adminID").style.visibility = "hidden", 300);
+  setTimeout(
+    () => (document.getElementById("adminID").style.visibility = "hidden"),
+    300
+  );
 }
 
-function torchflash(time){
-  console.log("tamere1")
+function torchflash(time) {
+  console.log("tamere1");
 
-  console.log(userStream.getVideoTracks()[0].getConstraints())
-  userStream.getVideoTracks()[0].applyConstraints({advanced: [{torch: true}]});
+  console.log(userStream.getVideoTracks()[0].getConstraints());
+  userStream
+    .getVideoTracks()[0]
+    .applyConstraints({ advanced: [{ torch: true }] });
   atablee.style.background = "white";
-  if (navigator.vibrate){ navigator.vibrate([400, 0, 300, 0, 200, 0, 100].map(function(x) { return (x+200) * Math.random(); })); }
-  setTimeout(()=>{
-    console.log(userStream.getVideoTracks()[0].getConstraints())
+  if (navigator.vibrate) {
+    navigator.vibrate(
+      [400, 0, 300, 0, 200, 0, 100].map(function (x) {
+        return (x + 200) * Math.random();
+      })
+    );
+  }
+  setTimeout(() => {
+    console.log(userStream.getVideoTracks()[0].getConstraints());
     atablee.style.background = "black";
-    userStream.getVideoTracks()[0].applyConstraints({advanced: [{torch: false}]});
-    console.log("tamere3")
-    console.log(userStream.getVideoTracks()[0].getConstraints())
+    userStream
+      .getVideoTracks()[0]
+      .applyConstraints({ advanced: [{ torch: false }] });
+    console.log("tamere3");
+    console.log(userStream.getVideoTracks()[0].getConstraints());
   }, time);
-  console.log("tamere2")
+  console.log("tamere2");
 }
 
-function goBackHome(){
+function goBackHome() {
   overlay.style.visibility = "visible";
   overlayTHEEND.style.visibility = "hidden";
   overlayWAIT.style.visibility = "hidden";
@@ -1230,95 +1461,121 @@ function goBackHome(){
   adminVideo.volume = 0;
   adminVideo_webrtc.pause();
   // adminVideo_webrtc.volume = 0;
-  try{myPeer.stream.getTracks().forEach((track) => {track.stop()});}catch(e){console.log(e)};
-  try{userCanvasStream.getTracks().forEach((track) => {track.stop()});}catch(e){console.log(e)};
-  try{rtcPeerConnection.close(); rtcPeerConnection = null;}catch(e){console.log(e)};
-  if (source_mic) try{source_mic.getTracks().forEach(function(track) {track.stop();}); source_mic= null;}catch(e){console.log(e)};
-  try{context.suspend();}catch(e){console.log(e)};
+  try {
+    myPeer.stream.getTracks().forEach((track) => {
+      track.stop();
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  try {
+    userCanvasStream.getTracks().forEach((track) => {
+      track.stop();
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  try {
+    rtcPeerConnection.close();
+    rtcPeerConnection = null;
+  } catch (e) {
+    console.log(e);
+  }
+  if (source_mic)
+    try {
+      source_mic.getTracks().forEach(function (track) {
+        track.stop();
+      });
+      source_mic = null;
+    } catch (e) {
+      console.log(e);
+    }
+  try {
+    context.suspend();
+  } catch (e) {
+    console.log(e);
+  }
   document.getElementById("startButton").classList.remove("spinner");
   document.getElementById("startButton").disabled = false;
-  try{streamVisualizer4Clients.stop();}catch(e){console.log(e)};
+  try {
+    streamVisualizer4Clients.stop();
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 const requestWakeLock = async () => {
   try {
-    wakeLock = await navigator.wakeLock.request('screen');
-    wakeLock.addEventListener('release', () => {
-      console.log('Wake Lock was released');
+    wakeLock = await navigator.wakeLock.request("screen");
+    wakeLock.addEventListener("release", () => {
+      console.log("Wake Lock was released");
     });
-    console.log('Wake Lock is active');
+    console.log("Wake Lock is active");
   } catch (err) {
     console.log(`${err.name}, ${err.message}`);
     try {
       noSleep.enable();
     } catch (err) {
-      alert('Impossible de couper la veille automatiquement !')
+      alert("Impossible de couper la veille automatiquement !");
     }
   }
 };
 
 document.addEventListener("visibilitychange", (event) => {
-
-  try{
-    if ((context)&&(context.state != 'closed')){
+  try {
+    if (context && context.state != "closed") {
       if (document.visibilityState === "visible") {
         context.resume();
       } else {
         context.suspend();
       }
     }
-  } catch (err){
+  } catch (err) {
     console.log(err);
   }
   if (document.visibilityState === "visible") {
     requestWakeLock();
   } else {
     btn_fullscreen.style.backgroundColor = "transparent";
-    document.getElementById("fs1").style.display = 'inline-block';
-    document.getElementById("fs2").style.display = 'none';
+    document.getElementById("fs1").style.display = "inline-block";
+    document.getElementById("fs2").style.display = "none";
   }
 });
 
-function changeFullScreen(){
+function changeFullScreen() {
   try {
-    fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
-    if (fullscreenElement !== undefined){
-      if (!fullscreenElement)
-      {
-          if(document.documentElement.requestFullscreen)
-          {
-            document.documentElement.requestFullscreen();
-            btn_fullscreen.style.backgroundColor = "#5c5c5c";
-            document.getElementById("fs2").style.display = 'inline-block';
-            document.getElementById("fs1").style.display = 'none';
-          }
-          else if(document.documentElement.webkitRequestFullscreen)
-          {
-            document.documentElement.webkitRequestFullscreen();
-            btn_fullscreen.style.backgroundColor = "#5c5c5c";
-            document.getElementById("fs2").style.display = 'inline-block';
-            document.getElementById("fs1").style.display = 'none';
-          }
-      }
-      else
-      {
-          if(document.exitFullscreen)
-          {
-              document.exitFullscreen();
-              btn_fullscreen.style.backgroundColor = "transparent";
-              document.getElementById("fs1").style.display = 'inline-block';
-              document.getElementById("fs2").style.display = 'none';
-          }
-          else if(document.webkitExitFullscreen)
-          {
-              document.webkitExitFullscreen();
-              btn_fullscreen.style.backgroundColor = "transparent";
-              document.getElementById("fs1").style.display = 'inline-block';
-              document.getElementById("fs2").style.display = 'none';
-          }
+    fullscreenElement =
+      document.fullscreenElement || document.webkitFullscreenElement;
+    if (fullscreenElement !== undefined) {
+      if (!fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+          btn_fullscreen.style.backgroundColor = "#5c5c5c";
+          document.getElementById("fs2").style.display = "inline-block";
+          document.getElementById("fs1").style.display = "none";
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+          btn_fullscreen.style.backgroundColor = "#5c5c5c";
+          document.getElementById("fs2").style.display = "inline-block";
+          document.getElementById("fs1").style.display = "none";
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          btn_fullscreen.style.backgroundColor = "transparent";
+          document.getElementById("fs1").style.display = "inline-block";
+          document.getElementById("fs2").style.display = "none";
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+          btn_fullscreen.style.backgroundColor = "transparent";
+          document.getElementById("fs1").style.display = "inline-block";
+          document.getElementById("fs2").style.display = "none";
+        }
       }
     }
-  } catch(e) { console.log(e) }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 // function goFullScreen(){
@@ -1364,8 +1621,8 @@ function changeFullScreen(){
 //       if (response && (response.status >= 300 || response.status < 200)) {
 //           errorContext.header = `Couldn't load patcher export bundle`,
 //           errorContext.description = `Check app.js to see what file it's trying to load. Currently it's` +
-//           ` trying to load "${patchExportURL}". If that doesn't` + 
-//           ` match the name of the file you exported from RNBO, modify` + 
+//           ` trying to load "${patchExportURL}". If that doesn't` +
+//           ` match the name of the file you exported from RNBO, modify` +
 //           ` patchExportURL in app.js.`;
 //       }
 //       if (typeof guardrails === "function") {
@@ -1476,59 +1733,69 @@ function changeFullScreen(){
 
 async function effects_Setup(effects) {
   let response, patcher;
-  for (let i=0; i<effects.length; i++){
-    if (window.matchMedia("(orientation: portrait)").matches){
-      document.getElementById("loading-bar").style.transform = `scaleY(${(i+1)/effects.length})`;
-      console.log((i+1)/effects.length);
-    }  else {
-      document.getElementById("loading-bar").style.transform = `scaleX(${(i+1)/effects.length})`;
+  for (let i = 0; i < effects.length; i++) {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+      document.getElementById("loading-bar").style.transform = `scaleY(${
+        (i + 1) / effects.length
+      })`;
+      console.log((i + 1) / effects.length);
+    } else {
+      document.getElementById("loading-bar").style.transform = `scaleX(${
+        (i + 1) / effects.length
+      })`;
     }
     try {
-        response = await fetch("./effects/" + effects[i].name + ".export.json");
-        patcher = await response.json();
-        //if (!window.RNBO) {
-            // Load RNBO script dynamically
-            // Note that you can skip this by knowing the RNBO version of your patch
-            // beforehand and just include it using a <script> tag
-            await loadRNBOScript(patcher.desc.meta.rnboversion); // TOBACK
-            console.log(effects[i].name + ": RNBO version " + patcher.desc.meta.rnboversion);
-        //}
-
+      response = await fetch("./effects/" + effects[i].name + ".export.json");
+      patcher = await response.json();
+      //if (!window.RNBO) {
+      // Load RNBO script dynamically
+      // Note that you can skip this by knowing the RNBO version of your patch
+      // beforehand and just include it using a <script> tag
+      await loadRNBOScript(patcher.desc.meta.rnboversion); // TOBACK
+      console.log(
+        effects[i].name + ": RNBO version " + patcher.desc.meta.rnboversion
+      );
+      //}
     } catch (err) {
-        const errorContext = {
-            error: err
-        };
-        if (response && (response.status >= 300 || response.status < 200)) {
-            errorContext.header = `Couldn't load patcher export bundle`,
-            errorContext.description = `Check app.js to see what file it's trying to load. Currently it's` +
-            ` trying to load "${patchExportURL}". If that doesn't` + 
-            ` match the name of the file you exported from RNBO, modify` + 
-            ` patchExportURL in app.js.`;
-        }
-        if (typeof guardrails === "function") {
-            guardrails(errorContext);
-        } else {
-            throw err;
-        }
-        return;
+      const errorContext = {
+        error: err,
+      };
+      if (response && (response.status >= 300 || response.status < 200)) {
+        (errorContext.header = `Couldn't load patcher export bundle`),
+          (errorContext.description =
+            `Check app.js to see what file it's trying to load. Currently it's` +
+            ` trying to load "${patchExportURL}". If that doesn't` +
+            ` match the name of the file you exported from RNBO, modify` +
+            ` patchExportURL in app.js.`);
+      }
+      if (typeof guardrails === "function") {
+        guardrails(errorContext);
+      } else {
+        throw err;
+      }
+      return;
     }
-  
+
     // (Optional) Fetch the dependencies
     let dependencies = [];
     try {
-        const dependenciesResponse = await fetch(`./effects/${effects[i].name}_dependencies.json`);
-        dependencies = await dependenciesResponse.json();
-        // Prepend "export" to any file dependenciies
-        dependencies = dependencies.map(d => d.file ? Object.assign({}, d, { file: "./effects/" + d.file }) : d);
+      const dependenciesResponse = await fetch(
+        `./effects/${effects[i].name}_dependencies.json`
+      );
+      dependencies = await dependenciesResponse.json();
+      // Prepend "export" to any file dependenciies
+      dependencies = dependencies.map((d) =>
+        d.file ? Object.assign({}, d, { file: "./effects/" + d.file }) : d
+      );
     } catch (e) {
-      console.log('No dependencies in : ' + effects[i].name);
+      console.log("No dependencies in : " + effects[i].name);
     }
 
     // Create the device
     try {
-        effects[i].device = await RNBO.createDevice({ context, patcher });
+      effects[i].device = await RNBO.createDevice({ context, patcher });
     } catch (err) {
-        alert('err');
+      alert("err");
     }
 
     if (dependencies.length)
@@ -1541,47 +1808,56 @@ async function effects_Setup(effects) {
     // Connect the device to the web audio graph
     effects[i].device.node.connect(effects[i].gain);
 
-    if (effects[i].visible){
-      makeGUI(effects[i].device, effects[i].userParams, effects[i].title, effects[i].activ);
-    } else if (effects[i].name == "sampler"){
-      makeSamplerGUI(effects[i].device, effects[i].userParams, effects[i].title, effects[i].activ);
+    if (effects[i].visible) {
+      makeGUI(
+        effects[i].device,
+        effects[i].userParams,
+        effects[i].title,
+        effects[i].activ
+      );
+    } else if (effects[i].name == "sampler") {
+      makeSamplerGUI(
+        effects[i].device,
+        effects[i].userParams,
+        effects[i].title,
+        effects[i].activ
+      );
     }
-
-  };
+  }
 }
 
 async function filter_Setup(filter) {
   let response, patcher;
   try {
-      response = await fetch("./effects/" + filter.name + ".export.json");
-      patcher = await response.json();
-      //if (!window.RNBO) {
-          // Load RNBO script dynamically
-          // Note that you can skip this by knowing the RNBO version of your patch
-          // beforehand and just include it using a <script> tag
-          await loadRNBOScript(patcher.desc.meta.rnboversion); // TOBACK
-          console.log(patcher.desc.meta.rnboversion);
-      //}
-
+    response = await fetch("./effects/" + filter.name + ".export.json");
+    patcher = await response.json();
+    //if (!window.RNBO) {
+    // Load RNBO script dynamically
+    // Note that you can skip this by knowing the RNBO version of your patch
+    // beforehand and just include it using a <script> tag
+    await loadRNBOScript(patcher.desc.meta.rnboversion); // TOBACK
+    console.log(patcher.desc.meta.rnboversion);
+    //}
   } catch (err) {
     const errorContext = {
-        error: err
+      error: err,
     };
     if (response && (response.status >= 300 || response.status < 200)) {
-        errorContext.header = `Couldn't load patcher export bundle`,
-        errorContext.description = `Check app.js to see what file it's trying to load. Currently it's` +
-        ` trying to load "${patchExportURL}". If that doesn't` + 
-        ` match the name of the file you exported from RNBO, modify` + 
-        ` patchExportURL in app.js.`;
+      (errorContext.header = `Couldn't load patcher export bundle`),
+        (errorContext.description =
+          `Check app.js to see what file it's trying to load. Currently it's` +
+          ` trying to load "${patchExportURL}". If that doesn't` +
+          ` match the name of the file you exported from RNBO, modify` +
+          ` patchExportURL in app.js.`);
     }
     if (typeof guardrails === "function") {
-        guardrails(errorContext);
+      guardrails(errorContext);
     } else {
-        throw err;
+      throw err;
     }
     return;
   }
-  
+
   // (Optional) Fetch the dependencies
   // let dependencies = [];
   // try {
@@ -1597,7 +1873,7 @@ async function filter_Setup(filter) {
   try {
     filter.device = await RNBO.createDevice({ context, patcher });
   } catch (err) {
-    alert('err');
+    alert("err");
   }
 
   // if (dependencies.length)
@@ -1613,19 +1889,24 @@ async function filter_Setup(filter) {
 
 function loadRNBOScript(version) {
   return new Promise((resolve, reject) => {
-      if (/^\d+\.\d+\.\d+-dev$/.test(version)) {
-          throw new Error("Patcher exported with a Debug Version!\nPlease specify the correct RNBO version to use in the code.");
-      }
-      const el = document.createElement("script");
-      
-      el.src = "https://c74-public.nyc3.digitaloceanspaces.com/rnbo/" + encodeURIComponent(version) + "/rnbo.min.js";
-      
-      el.onload = resolve;
-      el.onerror = function(err) {
-          console.log(err);
-          reject(new Error("Failed to load rnbo.js v" + version));
-      };
-      document.body.append(el);
+    if (/^\d+\.\d+\.\d+-dev$/.test(version)) {
+      throw new Error(
+        "Patcher exported with a Debug Version!\nPlease specify the correct RNBO version to use in the code."
+      );
+    }
+    const el = document.createElement("script");
+
+    el.src =
+      "https://c74-public.nyc3.digitaloceanspaces.com/rnbo/" +
+      encodeURIComponent(version) +
+      "/rnbo.min.js";
+
+    el.onload = resolve;
+    el.onerror = function (err) {
+      console.log(err);
+      reject(new Error("Failed to load rnbo.js v" + version));
+    };
+    document.body.append(el);
   });
 }
 
@@ -1653,12 +1934,12 @@ function loadRNBOScript(version) {
 
 function makeGUI(device, userParams, effect_title, effect_activ) {
   let effect_div = document.createElement("div");
-  effect_div.setAttribute("class", "effect_div")
+  effect_div.setAttribute("class", "effect_div");
   let pdiv = document.getElementById("effects-params");
   pdiv.appendChild(effect_div);
   // This will allow us to ignore parameter update events while dragging the slider.
   // let uiElements = {};
-  
+
   // ON/OFF BOUTON :
   //param_input.value = 1.0;
   let sliderContainer = document.createElement("div");
@@ -1683,24 +1964,29 @@ function makeGUI(device, userParams, effect_title, effect_activ) {
 
   effect_div.appendChild(sliderContainer);
 
-  userParams.forEach((userParam)=>{
-    let param = device.parameters.find(t=>t.name==userParam.name);
-    if (userParam.defaultValue!==null){
+  userParams.forEach((userParam) => {
+    let param = device.parameters.find((t) => t.name == userParam.name);
+    if (userParam.defaultValue !== null) {
       param.value = userParam.defaultValue;
     } else {
       userParam.defaultValue = param.value;
-    };
-    if (userParam.visible){
+    }
+    if (userParam.visible) {
       // PARAMS :
-      let paramGUI = createParamGUI(param, effect_title, userParam.type, effect_activ);
-      
+      let paramGUI = createParamGUI(
+        param,
+        effect_title,
+        userParam.type,
+        effect_activ
+      );
+
       // Store the slider and text by name so we can access them later
       let slider = paramGUI.slider;
       // uiElements[param.id] = { slider };
-      
+
       // Add the slider element
       effect_div.appendChild(paramGUI.sliderContainer);
-    };
+    }
   });
 
   // Listen to parameter changes from the device
@@ -1717,15 +2003,15 @@ function makeSamplerGUI(device, userParams, effect_title, effect_activ) {
   // This will allow us to ignore parameter update events while dragging the slider.
   // let uiElements = {};
 
-  userParams.forEach((userParam)=>{
-    let param = device.parameters.find(t=>t.name==userParam.name);
-    if (userParam.defaultValue!==null){
+  userParams.forEach((userParam) => {
+    let param = device.parameters.find((t) => t.name == userParam.name);
+    if (userParam.defaultValue !== null) {
       param.value = userParam.defaultValue;
     } else {
       userParam.defaultValue = param.value;
-    };
+    }
 
-    if (userParam.visible){
+    if (userParam.visible) {
       let sliderContainer = document.createElement("div");
 
       let label = document.createElement("label");
@@ -1745,34 +2031,38 @@ function makeSamplerGUI(device, userParams, effect_title, effect_activ) {
       input.checked = effect_activ;
       input.onchange = onoffSampler;
       sliderContainer.appendChild(label);
-    
+
       effect_div.appendChild(sliderContainer);
 
-      if (userParam.type !== "bool"){
+      if (userParam.type !== "bool") {
         // PARAMS :
-        let paramGUI = createParamGUI(param, param.name, userParam.type, effect_activ);
+        let paramGUI = createParamGUI(
+          param,
+          param.name,
+          userParam.type,
+          effect_activ
+        );
         // Store the slider and text by name so we can access them later
         let slider = paramGUI.slider;
         // uiElements[param.id] = { slider };
         // Add the slider element
         effect_div.appendChild(paramGUI.sliderContainer);
       }
-    };
+    }
   });
   // Listen to parameter changes from the device
   // autoChangeGUI(device, uiElements);
-
 }
 
-function createParamGUI(param, effect_title, type, activ){
+function createParamGUI(param, effect_title, type, activ) {
   let sliderContainer = document.createElement("div");
   sliderContainer.setAttribute("name", effect_title + "div");
   sliderContainer.setAttribute("class", "div_slider");
-  if (activ){
+  if (activ) {
     sliderContainer.style.display = "flex";
   } else {
     sliderContainer.style.display = "none";
-  };
+  }
   let label = document.createElement("label");
   let slider = document.createElement("input");
   sliderContainer.appendChild(slider);
@@ -1782,19 +2072,16 @@ function createParamGUI(param, effect_title, type, activ){
   label.setAttribute("class", "param-label");
   label.textContent = `${param.name}`;
 
-  if (type == "bool"){
-
+  if (type == "bool") {
     slider.setAttribute("type", "checkbox");
     slider.setAttribute("class", "param-checkbox");
     slider.setAttribute("id", param.id);
     slider.setAttribute("name", param.name);
     slider.checked = (param.value = param.max) ? true : false;
     slider.addEventListener("change", () => {
-      param.value = (slider.checked) ? param.max : param.min;
+      param.value = slider.checked ? param.max : param.min;
     });
-
   } else {
-
     // Make each slider reflect its parameter
     slider.setAttribute("type", "range");
     slider.setAttribute("class", "param-slider");
@@ -1803,72 +2090,80 @@ function createParamGUI(param, effect_title, type, activ){
     slider.setAttribute("min", param.min);
     slider.setAttribute("max", param.max);
     if (param.steps > 1) {
-        slider.setAttribute("step", (param.max - param.min) / (param.steps - 1));
+      slider.setAttribute("step", (param.max - param.min) / (param.steps - 1));
     } else {
-        slider.setAttribute("step", (param.max - param.min) / 1000.0);
+      slider.setAttribute("step", (param.max - param.min) / 1000.0);
     }
     slider.setAttribute("value", param.value);
 
     // Make each slider control its parameter
     slider.addEventListener("pointerdown", () => {
-        isDraggingSlider = true;
+      isDraggingSlider = true;
     });
     slider.addEventListener("pointerup", () => {
-        isDraggingSlider = false;
-        slider.value = param.value;
+      isDraggingSlider = false;
+      slider.value = param.value;
     });
     slider.addEventListener("input", () => {
-        let value = Number.parseFloat(slider.value);
-        param.value = value;
-      });
-
+      let value = Number.parseFloat(slider.value);
+      param.value = value;
+    });
   }
-  return {sliderContainer, slider};
+  return { sliderContainer, slider };
 }
 
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
+    parent.removeChild(parent.firstChild);
   }
 }
 
-function onoffEffect(ev){
-   effects.find(t=>t.title===ev.target.id).activ = ev.target.checked;
-   if (!ev.target.checked){
+function onoffEffect(ev) {
+  effects.find((t) => t.title === ev.target.id).activ = ev.target.checked;
+  if (!ev.target.checked) {
     // TODO INITIALISATION
-   }
-   nodeConnection("auto");
-   const divs = document.getElementsByName(ev.target.id+"div");
-   divs.forEach((div) => {
-    div.style.display = (ev.target.checked) ? "flex" : "none";
-   })
+  }
+  nodeConnection("auto");
+  const divs = document.getElementsByName(ev.target.id + "div");
+  divs.forEach((div) => {
+    div.style.display = ev.target.checked ? "flex" : "none";
+  });
 }
 
-function onoffSampler(ev){
-  switch (ev.target.id){
+function onoffSampler(ev) {
+  switch (ev.target.id) {
     case "metro_speed":
-      let sampler = effects.find(t=>t.name == "sampler");
-      if (!ev.target.checked){
-        sampler.device.parameters.find(param=>param.name=="rand_play").value = 1.0;
-        sampler.device.parameters.find(param=>param.name=="loop_start_point").value = 1.0;
-        setTimeout(()=>{
-          sampler.device.parameters.find(param=>param.name=="loop_start_point").value = 0.0;
+      let sampler = effects.find((t) => t.name == "sampler");
+      if (!ev.target.checked) {
+        sampler.device.parameters.find(
+          (param) => param.name == "rand_play"
+        ).value = 1.0;
+        sampler.device.parameters.find(
+          (param) => param.name == "loop_start_point"
+        ).value = 1.0;
+        setTimeout(() => {
+          sampler.device.parameters.find(
+            (param) => param.name == "loop_start_point"
+          ).value = 0.0;
         }, 100.0);
       } else {
-        sampler.device.parameters.find(param=>param.name=="rand_play").value = 0.0;
+        sampler.device.parameters.find(
+          (param) => param.name == "rand_play"
+        ).value = 0.0;
       }
       break;
     default:
-      if (!ev.target.checked){
-        let sampler = effects.find(t=>t.name == "sampler")
-        sampler.device.parameters.find(t=>t.name == ev.target.id).value = sampler.userParams.find(t=>t.name == ev.target.id).defaultValue;
+      if (!ev.target.checked) {
+        let sampler = effects.find((t) => t.name == "sampler");
+        sampler.device.parameters.find((t) => t.name == ev.target.id).value =
+          sampler.userParams.find((t) => t.name == ev.target.id).defaultValue;
       }
       break;
   }
-  const divs = document.getElementsByName(ev.target.id+"div");
+  const divs = document.getElementsByName(ev.target.id + "div");
   divs.forEach((div) => {
-   div.style.display = (ev.target.checked) ? "flex" : "none";
-  })
+    div.style.display = ev.target.checked ? "flex" : "none";
+  });
 }
 
 // function autoChangeGUI(device, uiElements){
@@ -1884,33 +2179,38 @@ function onoffSampler(ev){
 //   });
 // }
 
-function nodeConnection(mode){ // TODO
+function nodeConnection(mode) {
+  // TODO
   filter.gain.disconnect(0);
   analyser.disconnect(0);
   gain.disconnect(0);
-  effects.filter(t=>t.activ==false).forEach((effect)=>{effect.gain.disconnect(0)});
-  let f_effects = effects.filter(t=>t.activ==true);
-  if (f_effects.length == 0){
+  effects
+    .filter((t) => t.activ == false)
+    .forEach((effect) => {
+      effect.gain.disconnect(0);
+    });
+  let f_effects = effects.filter((t) => t.activ == true);
+  if (f_effects.length == 0) {
     filter.gain.connect(gain);
-  } else if (f_effects.length == 1){
+  } else if (f_effects.length == 1) {
     f_effects[0].gain.connect(gain);
     filter.gain.connect(f_effects[0].device.node);
   } else {
     f_effects[0].gain.connect(gain);
-    for (let i = 1; i < f_effects.length; i++){
-      f_effects[i].gain.connect(f_effects[i-1].device.node);
+    for (let i = 1; i < f_effects.length; i++) {
+      f_effects[i].gain.connect(f_effects[i - 1].device.node);
     }
-    filter.gain.connect(f_effects[f_effects.length-1].device.node);
-  };
+    filter.gain.connect(f_effects[f_effects.length - 1].device.node);
+  }
   gain.connect(analyser);
   analyser.connect(myPeer);
   analyser.connect(context.destination);
 }
 
 let recTimeCount = 0;
-function recfunction(ev){
-  let sampler = effects.find(t=>t.name == "sampler");
-  if ((btn_rec.style.backgroundColor == "transparent") && (recTimeCount==0)){
+function recfunction(ev) {
+  let sampler = effects.find((t) => t.name == "sampler");
+  if (btn_rec.style.backgroundColor == "transparent" && recTimeCount == 0) {
     streamVisualizer4Clients.setColor("red");
     recTimeCount = Date.now();
     btn_rec.style.backgroundColor = "#FF0000";
@@ -1918,27 +2218,40 @@ function recfunction(ev){
     gainPan.style.display = "none";
     btn_effects.style.background = "transparent";
     sampler.activ = true;
-    sampler.device.parameters.find(param=>param.name=="size").value = sampler.userParams.find(t=>t.name == "size").defaultValue;
-    sampler.device.parameters.find(param=>param.name=="clear_buf").value = 1.0;
-    sampler.device.parameters.find(param=>param.name=="rec").value = 1.0;
+    sampler.device.parameters.find((param) => param.name == "size").value =
+      sampler.userParams.find((t) => t.name == "size").defaultValue;
+    sampler.device.parameters.find(
+      (param) => param.name == "clear_buf"
+    ).value = 1.0;
+    sampler.device.parameters.find((param) => param.name == "rec").value = 1.0;
     document.getElementById("sampler_div").style.display = "flex";
     rec.style.display = "none";
     trash.style.display = "none";
     mystop.style.display = "inline";
     filter.gain.disconnect(0);
     analyser.disconnect(0);
-    effects.forEach((effect)=>{effect.gain.disconnect()});
+    effects.forEach((effect) => {
+      effect.gain.disconnect();
+    });
     filter.gain.connect(analyser);
     analyser.connect(sampler.device.node);
     sampler.gain.connect(myPeer);
 
-    timer_rec = setTimeout(()=>{
+    timer_rec = setTimeout(() => {
       sampler.gain.disconnect();
       streamVisualizer4Clients.setColor("white");
-      sampler.device.parameters.find(param=>param.name=="rand_play").value = 1.0;
-      sampler.device.parameters.find(param=>param.name=="out_gain").value = 1.0;
-      sampler.device.parameters.find(param=>param.name=="loop_start_point").value = 0.0;
-      sampler.device.parameters.find(param=>param.name=="rec").value = 0.0;
+      sampler.device.parameters.find(
+        (param) => param.name == "rand_play"
+      ).value = 1.0;
+      sampler.device.parameters.find(
+        (param) => param.name == "out_gain"
+      ).value = 1.0;
+      sampler.device.parameters.find(
+        (param) => param.name == "loop_start_point"
+      ).value = 0.0;
+      sampler.device.parameters.find(
+        (param) => param.name == "rec"
+      ).value = 0.0;
       btn_rec.style.backgroundColor = "#5c5c5c";
       rec.style.display = "none";
       trash.style.display = "inline";
@@ -1947,23 +2260,32 @@ function recfunction(ev){
       document.getElementById("metro_speed").checked = false;
       const divs = document.getElementsByName("metro_speeddiv");
       divs.forEach((div) => {
-       div.style.display = "none";
+        div.style.display = "none";
       });
       nodeConnection("auto");
-    }, sampler.device.parameters.find(param=>param.name=="size").value * 1000.0);
-  } else if (recTimeCount != 0){
+    }, sampler.device.parameters.find((param) => param.name == "size").value * 1000.0);
+  } else if (recTimeCount != 0) {
     sampler.gain.disconnect();
     streamVisualizer4Clients.setColor("white");
     rec.style.display = "none";
     trash.style.display = "inline";
     mystop.style.display = "none";
     clearTimeout(timer_rec);
-    sampler.device.parameters.find(param=>param.name=="size").value = Math.floor((Date.now()-recTimeCount)/1000);
-    setTimeout(()=>{
-      sampler.device.parameters.find(param=>param.name=="rand_play").value = 1.0;
-      sampler.device.parameters.find(param=>param.name=="out_gain").value = 1.0;
-      sampler.device.parameters.find(param=>param.name=="loop_start_point").value = 0.0;
-      sampler.device.parameters.find(param=>param.name=="rec").value = 0.0;
+    sampler.device.parameters.find((param) => param.name == "size").value =
+      Math.floor((Date.now() - recTimeCount) / 1000);
+    setTimeout(() => {
+      sampler.device.parameters.find(
+        (param) => param.name == "rand_play"
+      ).value = 1.0;
+      sampler.device.parameters.find(
+        (param) => param.name == "out_gain"
+      ).value = 1.0;
+      sampler.device.parameters.find(
+        (param) => param.name == "loop_start_point"
+      ).value = 0.0;
+      sampler.device.parameters.find(
+        (param) => param.name == "rec"
+      ).value = 0.0;
       btn_rec.style.backgroundColor = "#5c5c5c";
       rec.style.display = "none";
       trash.style.display = "inline";
@@ -1972,7 +2294,7 @@ function recfunction(ev){
       document.getElementById("metro_speed").checked = false;
       const divs = document.getElementsByName("metro_speeddiv");
       divs.forEach((div) => {
-       div.style.display = "none";
+        div.style.display = "none";
       });
       nodeConnection("auto");
     }, 100.0);
@@ -1986,21 +2308,31 @@ function recfunction(ev){
     mystop.style.display = "none";
     document.getElementById("sampler_div").style.display = "none";
     sampler.activ = false;
-    sampler.device.parameters.find(param=>param.name=="rec").value = 0.0;
-    sampler.device.parameters.find(param=>param.name=="clear_buf").value = 1.0;
-    sampler.device.parameters.find(param=>param.name=="out_gain").value = 0.0;
+    sampler.device.parameters.find((param) => param.name == "rec").value = 0.0;
+    sampler.device.parameters.find(
+      (param) => param.name == "clear_buf"
+    ).value = 1.0;
+    sampler.device.parameters.find(
+      (param) => param.name == "out_gain"
+    ).value = 0.0;
     //sampler.device.parameters.find(param=>param.name=="rand_play").value = 0.0;
-    sampler.device.parameters.find(param=>param.name=="loop_start_point").value = 0.0;
-    sampler.device.parameters.find(param=>param.name=="clear_buf").value = 1.0;
+    sampler.device.parameters.find(
+      (param) => param.name == "loop_start_point"
+    ).value = 0.0;
+    sampler.device.parameters.find(
+      (param) => param.name == "clear_buf"
+    ).value = 1.0;
     btn_rec.style.background = "transparent";
 
     document.getElementById("metro_speed").checked = false;
     const divs = document.getElementsByName("metro_speeddiv");
     divs.forEach((div) => {
-     div.style.display = "none";
+      div.style.display = "none";
     });
     nodeConnection("auto");
   }
-  sampler.device.parameters.find(param=>param.name=="loop_start_point").value = 1.0;
+  sampler.device.parameters.find(
+    (param) => param.name == "loop_start_point"
+  ).value = 1.0;
   //nodeConnection("auto");
 }
