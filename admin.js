@@ -1,9 +1,7 @@
 //const socket = io.connect("https://maman-jk7dceleka-od.a.run.app");
 //const socket = io.connect("https://maman2-jk7dceleka-od.a.run.app");
 //const socket = io.connect("https://mywrtc-ro5o23vkzq-od.a.run.app");
-const socket = io.connect(
-  "https://mywebrtcserver-thrumming-resonance-5604.fly.dev/"
-);
+const socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.dev/");
 // const socket = io.connect("https://192.168.10.2:1337");
 console.log("flyio ok");
 //const socket = io.connect("https://192.168.10.2:1337");
@@ -25,20 +23,24 @@ document.getElementById("btn_reload").onclick = sendData;
 document.getElementById("btn_stopAll").onclick = removeAllStoped;
 // const btn_midi = document.getElementById('btn_midi');
 // const slider_midi = document.getElementById('slider_midi');
-for (const child of document.getElementById("scenes").children)
-  child.onclick = changeScene;
+for (const child of document.getElementById("scenes").children) child.onclick = changeScene;
 document.getElementById("btn_lauch").onclick = sendData;
 document.getElementById("btn_showG").onclick = (e) => {
   if (e.target.style.background == "white") {
     e.target.style.background = "orange";
-    Array.from(document.getElementsByClassName("global")).forEach(
-      (g) => (g.style.display = "flex")
-    );
+    Array.from(document.getElementsByClassName("global")).forEach((g) => (g.style.display = "flex"));
   } else {
     e.target.style.background = "white";
-    Array.from(document.getElementsByClassName("global")).forEach(
-      (g) => (g.style.display = "none")
-    );
+    Array.from(document.getElementsByClassName("global")).forEach((g) => (g.style.display = "none"));
+  }
+};
+document.getElementById("btn_showVJ").onclick = (e) => {
+  if (e.target.style.background == "white") {
+    e.target.style.background = "orange";
+    Array.from(document.getElementsByClassName("VJ")).forEach((g) => (g.style.display = "flex"));
+  } else {
+    e.target.style.background = "white";
+    Array.from(document.getElementsByClassName("VJ")).forEach((g) => (g.style.display = "none"));
   }
 };
 const scenes = document.getElementById("scenes");
@@ -46,9 +48,7 @@ const scenes = document.getElementById("scenes");
 const scenes_array = Array.from(scenes.children);
 const resizeTel = document.getElementById("resizeTel");
 resizeTel.addEventListener("input", () => {
-  Array.from(document.getElementsByClassName("tel")).forEach(
-    (t) => (t.style.width = `${resizeTel.value}%`)
-  );
+  Array.from(document.getElementsByClassName("tel")).forEach((t) => (t.style.width = `${resizeTel.value}%`));
 });
 
 const divGStats = document.getElementById("stats");
@@ -89,10 +89,7 @@ document.getElementById("btn_stopco2").onclick = () => {
 };
 
 let iceServers = {
-  iceServers: [
-    { urls: "stun:stun.services.mozilla.com" },
-    { urls: "stun:stun.l.google.com:19302" },
-  ],
+  iceServers: [{ urls: "stun:stun.services.mozilla.com" }, { urls: "stun:stun.l.google.com:19302" }],
 };
 
 document.getElementById("S1_param1").addEventListener("input", (event) => {
@@ -149,19 +146,12 @@ document.getElementById("SN_param5").addEventListener("input", (event) => {
   }
 });
 
-document
-  .getElementById("S21_param1")
-  .addEventListener("click", changeVideoDebut);
-document
-  .getElementById("S21_param2")
-  .addEventListener("click", changeVideoDebut);
-document
-  .getElementById("S21_param3")
-  .addEventListener("click", changeVideoDebut);
+document.getElementById("S21_param1").addEventListener("click", changeVideoDebut);
+document.getElementById("S21_param2").addEventListener("click", changeVideoDebut);
+document.getElementById("S21_param3").addEventListener("click", changeVideoDebut);
 
 function changeVideoDebut(event) {
-  for (const child of event.target.parentElement.children)
-    child.style.background = "white";
+  for (const child of event.target.parentElement.children) child.style.background = "white";
   event.target.style.background = "green";
   let data;
   if (currentSceneNb == 21) {
@@ -299,24 +289,16 @@ function dumpStats(results, statsPrev) {
   results.forEach((res) => {
     if (res.type === "inbound-rtp" && res.mediaType === "audio") {
       stats.raB = res.bytesReceived;
-      stats.rabitrate = Math.floor(
-        (8 * (stats.raB - statsPrev.raB)) / (stats.t - statsPrev.t)
-      );
+      stats.rabitrate = Math.floor((8 * (stats.raB - statsPrev.raB)) / (stats.t - statsPrev.t));
     } else if (res.type === "inbound-rtp" && res.mediaType === "video") {
       stats.rvB = res.bytesReceived;
-      stats.rvbitrate = Math.floor(
-        (8 * (stats.rvB - statsPrev.rvB)) / (stats.t - statsPrev.t)
-      );
+      stats.rvbitrate = Math.floor((8 * (stats.rvB - statsPrev.rvB)) / (stats.t - statsPrev.t));
     } else if (res.type === "outbound-rtp" && res.mediaType === "audio") {
       stats.saB = res.bytesSent;
-      stats.sabitrate = Math.floor(
-        (8 * (stats.saB - statsPrev.saB)) / (stats.t - statsPrev.t)
-      );
+      stats.sabitrate = Math.floor((8 * (stats.saB - statsPrev.saB)) / (stats.t - statsPrev.t));
     } else if (res.type === "outbound-rtp" && res.mediaType === "video") {
       stats.svB = res.bytesSent;
-      stats.svbitrate = Math.floor(
-        (8 * (stats.svB - statsPrev.svB)) / (stats.t - statsPrev.t)
-      );
+      stats.svbitrate = Math.floor((8 * (stats.svB - statsPrev.svB)) / (stats.t - statsPrev.t));
     }
 
     stats.all += "<h3>Report type=";
@@ -341,8 +323,7 @@ function dumpStats(results, statsPrev) {
 socket.on("create", function () {});
 
 socket.on("offer", function (offer, clientId) {
-  if (clientS && clientS.find((t) => t.clientId == clientId))
-    removeClient(clientId);
+  if (clientS && clientS.find((t) => t.clientId == clientId)) removeClient(clientId);
   console.log("Offer receive from = " + clientId);
   let videoelement = document.getElementById("adminVideos");
   videoelement = videoelement.getElementsByTagName("video")[0];
@@ -369,9 +350,7 @@ socket.on("offer", function (offer, clientId) {
   let rtcPeerConnection = new RTCPeerConnection(iceServers);
   rtcPeerConnection.onicecandidate = OnIceCandidateFunction;
   rtcPeerConnection.setRemoteDescription(offer);
-  adminStream
-    .getTracks()
-    .forEach((track) => rtcPeerConnection.addTrack(track, adminStream));
+  adminStream.getTracks().forEach((track) => rtcPeerConnection.addTrack(track, adminStream));
   rtcPeerConnection.ondatachannel = receiveChannelCallback;
 
   if (stopco) {
@@ -402,40 +381,24 @@ socket.on("offer", function (offer, clientId) {
               break;
             case "connected":
               console.log("Online");
-              clientS.find((t) =>
-                t.rtcPeerCoID.includes(
-                  ev.currentTarget.remoteDescription.sdp.slice(9, 29)
-                )
-              ).div.style.borderColor = "green";
+              clientS.find((t) => t.rtcPeerCoID.includes(ev.currentTarget.remoteDescription.sdp.slice(9, 29))).div.style.borderColor = "green";
               break;
             case "disconnected":
               console.log("Disconnecting…");
               ev.currentTarget.close();
-              clientS.find((t) =>
-                t.rtcPeerCoID.includes(
-                  ev.currentTarget.remoteDescription.sdp.slice(9, 29)
-                )
-              ).div.style.borderColor = "red";
+              clientS.find((t) => t.rtcPeerCoID.includes(ev.currentTarget.remoteDescription.sdp.slice(9, 29))).div.style.borderColor = "red";
               // setTimeout(()=>{try{removeClient(clientId)} catch (e) {console.log(e)}}, 30000);
               break;
             case "closed":
               console.log("Offline");
               ev.currentTarget.close();
-              clientS.find((t) =>
-                t.rtcPeerCoID.includes(
-                  ev.currentTarget.remoteDescription.sdp.slice(9, 29)
-                )
-              ).div.style.borderColor = "red";
+              clientS.find((t) => t.rtcPeerCoID.includes(ev.currentTarget.remoteDescription.sdp.slice(9, 29))).div.style.borderColor = "red";
               // setTimeout(()=>{try{removeClient(clientId)} catch (e) {console.log(e)}}, 30000);
               break;
             case "failed":
               console.log("Error");
               ev.currentTarget.close();
-              clientS.find((t) =>
-                t.rtcPeerCoID.includes(
-                  ev.currentTarget.remoteDescription.sdp.slice(9, 29)
-                )
-              ).div.style.borderColor = "red";
+              clientS.find((t) => t.rtcPeerCoID.includes(ev.currentTarget.remoteDescription.sdp.slice(9, 29))).div.style.borderColor = "red";
               // setTimeout(()=>{try{removeClient(clientId)} catch (e) {console.log(e)}}, 30000);
               break;
             default:
@@ -554,12 +517,7 @@ function OnTrackFunction(event) {
       cutFreq.type = "peaking";
       cutFreq.gain.value = -40;
       const splitter = ctx.createChannelSplitter(1);
-      source
-        .connect(splitter)
-        .connect(cutFreq)
-        .connect(gainNode)
-        .connect(analyser)
-        .connect(merger, 0, ch);
+      source.connect(splitter).connect(cutFreq).connect(gainNode).connect(analyser).connect(merger, 0, ch);
 
       // 4SPAT :
       // source.connect(splitter).connect(cutFreq).connect(gainNode).connect(analyser);
@@ -637,8 +595,7 @@ function OnTrackFunction(event) {
     button.innerText = "ID";
     button.onclick = clientResearch;
     divS.appendChild(button);
-    if (currentSel != 0 && currentSel != 20 && currentSel != 21)
-      divS.style.display = "none";
+    if (currentSel != 0 && currentSel != 20 && currentSel != 21) divS.style.display = "none";
 
     divS = document.createElement("div");
     divS.classList.add("divS", "divS3");
@@ -728,11 +685,11 @@ function onReceiveChannelMessageCallback(event) {
     client.div.style.background = "black";
   }, 1000);
   if (data.mess) {
+    let p = document.getElementById("sp_VJ_text");
+    p.innerText = data.mess + "\n" + p.innerText;
     switch (data.mess) {
       case "NoMic":
-        let div = Array.from(client.div.children).find(
-          (c) => c.getAttribute("name") == "divS1"
-        );
+        let div = Array.from(client.div.children).find((c) => c.getAttribute("name") == "divS1");
         removeAllChildNodes(div);
         const nomic = document.createTextNode("No MIC");
         div.appendChild(nomic);
@@ -758,12 +715,8 @@ function sendData(event) {
       for (const child of scenes.children) {
         child.style.border = "none";
       }
-      Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) =>
-        a.pause()
-      );
-      Array.from(document.getElementsByClassName("videoRTC")).forEach((a) =>
-        a.pause()
-      );
+      Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+      Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
       break;
     case "btn_lauch":
       const scene = scenes_array.find((c) => c.style.background == "orange");
@@ -784,24 +737,14 @@ function sendData(event) {
             };
             break;
           case "btn_scene1":
-            if (
-              currentSceneNb == 20 ||
-              currentSceneNb == 21 ||
-              currentSceneNb == 3 ||
-              currentSceneNb == 7
-            )
-              doTwice = true;
+            if (currentSceneNb == 20 || currentSceneNb == 21 || currentSceneNb == 3 || currentSceneNb == 7) doTwice = true;
             currentSceneNb = 1;
             data = { scene: currentSceneNb };
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach(
-              (a) => a.pause()
-            );
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.pause()
-            );
+            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene20":
             currentSceneNb = 20;
@@ -809,12 +752,8 @@ function sendData(event) {
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach(
-              (a) => a.pause()
-            );
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.play()
-            );
+            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.play());
             break;
           case "btn_scene21":
             currentSceneNb = 21;
@@ -822,12 +761,8 @@ function sendData(event) {
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach(
-              (a) => a.pause()
-            );
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.pause()
-            );
+            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene21_random":
             currentSceneNb = 5;
@@ -835,12 +770,8 @@ function sendData(event) {
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach(
-              (a) => a.pause()
-            );
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.pause()
-            );
+            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene3":
             // data = {"scene": 6};
@@ -849,9 +780,7 @@ function sendData(event) {
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.pause()
-            );
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             change2Crac();
             break;
           case "btn_scene6":
@@ -861,12 +790,8 @@ function sendData(event) {
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach(
-              (a) => a.pause()
-            );
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.pause()
-            );
+            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_sceneTHEEND":
             data = { scene: 7 };
@@ -875,12 +800,8 @@ function sendData(event) {
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach(
-              (a) => a.pause()
-            );
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.pause()
-            );
+            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_sceneWAIT":
             data = { scene: 8 };
@@ -889,12 +810,8 @@ function sendData(event) {
             scene.style.border = "solid";
             scene.style.borderWidth = "4px";
             scene.style.borderColor = "red";
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach(
-              (a) => a.pause()
-            );
-            Array.from(document.getElementsByClassName("videoRTC")).forEach(
-              (a) => a.pause()
-            );
+            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           default:
             alert("Sélectionne une scène ! (1)");
@@ -930,17 +847,11 @@ function onSendChannelStateChange(e) {
   if (readyState == "open") {
     e.currentTarget.send(JSON.stringify({ scene: currentSceneNb }));
     if (currentSceneNb == 3) change2Crac();
-    let val = Array.from(document.getElementsByClassName("videoDebut")).find(
-      (b) => b.style.background == "green"
-    ).innerText;
+    let val = Array.from(document.getElementsByClassName("videoDebut")).find((b) => b.style.background == "green").innerText;
     if (currentSceneNb == 21) {
-      e.currentTarget.send(
-        JSON.stringify({ scene: currentSceneNb, video: val })
-      );
+      e.currentTarget.send(JSON.stringify({ scene: currentSceneNb, video: val }));
     } else {
-      e.currentTarget.send(
-        JSON.stringify({ scene: 21, video: val, muted: true })
-      );
+      e.currentTarget.send(JSON.stringify({ scene: 21, video: val, muted: true }));
     }
   }
 }
@@ -952,31 +863,21 @@ function onSendChannelMessageCallback(event) {
 function change2Crac() {
   // let audioCrac2 = document.getElementsByName('audioCrac2' + clientS[0].clientId)[0];
   // let audioSource2 = ctx.createMediaElementSource(audioCrac2);
-  Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) =>
-    a.play()
-  );
+  Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.play());
   clientS.forEach((client) => {
     try {
       if (client.rtcPeerConnection.connectionState !== "closed") {
-        let audioCrac = document.getElementsByName(
-          "audioCrac" + client.clientId
-        )[0];
+        let audioCrac = document.getElementsByName("audioCrac" + client.clientId)[0];
         let audioSource = ctx.createMediaElementSource(audioCrac);
         audioSource.connect(client.audioCrac_myPeer);
-        let audioCrac2 = document.getElementsByName(
-          "audioCrac2" + client.clientId
-        )[0];
+        let audioCrac2 = document.getElementsByName("audioCrac2" + client.clientId)[0];
         let audioSource2 = ctx.createMediaElementSource(audioCrac2);
         audioSource2.connect(client.audioCrac_myPeer);
         audioCrac2.playbackRate = Math.random() + 1;
         audioCrac2.play();
-        let audioSender = client.rtcPeerConnection
-          .getSenders()
-          .find((s) => s.track.kind === "audio");
+        let audioSender = client.rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
         audioSender.replaceTrack(client.audioCrac_myPeer.stream.getTracks()[0]);
-        let videoSender = client.rtcPeerConnection
-          .getSenders()
-          .find((s) => s.track.kind === "video");
+        let videoSender = client.rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
         client.rtcPeerConnection.removeTrack(videoSender);
       }
     } catch (err) {
@@ -1013,21 +914,16 @@ function changeVid(event) {
     switch (scene.getAttribute("id")) {
       case "btn_scene20":
         let videoelement = document.getElementsByName("video" + clientId)[0];
-        videoelement.src =
-          "./videosNEW/video" + event.target.innerText + ".mp4";
+        videoelement.src = "./videosNEW/video" + event.target.innerText + ".mp4";
         videoelement.type = "video/mp4";
         videoelement.play().then(() => {
           let adminStream = videoelement.captureStream();
           let client = clientS.find((t) => t.clientId == clientId);
           const [videoTrack] = adminStream.getVideoTracks();
-          let videoSender = client.rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === videoTrack.kind);
+          let videoSender = client.rtcPeerConnection.getSenders().find((s) => s.track.kind === videoTrack.kind);
           videoSender.replaceTrack(videoTrack);
           const [audioTrack] = adminStream.getAudioTracks();
-          let audioSender = client.rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === audioTrack.kind);
+          let audioSender = client.rtcPeerConnection.getSenders().find((s) => s.track.kind === audioTrack.kind);
           audioSender.replaceTrack(audioTrack);
         });
         break;
@@ -1045,43 +941,29 @@ function changeVid(event) {
 function changeScene(event) {
   if (event.target.style.background == "orange") {
     event.target.style.background = "yellow";
-    Array.from(document.getElementsByClassName("divS")).forEach(
-      (d) => (d.style.display = "flex")
-    );
+    Array.from(document.getElementsByClassName("divS")).forEach((d) => (d.style.display = "flex"));
     currentSel = 0;
   } else {
-    Array.from(document.getElementsByClassName("divS")).forEach(
-      (d) => (d.style.display = "none")
-    );
+    Array.from(document.getElementsByClassName("divS")).forEach((d) => (d.style.display = "none"));
     for (const child of scenes.children) {
       child.style.background = "yellow";
     }
     event.target.style.background = "orange";
     switch (event.target.getAttribute("id")) {
       case "btn_scene20":
-        Array.from(document.getElementsByClassName("divS2")).forEach(
-          (d) => (d.style.display = "flex")
-        );
+        Array.from(document.getElementsByClassName("divS2")).forEach((d) => (d.style.display = "flex"));
         currentSel = 20;
         break;
       case "btn_scene21":
-        Array.from(document.getElementsByClassName("divS2")).forEach(
-          (d) => (d.style.display = "flex")
-        );
+        Array.from(document.getElementsByClassName("divS2")).forEach((d) => (d.style.display = "flex"));
         currentSel = 21;
         break;
       case "btn_tech":
-        Array.from(document.getElementsByClassName("divTech")).forEach(
-          (d) => (d.style.display = "flex")
-        );
+        Array.from(document.getElementsByClassName("divTech")).forEach((d) => (d.style.display = "flex"));
         currentSel = 4;
         break;
       default:
-        const divs = Array.from(
-          document.getElementsByClassName(
-            `divS${event.target.getAttribute("id").substring(9)}`
-          )
-        ).forEach((d) => (d.style.display = "flex"));
+        const divs = Array.from(document.getElementsByClassName(`divS${event.target.getAttribute("id").substring(9)}`)).forEach((d) => (d.style.display = "flex"));
         currentSel = parseInt(event.target.getAttribute("id").substring(9));
         break;
     }
@@ -1157,9 +1039,7 @@ function removeAllChildNodes(parent) {
 }
 
 function removeAllStoped() {
-  clientS
-    .filter((c) => c.rtcPeerConnection.connectionState !== "connected")
-    .forEach((c) => removeClient(c.clientId));
+  clientS.filter((c) => c.rtcPeerConnection.connectionState !== "connected").forEach((c) => removeClient(c.clientId));
   console.log(clientS);
 }
 
@@ -1169,11 +1049,8 @@ function changeBackgroundColor(event) {
     try {
       const data = { scene: 4 };
       for (let i = 0; i < randNumber; i++) {
-        let datachan =
-          clientS[(iterKey + i) % clientS.length].rtcDataSendChannel;
-        let audioCrac = document.getElementsByName(
-          "audioCrac" + clientS[(iterKey + i) % clientS.length].clientId
-        )[0];
+        let datachan = clientS[(iterKey + i) % clientS.length].rtcDataSendChannel;
+        let audioCrac = document.getElementsByName("audioCrac" + clientS[(iterKey + i) % clientS.length].clientId)[0];
         if (datachan.readyState === "open") {
           datachan.send(JSON.stringify(data));
           audioCrac.playbackRate = Math.random() + 0.1;
@@ -1200,9 +1077,7 @@ var log = console.log.bind(console),
   midi;
 
 if (navigator.requestMIDIAccess) {
-  navigator
-    .requestMIDIAccess({ sysex: false })
-    .then(onMIDISuccess, onMIDIFailure);
+  navigator.requestMIDIAccess({ sysex: false }).then(onMIDISuccess, onMIDIFailure);
 } else {
   alert("No MIDI support in your browser.");
 }
@@ -1256,12 +1131,8 @@ function onMIDIMessage(event) {
     try {
       data = { scene: 4 };
       for (let i = 0; i < randNumber; i++) {
-        clientS[(iterKey + i) % clientS.length].rtcDataSendChannel.send(
-          JSON.stringify(data)
-        );
-        let audioCrac = document.getElementsByName(
-          "audioCrac" + clientS[(iterKey + i) % clientS.length].clientId
-        )[0];
+        clientS[(iterKey + i) % clientS.length].rtcDataSendChannel.send(JSON.stringify(data));
+        let audioCrac = document.getElementsByName("audioCrac" + clientS[(iterKey + i) % clientS.length].clientId)[0];
         audioCrac.playbackRate = Math.random() + 0.1;
         audioCrac.play();
         setTimeout(() => {
@@ -1318,27 +1189,12 @@ function onMIDIMessage(event) {
 }
 
 function logger(container, label, data) {
-  messages =
-    label +
-    " [channel: " +
-    (data[0] & 0xf) +
-    ", cmd: " +
-    (data[0] >> 4) +
-    ", type: " +
-    (data[0] & 0xf0) +
-    " , note: " +
-    data[1] +
-    " , velocity: " +
-    data[2] +
-    "]";
+  messages = label + " [channel: " + (data[0] & 0xf) + ", cmd: " + (data[0] >> 4) + ", type: " + (data[0] & 0xf0) + " , note: " + data[1] + " , velocity: " + data[2] + "]";
   container.textContent = messages;
 }
 
 function onMIDIFailure(e) {
-  log(
-    "No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " +
-      e
-  );
+  log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e);
 }
 
 // MIDI utility functions
@@ -1380,17 +1236,5 @@ function onStateChange(event) {
 
 function listInputs(inputs) {
   var input = inputs.value;
-  log(
-    "Input port : [ type:'" +
-      input.type +
-      "' id: '" +
-      input.id +
-      "' manufacturer: '" +
-      input.manufacturer +
-      "' name: '" +
-      input.name +
-      "' version: '" +
-      input.version +
-      "']"
-  );
+  log("Input port : [ type:'" + input.type + "' id: '" + input.id + "' manufacturer: '" + input.manufacturer + "' name: '" + input.name + "' version: '" + input.version + "']");
 }

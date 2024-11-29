@@ -16,7 +16,7 @@
     />
   </head>
   <body>
-    <div id="atablee">
+    <div id="atablee" style="display: none">
       <!-- <iframe id="vimeo" src="https://player.vimeo.com/video/750452856?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"></iframe> -->
       <canvas id="canvas"></canvas>
       <!-- <div data-vimeo-id="750452856" id="vimeo" data-vimeo-loop="true" data-vimeo-controls="true" data-vimeo-autoplay="true" data-vimeo-muted="true" ></div> -->
@@ -40,7 +40,7 @@
     </div>
 
     <div id="sp_insta">
-      <div class="sp_insta_el">
+      <div id="sp_insta_el0" class="sp_insta_el">
         <video
           muted
           autoplay
@@ -48,7 +48,6 @@
           loop
           type="video/mp4"
           class="sp_insta_el_vid"
-          src="./videosNEW/video1.mp4"
         ></video>
         <button class="sp_insta_el_vol">
           <i class="fa-solid fa-volume-xmark fa-xl"></i>
@@ -57,6 +56,7 @@
         <div class="sp_insta_el_btns">
           <button class="sp_insta_el_like">
             <i class="fa-regular fa-heart fa-xl"></i>
+            <i class="fa-solid fa-heart fa-xl" style="display: none"></i>
           </button>
           <button class="sp_insta_el_com">
             <i class="fa-regular fa-comment fa-xl"></i>

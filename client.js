@@ -1,13 +1,9 @@
 if (location.protocol !== "https:") {
   alert("Go https !");
-  location.replace(
-    `https:${location.href.substring(location.protocol.length)}`
-  );
+  location.replace(`https:${location.href.substring(location.protocol.length)}`);
 }
 
-const socket = io.connect(
-  "https://mywebrtcserver-thrumming-resonance-5604.fly.dev/"
-);
+const socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.dev/");
 // const socket = io.connect("https://192.168.10.2:1337");
 console.log("flyio ok");
 
@@ -37,9 +33,9 @@ const overlayWAIT = document.getElementById("overlayWAIT");
 const myGUI = document.getElementById("GUI");
 const atablee = document.getElementById("atablee");
 const sp_insta = document.getElementById("sp_insta");
+set_insta("videosNEW"); // TODO But in init() !!
 const btn_fullscreen = document.getElementById("btn_fullscreen");
-let fullscreenElement =
-  document.fullscreenElement || document.webkitFullscreenElement;
+let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
 if (fullscreenElement === undefined) btn_fullscreen.style.display = "none";
 const btn_gain = document.getElementById("btn_gain");
 const btn_rec = document.getElementById("btn_rec");
@@ -89,7 +85,7 @@ adminVideo_webrtc.ondblclick = adminID;
 function adminID(e) {
   changeFullScreen();
   console.log(rtcPeerConnection.signalingState);
-  if (sendChannel.readyState === "open") {
+  if (sendChannel && sendChannel.readyState === "open") {
     sendChannel.send(JSON.stringify({ clientId: myID }));
   }
 }
@@ -97,11 +93,7 @@ function adminID(e) {
 // let testBool = true;
 // btn_test.onclick = testBtn;
 
-navigator.vibrate =
-  navigator.vibrate ||
-  navigator.webkitVibrate ||
-  navigator.mozVibrate ||
-  navigator.msVibrate;
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 let streamVisualizer4Clients;
 let myID;
 let roomName = "!?ATtablee007!?";
@@ -445,10 +437,7 @@ const effects = [
 
 // Contains the stun server URL we will be using.
 let iceServers = {
-  iceServers: [
-    { urls: "stun:stun.services.mozilla.com" },
-    { urls: "stun:stun.l.google.com:19302" },
-  ],
+  iceServers: [{ urls: "stun:stun.services.mozilla.com" }, { urls: "stun:stun.l.google.com:19302" }],
 };
 // let iceServers;
 // async function create_iceServers() {
@@ -679,10 +668,7 @@ function changeScene(data) {
       overlayTHEEND.style.visibility = "hidden";
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
-      if (
-        !userStream.getVideoTracks()[0].getConstraints().facingMode &&
-        userStream.getVideoTracks()[0].getConstraints().facingMode !== "user"
-      ) {
+      if (!userStream.getVideoTracks()[0].getConstraints().facingMode && userStream.getVideoTracks()[0].getConstraints().facingMode !== "user") {
         userStream.getTracks().forEach((track) => {
           track.stop();
         });
@@ -741,11 +727,7 @@ function changeScene(data) {
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
 
-      if (
-        userStream.getVideoTracks()[0].getConstraints().facingMode &&
-        userStream.getVideoTracks()[0].getConstraints().facingMode !==
-          "environment"
-      ) {
+      if (userStream.getVideoTracks()[0].getConstraints().facingMode && userStream.getVideoTracks()[0].getConstraints().facingMode !== "environment") {
         userStream.getTracks().forEach((track) => {
           track.stop();
         });
@@ -810,14 +792,11 @@ function changeScene(data) {
       break;
     case 1: // @TABLEE PART1
       if (data.freq) {
-        filter.device.parameters.find((p) => p.name == "FREQ").value =
-          data.freq;
+        filter.device.parameters.find((p) => p.name == "FREQ").value = data.freq;
       } else {
         if (!myPeer || !myPeer.stream.active) {
           myPeer = context.createMediaStreamDestination();
-          let audioSender = rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
         }
         if (streamVisualizer4Clients)
@@ -830,39 +809,28 @@ function changeScene(data) {
           // TODO
           console.log("context1 1");
           context = new AudioContext();
-          let audioSender = rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
-          let videoSender = rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === "video");
+          let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
           videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
         } else if (context.state == "suspended") {
           console.log("context2 1");
           context.resume();
-          let audioSender = rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
-          let videoSender = rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === "video");
+          let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
           videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
         }
 
         if (navigator.mediaDevices.getUserMedia === undefined) {
           navigator.mediaDevices.getUserMedia = function (constraints) {
             // First get ahold of the legacy getUserMedia, if present
-            var getUserMedia =
-              navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+            var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
             // Some browsers just don't implement it - return a rejected promise with an error
             // to keep a consistent interface
             if (!getUserMedia) {
-              return Promise.reject(
-                new Error("getUserMedia is not implemented in this browser")
-              );
+              return Promise.reject(new Error("getUserMedia is not implemented in this browser"));
             }
 
             // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
@@ -871,25 +839,40 @@ function changeScene(data) {
             });
           };
         }
-        atablee.style.display = "initial";
-        userCanvas.style.display = "initial";
-        adminVideo.style.display = "none";
-        adminVideo.muted = true;
-        adminVideo.play();
-        adminVideo_webrtc.style.display = "none";
-        // adminVideo_webrtc.volume = 0;
-        adminVideo_webrtc.pause();
-        audio_nico.pause();
-        myGUI.style.display = "flex";
-        overlay.style.visibility = "hidden";
-        overlayTHEEND.style.visibility = "hidden";
-        overlayWAIT.style.visibility = "hidden";
         if (!source_mic) {
           navigator.mediaDevices
             .getUserMedia(constraints)
             .then((stream) => gotStream(stream, false))
+            .then(() => {
+              atablee.style.display = "initial";
+              userCanvas.style.display = "initial";
+              adminVideo.style.display = "none";
+              adminVideo.muted = true;
+              adminVideo.play();
+              adminVideo_webrtc.style.display = "none";
+              // adminVideo_webrtc.volume = 0;
+              adminVideo_webrtc.pause();
+              audio_nico.pause();
+              myGUI.style.display = "flex";
+              overlay.style.visibility = "hidden";
+              overlayTHEEND.style.visibility = "hidden";
+              overlayWAIT.style.visibility = "hidden";
+            })
             .catch(errStream);
         } else {
+          atablee.style.display = "initial";
+          userCanvas.style.display = "initial";
+          adminVideo.style.display = "none";
+          adminVideo.muted = true;
+          adminVideo.play();
+          adminVideo_webrtc.style.display = "none";
+          // adminVideo_webrtc.volume = 0;
+          adminVideo_webrtc.pause();
+          audio_nico.pause();
+          myGUI.style.display = "flex";
+          overlay.style.visibility = "hidden";
+          overlayTHEEND.style.visibility = "hidden";
+          overlayWAIT.style.visibility = "hidden";
           source = context.createMediaStreamSource(source_mic);
           context.resume();
           source.connect(filter.device.node);
@@ -899,10 +882,7 @@ function changeScene(data) {
           btn_rec.disabled = false;
           btn_rec.style.borderColor = "white";
           if (!streamVisualizer4Clients) {
-            streamVisualizer4Clients = new StreamVisualizer4Clients(
-              analyser,
-              canvas
-            );
+            streamVisualizer4Clients = new StreamVisualizer4Clients(analyser, canvas);
           } else {
             streamVisualizer4Clients.stop();
             streamVisualizer4Clients.setStroke(false);
@@ -1088,9 +1068,7 @@ function changeScene(data) {
       }, 1500);
       break;
     case 5: // NOTHING
-      adminVideo.src = `./videos4Client/video${
-        Math.round(Math.random() * 20) + 1
-      }.webm`;
+      adminVideo.src = `./videos4Client/video${Math.round(Math.random() * 20) + 1}.webm`;
       adminVideo.play();
       // vimeo.loadVideo("978281628").then(()=>vimeo.play());
       // vimeo.setCurrentTime(Math.random()*100);
@@ -1102,29 +1080,22 @@ function changeScene(data) {
         gain_nico.gain.value = data.vol;
       } else if (data.freeze) {
         console.log(data.freeze);
-        if (streamVisualizer4Clients)
-          streamVisualizer4Clients.setRAND(data.freeze);
+        if (streamVisualizer4Clients) streamVisualizer4Clients.setRAND(data.freeze);
       } else if (data.gain) {
         console.log(data.gain);
-        if (streamVisualizer4Clients)
-          streamVisualizer4Clients.setGAIN(data.gain);
+        if (streamVisualizer4Clients) streamVisualizer4Clients.setGAIN(data.gain);
       } else if (data.fft) {
         console.log(data.fft);
-        if (streamVisualizer4Clients)
-          streamVisualizer4Clients.setFFT_SIZE(Math.pow(2, data.fft));
+        if (streamVisualizer4Clients) streamVisualizer4Clients.setFFT_SIZE(Math.pow(2, data.fft));
       } else {
         flash("white");
         if (!context || context.state == "closed") {
           // TODO
           console.log("context1");
           context = new AudioContext();
-          let audioSender = rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === "audio");
+          let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
           audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
-          let videoSender = rtcPeerConnection
-            .getSenders()
-            .find((s) => s.track.kind === "video");
+          let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
           videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
         } else if (context.state == "suspended") {
           context.resume();
@@ -1166,10 +1137,7 @@ function changeScene(data) {
           flash("white");
         });
         if (!streamVisualizer4Clients) {
-          streamVisualizer4Clients = new StreamVisualizer4Clients(
-            analyser,
-            canvas
-          );
+          streamVisualizer4Clients = new StreamVisualizer4Clients(analyser, canvas);
         } else {
           streamVisualizer4Clients.stop();
         }
@@ -1269,7 +1237,7 @@ function errStream(err) {
   } else {
     myGUI.style.display = "flex";
   }
-  if (sendChannel.readyState === "open") {
+  if (sendChannel && sendChannel.readyState === "open") {
     sendChannel.send(JSON.stringify({ clientId: myID, mess: "NoMic" }));
   }
   console.log(err);
@@ -1280,14 +1248,10 @@ function gotStream(stream, withVid) {
   source = context.createMediaStreamSource(source_mic);
   userStream = stream;
   if (withVid) {
-    let videoSender = rtcPeerConnection
-      .getSenders()
-      .find((s) => s.track.kind === "video");
+    let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
     videoSender.replaceTrack(userStream.getVideoTracks()[0]);
   } else {
-    let videoSender = rtcPeerConnection
-      .getSenders()
-      .find((s) => s.track.kind === "video");
+    let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
     videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
   }
   context.suspend();
@@ -1316,9 +1280,7 @@ function gotStream(stream, withVid) {
         try {
           context.resume();
           console.log(`${err.name}, ${err.message}`);
-          alert(
-            "Désolé, impossible pour ton smartphone de charger les effets sonores !"
-          );
+          alert("Désolé, impossible pour ton smartphone de charger les effets sonores !");
           document.getElementById("loading-bar").style.display = "none";
           effects_loaded = false;
           source.connect(gain);
@@ -1418,19 +1380,14 @@ function webrtcStateChange(ev) {
 function flash(color) {
   document.getElementById("adminID").style.background = color;
   document.getElementById("adminID").style.visibility = "visible";
-  setTimeout(
-    () => (document.getElementById("adminID").style.visibility = "hidden"),
-    300
-  );
+  setTimeout(() => (document.getElementById("adminID").style.visibility = "hidden"), 300);
 }
 
 function torchflash(time) {
   console.log("tamere1");
 
   console.log(userStream.getVideoTracks()[0].getConstraints());
-  userStream
-    .getVideoTracks()[0]
-    .applyConstraints({ advanced: [{ torch: true }] });
+  userStream.getVideoTracks()[0].applyConstraints({ advanced: [{ torch: true }] });
   atablee.style.background = "white";
   if (navigator.vibrate) {
     navigator.vibrate(
@@ -1442,9 +1399,7 @@ function torchflash(time) {
   setTimeout(() => {
     console.log(userStream.getVideoTracks()[0].getConstraints());
     atablee.style.background = "black";
-    userStream
-      .getVideoTracks()[0]
-      .applyConstraints({ advanced: [{ torch: false }] });
+    userStream.getVideoTracks()[0].applyConstraints({ advanced: [{ torch: false }] });
     console.log("tamere3");
     console.log(userStream.getVideoTracks()[0].getConstraints());
   }, time);
@@ -1544,8 +1499,7 @@ document.addEventListener("visibilitychange", (event) => {
 
 function changeFullScreen() {
   try {
-    fullscreenElement =
-      document.fullscreenElement || document.webkitFullscreenElement;
+    fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
     if (fullscreenElement !== undefined) {
       if (!fullscreenElement) {
         if (document.documentElement.requestFullscreen) {
@@ -1735,14 +1689,9 @@ async function effects_Setup(effects) {
   let response, patcher;
   for (let i = 0; i < effects.length; i++) {
     if (window.matchMedia("(orientation: portrait)").matches) {
-      document.getElementById("loading-bar").style.transform = `scaleY(${
-        (i + 1) / effects.length
-      })`;
-      console.log((i + 1) / effects.length);
+      document.getElementById("loading-bar").style.transform = `scaleY(${(i + 1) / effects.length})`;
     } else {
-      document.getElementById("loading-bar").style.transform = `scaleX(${
-        (i + 1) / effects.length
-      })`;
+      document.getElementById("loading-bar").style.transform = `scaleX(${(i + 1) / effects.length})`;
     }
     try {
       response = await fetch("./effects/" + effects[i].name + ".export.json");
@@ -1752,9 +1701,7 @@ async function effects_Setup(effects) {
       // Note that you can skip this by knowing the RNBO version of your patch
       // beforehand and just include it using a <script> tag
       await loadRNBOScript(patcher.desc.meta.rnboversion); // TOBACK
-      console.log(
-        effects[i].name + ": RNBO version " + patcher.desc.meta.rnboversion
-      );
+      console.log(effects[i].name + ": RNBO version " + patcher.desc.meta.rnboversion);
       //}
     } catch (err) {
       const errorContext = {
@@ -1779,14 +1726,10 @@ async function effects_Setup(effects) {
     // (Optional) Fetch the dependencies
     let dependencies = [];
     try {
-      const dependenciesResponse = await fetch(
-        `./effects/${effects[i].name}_dependencies.json`
-      );
+      const dependenciesResponse = await fetch(`./effects/${effects[i].name}_dependencies.json`);
       dependencies = await dependenciesResponse.json();
       // Prepend "export" to any file dependenciies
-      dependencies = dependencies.map((d) =>
-        d.file ? Object.assign({}, d, { file: "./effects/" + d.file }) : d
-      );
+      dependencies = dependencies.map((d) => (d.file ? Object.assign({}, d, { file: "./effects/" + d.file }) : d));
     } catch (e) {
       console.log("No dependencies in : " + effects[i].name);
     }
@@ -1798,8 +1741,7 @@ async function effects_Setup(effects) {
       alert("err");
     }
 
-    if (dependencies.length)
-      await effects[i].device.loadDataBufferDependencies(dependencies);
+    if (dependencies.length) await effects[i].device.loadDataBufferDependencies(dependencies);
 
     // attachOutports(effects[i].device);
 
@@ -1809,19 +1751,9 @@ async function effects_Setup(effects) {
     effects[i].device.node.connect(effects[i].gain);
 
     if (effects[i].visible) {
-      makeGUI(
-        effects[i].device,
-        effects[i].userParams,
-        effects[i].title,
-        effects[i].activ
-      );
+      makeGUI(effects[i].device, effects[i].userParams, effects[i].title, effects[i].activ);
     } else if (effects[i].name == "sampler") {
-      makeSamplerGUI(
-        effects[i].device,
-        effects[i].userParams,
-        effects[i].title,
-        effects[i].activ
-      );
+      makeSamplerGUI(effects[i].device, effects[i].userParams, effects[i].title, effects[i].activ);
     }
   }
 }
@@ -1890,16 +1822,11 @@ async function filter_Setup(filter) {
 function loadRNBOScript(version) {
   return new Promise((resolve, reject) => {
     if (/^\d+\.\d+\.\d+-dev$/.test(version)) {
-      throw new Error(
-        "Patcher exported with a Debug Version!\nPlease specify the correct RNBO version to use in the code."
-      );
+      throw new Error("Patcher exported with a Debug Version!\nPlease specify the correct RNBO version to use in the code.");
     }
     const el = document.createElement("script");
 
-    el.src =
-      "https://c74-public.nyc3.digitaloceanspaces.com/rnbo/" +
-      encodeURIComponent(version) +
-      "/rnbo.min.js";
+    el.src = "https://c74-public.nyc3.digitaloceanspaces.com/rnbo/" + encodeURIComponent(version) + "/rnbo.min.js";
 
     el.onload = resolve;
     el.onerror = function (err) {
@@ -1973,12 +1900,7 @@ function makeGUI(device, userParams, effect_title, effect_activ) {
     }
     if (userParam.visible) {
       // PARAMS :
-      let paramGUI = createParamGUI(
-        param,
-        effect_title,
-        userParam.type,
-        effect_activ
-      );
+      let paramGUI = createParamGUI(param, effect_title, userParam.type, effect_activ);
 
       // Store the slider and text by name so we can access them later
       let slider = paramGUI.slider;
@@ -2036,12 +1958,7 @@ function makeSamplerGUI(device, userParams, effect_title, effect_activ) {
 
       if (userParam.type !== "bool") {
         // PARAMS :
-        let paramGUI = createParamGUI(
-          param,
-          param.name,
-          userParam.type,
-          effect_activ
-        );
+        let paramGUI = createParamGUI(param, param.name, userParam.type, effect_activ);
         // Store the slider and text by name so we can access them later
         let slider = paramGUI.slider;
         // uiElements[param.id] = { slider };
@@ -2135,28 +2052,19 @@ function onoffSampler(ev) {
     case "metro_speed":
       let sampler = effects.find((t) => t.name == "sampler");
       if (!ev.target.checked) {
-        sampler.device.parameters.find(
-          (param) => param.name == "rand_play"
-        ).value = 1.0;
-        sampler.device.parameters.find(
-          (param) => param.name == "loop_start_point"
-        ).value = 1.0;
+        sampler.device.parameters.find((param) => param.name == "rand_play").value = 1.0;
+        sampler.device.parameters.find((param) => param.name == "loop_start_point").value = 1.0;
         setTimeout(() => {
-          sampler.device.parameters.find(
-            (param) => param.name == "loop_start_point"
-          ).value = 0.0;
+          sampler.device.parameters.find((param) => param.name == "loop_start_point").value = 0.0;
         }, 100.0);
       } else {
-        sampler.device.parameters.find(
-          (param) => param.name == "rand_play"
-        ).value = 0.0;
+        sampler.device.parameters.find((param) => param.name == "rand_play").value = 0.0;
       }
       break;
     default:
       if (!ev.target.checked) {
         let sampler = effects.find((t) => t.name == "sampler");
-        sampler.device.parameters.find((t) => t.name == ev.target.id).value =
-          sampler.userParams.find((t) => t.name == ev.target.id).defaultValue;
+        sampler.device.parameters.find((t) => t.name == ev.target.id).value = sampler.userParams.find((t) => t.name == ev.target.id).defaultValue;
       }
       break;
   }
@@ -2218,11 +2126,8 @@ function recfunction(ev) {
     gainPan.style.display = "none";
     btn_effects.style.background = "transparent";
     sampler.activ = true;
-    sampler.device.parameters.find((param) => param.name == "size").value =
-      sampler.userParams.find((t) => t.name == "size").defaultValue;
-    sampler.device.parameters.find(
-      (param) => param.name == "clear_buf"
-    ).value = 1.0;
+    sampler.device.parameters.find((param) => param.name == "size").value = sampler.userParams.find((t) => t.name == "size").defaultValue;
+    sampler.device.parameters.find((param) => param.name == "clear_buf").value = 1.0;
     sampler.device.parameters.find((param) => param.name == "rec").value = 1.0;
     document.getElementById("sampler_div").style.display = "flex";
     rec.style.display = "none";
@@ -2240,18 +2145,10 @@ function recfunction(ev) {
     timer_rec = setTimeout(() => {
       sampler.gain.disconnect();
       streamVisualizer4Clients.setColor("white");
-      sampler.device.parameters.find(
-        (param) => param.name == "rand_play"
-      ).value = 1.0;
-      sampler.device.parameters.find(
-        (param) => param.name == "out_gain"
-      ).value = 1.0;
-      sampler.device.parameters.find(
-        (param) => param.name == "loop_start_point"
-      ).value = 0.0;
-      sampler.device.parameters.find(
-        (param) => param.name == "rec"
-      ).value = 0.0;
+      sampler.device.parameters.find((param) => param.name == "rand_play").value = 1.0;
+      sampler.device.parameters.find((param) => param.name == "out_gain").value = 1.0;
+      sampler.device.parameters.find((param) => param.name == "loop_start_point").value = 0.0;
+      sampler.device.parameters.find((param) => param.name == "rec").value = 0.0;
       btn_rec.style.backgroundColor = "#5c5c5c";
       rec.style.display = "none";
       trash.style.display = "inline";
@@ -2271,21 +2168,12 @@ function recfunction(ev) {
     trash.style.display = "inline";
     mystop.style.display = "none";
     clearTimeout(timer_rec);
-    sampler.device.parameters.find((param) => param.name == "size").value =
-      Math.floor((Date.now() - recTimeCount) / 1000);
+    sampler.device.parameters.find((param) => param.name == "size").value = Math.floor((Date.now() - recTimeCount) / 1000);
     setTimeout(() => {
-      sampler.device.parameters.find(
-        (param) => param.name == "rand_play"
-      ).value = 1.0;
-      sampler.device.parameters.find(
-        (param) => param.name == "out_gain"
-      ).value = 1.0;
-      sampler.device.parameters.find(
-        (param) => param.name == "loop_start_point"
-      ).value = 0.0;
-      sampler.device.parameters.find(
-        (param) => param.name == "rec"
-      ).value = 0.0;
+      sampler.device.parameters.find((param) => param.name == "rand_play").value = 1.0;
+      sampler.device.parameters.find((param) => param.name == "out_gain").value = 1.0;
+      sampler.device.parameters.find((param) => param.name == "loop_start_point").value = 0.0;
+      sampler.device.parameters.find((param) => param.name == "rec").value = 0.0;
       btn_rec.style.backgroundColor = "#5c5c5c";
       rec.style.display = "none";
       trash.style.display = "inline";
@@ -2309,19 +2197,11 @@ function recfunction(ev) {
     document.getElementById("sampler_div").style.display = "none";
     sampler.activ = false;
     sampler.device.parameters.find((param) => param.name == "rec").value = 0.0;
-    sampler.device.parameters.find(
-      (param) => param.name == "clear_buf"
-    ).value = 1.0;
-    sampler.device.parameters.find(
-      (param) => param.name == "out_gain"
-    ).value = 0.0;
+    sampler.device.parameters.find((param) => param.name == "clear_buf").value = 1.0;
+    sampler.device.parameters.find((param) => param.name == "out_gain").value = 0.0;
     //sampler.device.parameters.find(param=>param.name=="rand_play").value = 0.0;
-    sampler.device.parameters.find(
-      (param) => param.name == "loop_start_point"
-    ).value = 0.0;
-    sampler.device.parameters.find(
-      (param) => param.name == "clear_buf"
-    ).value = 1.0;
+    sampler.device.parameters.find((param) => param.name == "loop_start_point").value = 0.0;
+    sampler.device.parameters.find((param) => param.name == "clear_buf").value = 1.0;
     btn_rec.style.background = "transparent";
 
     document.getElementById("metro_speed").checked = false;
@@ -2331,8 +2211,48 @@ function recfunction(ev) {
     });
     nodeConnection("auto");
   }
-  sampler.device.parameters.find(
-    (param) => param.name == "loop_start_point"
-  ).value = 1.0;
+  sampler.device.parameters.find((param) => param.name == "loop_start_point").value = 1.0;
   //nodeConnection("auto");
+}
+
+function set_insta(dir) {
+  div0 = document.getElementById("sp_insta_el0");
+  for (let i = 0; i < 10; i++) {
+    let divN;
+    if (i == 0) {
+      divN = div0;
+    } else {
+      divN = div0.cloneNode(true);
+      divN.setAttribute("id", `sp_insta_el${i}`);
+      sp_insta.appendChild(divN);
+    }
+    let vid = divN.getElementsByTagName("video")[0];
+    let like = divN.getElementsByClassName("sp_insta_el_like")[0];
+    console.log(like);
+    like.onclick = () => {
+      let nolike = divN.getElementsByClassName("fa-heart")[0].style.display != "none";
+      if (nolike) {
+        if (sendChannel && sendChannel.readyState === "open") sendChannel.send(JSON.stringify({ clientId: myID, event: "like", mess: `User #${myID.substring(0, 5)} like video${i}` }));
+        divN.getElementsByClassName("fa-heart")[0].style.display = "none";
+        divN.getElementsByClassName("fa-heart")[1].style.display = "initial";
+      } else {
+        if (sendChannel && sendChannel.readyState === "open") sendChannel.send(JSON.stringify({ clientId: myID, event: "dislike", mess: `User #${myID.substring(0, 5)} dislike video${i}` }));
+        divN.getElementsByClassName("fa-heart")[0].style.display = "initial";
+        divN.getElementsByClassName("fa-heart")[1].style.display = "none";
+      }
+    };
+    vid.src = `${dir}/video${i + 1}.mp4`;
+    vid.addEventListener("click", function () {
+      Array.from(document.getElementById("sp_insta").getElementsByTagName("video")).forEach((v) => (v.muted = true));
+      vid.muted = !vid.muted;
+      if (vid.muted) {
+        divN.getElementsByClassName("fa-volume-high")[0].style.display = "none";
+        divN.getElementsByClassName("fa-volume-xmark")[0].style.display = "initial";
+      } else {
+        if (sendChannel && sendChannel.readyState === "open") sendChannel.send(JSON.stringify({ clientId: myID, event: `video${i}`, mess: `User #${myID.substring(0, 5)} is watching video${i}` }));
+        divN.getElementsByClassName("fa-volume-high")[0].style.display = "initial";
+        divN.getElementsByClassName("fa-volume-xmark")[0].style.display = "none";
+      }
+    });
+  }
 }
