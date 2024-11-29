@@ -638,6 +638,19 @@ function changeScene(data) {
   adminVideo.muted = true;
   clearInterval(timer_nico);
   switch (data.scene) {
+    case 11: // INSTA
+      sp_insta.style.display = "initial";
+      atablee.style.display = "none";
+      adminVideo_webrtc.pause();
+      adminVideo_webrtc.volume = 0;
+      // adminVideo_webrtc.style.transform = 'rotate(90deg)';
+      adminVideo.volume = 0;
+      adminVideo.pause();
+      overlay.style.visibility = "hidden";
+      overlayTHEEND.style.visibility = "hidden";
+      overlayWAIT.style.visibility = "hidden";
+      audio_nico.pause();
+      break;
     case 10: // FACEBOOK
       try {
         myPeer.stream.getTracks().forEach((track) => {
@@ -659,6 +672,7 @@ function changeScene(data) {
       myGUI.style.display = "none";
       adminVideo.style.display = "none";
       adminVideo_webrtc.style.display = "initial";
+      sp_insta.style.display = "none";
       adminVideo_webrtc.play();
       adminVideo_webrtc.volume = 0;
       // adminVideo_webrtc.style.transform = 'rotate(90deg)';
@@ -726,6 +740,7 @@ function changeScene(data) {
       overlayTHEEND.style.visibility = "hidden";
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
+      sp_insta.style.display = "none";
 
       if (userStream.getVideoTracks()[0].getConstraints().facingMode && userStream.getVideoTracks()[0].getConstraints().facingMode !== "environment") {
         userStream.getTracks().forEach((track) => {
@@ -762,6 +777,7 @@ function changeScene(data) {
       adminVideo.pause();
       adminVideo.volume = 0;
       adminVideo_webrtc.pause();
+      sp_insta.style.display = "none";
       // adminVideo_webrtc.volume = 0;
       audio_nico.pause();
       try {
@@ -857,6 +873,7 @@ function changeScene(data) {
               overlay.style.visibility = "hidden";
               overlayTHEEND.style.visibility = "hidden";
               overlayWAIT.style.visibility = "hidden";
+              sp_insta.style.display = "none";
             })
             .catch(errStream);
         } else {
@@ -873,6 +890,7 @@ function changeScene(data) {
           overlay.style.visibility = "hidden";
           overlayTHEEND.style.visibility = "hidden";
           overlayWAIT.style.visibility = "hidden";
+          sp_insta.style.display = "none";
           source = context.createMediaStreamSource(source_mic);
           context.resume();
           source.connect(filter.device.node);
@@ -938,6 +956,7 @@ function changeScene(data) {
       overlayTHEEND.style.visibility = "hidden";
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
+      sp_insta.style.display = "none";
       break;
     case 21: // @TABLEE PART2 videos
       if (data.video) {
@@ -1004,6 +1023,7 @@ function changeScene(data) {
         overlayTHEEND.style.visibility = "hidden";
         overlayWAIT.style.visibility = "hidden";
         audio_nico.pause();
+        sp_insta.style.display = "none";
       }
       break;
     case 3: // @TABLEE PART3
@@ -1050,6 +1070,7 @@ function changeScene(data) {
       overlayTHEEND.style.visibility = "hidden";
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
+      sp_insta.style.display = "none";
       break;
     case 4: // @TABLEE PART3 FALSHES
       setTimeout(() => {
@@ -1133,6 +1154,7 @@ function changeScene(data) {
         // adminVideo_webrtc.volume = 0;
         adminVideo_webrtc.pause();
         myGUI.style.display = "none";
+        sp_insta.style.display = "none";
         audio_nico.addEventListener("ended", (event) => {
           flash("white");
         });
@@ -1170,6 +1192,7 @@ function changeScene(data) {
       adminVideo.pause();
       adminVideo.volume = 0;
       adminVideo_webrtc.pause();
+      sp_insta.style.display = "none";
       // adminVideo_webrtc.volume = 0;
       audio_nico.pause();
       try {
@@ -1229,6 +1252,7 @@ function errStream(err) {
   adminVideo.muted = true;
   adminVideo.play();
   adminVideo_webrtc.style.display = "none";
+  sp_insta.style.display = "none";
   // adminVideo_webrtc.volume = 0;
   adminVideo_webrtc.pause();
   audio_nico.pause();
@@ -1415,6 +1439,7 @@ function goBackHome() {
   adminVideo.pause();
   adminVideo.volume = 0;
   adminVideo_webrtc.pause();
+  sp_insta.style.display = "none";
   // adminVideo_webrtc.volume = 0;
   try {
     myPeer.stream.getTracks().forEach((track) => {

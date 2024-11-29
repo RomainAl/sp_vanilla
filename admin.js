@@ -725,6 +725,10 @@ function sendData(event) {
           child.style.border = "none";
         }
         switch (scene.getAttribute("id")) {
+          case "btn_scene11":
+            currentSceneNb = 11;
+            data = { scene: currentSceneNb };
+            break;
           case "btn_scene10":
             currentSceneNb = 10;
             data = { scene: currentSceneNb };
@@ -740,36 +744,24 @@ function sendData(event) {
             if (currentSceneNb == 20 || currentSceneNb == 21 || currentSceneNb == 3 || currentSceneNb == 7) doTwice = true;
             currentSceneNb = 1;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene20":
             currentSceneNb = 20;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.play());
             break;
           case "btn_scene21":
             currentSceneNb = 21;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene21_random":
             currentSceneNb = 5;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
@@ -777,9 +769,6 @@ function sendData(event) {
             // data = {"scene": 6};
             currentSceneNb = 3;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             change2Crac();
             break;
@@ -787,9 +776,6 @@ function sendData(event) {
             data = { scene: 6 };
             currentSceneNb = 6;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
@@ -797,9 +783,6 @@ function sendData(event) {
             data = { scene: 7 };
             currentSceneNb = 7;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
@@ -807,9 +790,6 @@ function sendData(event) {
             data = { scene: 8 };
             currentSceneNb = 8;
             data = { scene: currentSceneNb };
-            scene.style.border = "solid";
-            scene.style.borderWidth = "4px";
-            scene.style.borderColor = "red";
             Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
@@ -817,6 +797,9 @@ function sendData(event) {
             alert("Sélectionne une scène ! (1)");
             break;
         }
+        scene.style.border = "solid";
+        scene.style.borderWidth = "4px";
+        scene.style.borderColor = "red";
       } else {
         alert("Sélectionne une scène ! (2)");
       }
