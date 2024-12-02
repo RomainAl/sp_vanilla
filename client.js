@@ -6,7 +6,6 @@ if (location.protocol !== "https:") {
 const socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.dev/");
 // const socket = io.connect("https://192.168.10.2:1337");
 console.log("flyio ok");
-
 // const instru_div = document.getElementById("sp_instru");
 // let instru = {};
 const userCanvas = document.getElementById("canvas");
@@ -510,6 +509,22 @@ function init() {
   console.log(socket.id);
   socket.emit("join", roomName, false);
   set_insta("videosNEW");
+  if (typeof DeviceMotionEvent.requestPermission === "function") {
+    DeviceMotionEvent.requestPermission()
+      .then((response) => {
+        if (response == "granted") {
+          window.addEventListener("devicemotion", (e) => {
+            document.getElementById("sp_motion_text").innerText = `${Number.parseFloat(e.acceleration.x).toFixed(2)} m/s`;
+          });
+        }
+      })
+      .catch(alert("pas de motion capture (2)!!"));
+  } else {
+    alert("pas de motion capture (1)!!");
+  }
+  // window.addEventListener("deviceorientation", (event) => {
+  //   document.getElementById("sp_motion_text").innerText = `${Number.parseFloat(event.alpha).toFixed(2)} deg`;
+  // });
   // instru_Setup(instru_div);
 }
 
