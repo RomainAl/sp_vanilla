@@ -945,6 +945,8 @@ function changeScene(event) {
         Array.from(document.getElementsByClassName("divTech")).forEach((d) => (d.style.display = "flex"));
         currentSel = 4;
         break;
+      case "btn_scene11":
+        Array.from(document.getElementsByClassName("divS1")).forEach((d) => (d.style.display = "flex"));
       default:
         const divs = Array.from(document.getElementsByClassName(`divS${event.target.getAttribute("id").substring(9)}`)).forEach((d) => (d.style.display = "flex"));
         currentSel = parseInt(event.target.getAttribute("id").substring(9));

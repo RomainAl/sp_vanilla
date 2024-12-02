@@ -33,7 +33,6 @@ const overlayWAIT = document.getElementById("overlayWAIT");
 const myGUI = document.getElementById("GUI");
 const atablee = document.getElementById("atablee");
 const sp_insta = document.getElementById("sp_insta");
-set_insta("videosNEW"); // TODO But in init() !!
 const btn_fullscreen = document.getElementById("btn_fullscreen");
 let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
 if (fullscreenElement === undefined) btn_fullscreen.style.display = "none";
@@ -510,6 +509,7 @@ function init() {
   socket.connect();
   console.log(socket.id);
   socket.emit("join", roomName, false);
+  set_insta("videosNEW");
   // instru_Setup(instru_div);
 }
 
@@ -635,15 +635,30 @@ function onReceiveChannelMessageCallback(event) {
 }
 
 function changeScene(data) {
+  Array.from(document.getElementById("sp_insta").getElementsByTagName("video")).forEach((v) => (v.muted = true));
   adminVideo.muted = true;
   clearInterval(timer_nico);
   switch (data.scene) {
     case 11: // INSTA
+      if (!myPeer || !myPeer.stream.active) {
+        myPeer = context.createMediaStreamDestination();
+        let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
+        audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
+      }
+      if (streamVisualizer4Clients)
+        try {
+          streamVisualizer4Clients.stop();
+        } catch (e) {
+          console.log(e);
+        }
+      if (context.state == "suspended") {
+        context.resume();
+      }
       sp_insta.style.display = "initial";
+      myGUI.style.display = "none";
       atablee.style.display = "none";
       adminVideo_webrtc.pause();
       adminVideo_webrtc.volume = 0;
-      // adminVideo_webrtc.style.transform = 'rotate(90deg)';
       adminVideo.volume = 0;
       adminVideo.pause();
       overlay.style.visibility = "hidden";
@@ -651,7 +666,7 @@ function changeScene(data) {
       overlayWAIT.style.visibility = "hidden";
       audio_nico.pause();
       break;
-    case 10: // FACEBOOK
+    case 10: // FACETIME
       try {
         myPeer.stream.getTracks().forEach((track) => {
           track.stop();
@@ -675,7 +690,6 @@ function changeScene(data) {
       sp_insta.style.display = "none";
       adminVideo_webrtc.play();
       adminVideo_webrtc.volume = 0;
-      // adminVideo_webrtc.style.transform = 'rotate(90deg)';
       adminVideo.volume = 0;
       adminVideo.pause();
       overlay.style.visibility = "hidden";
@@ -910,6 +924,7 @@ function changeScene(data) {
           }
           streamVisualizer4Clients.start();
         }
+        nodeConnection();
       }
       break;
     case 20: // @TABLEE PART2 webRTC
@@ -2266,15 +2281,24 @@ function set_insta(dir) {
         divN.getElementsByClassName("fa-heart")[1].style.display = "none";
       }
     };
-    vid.src = `${dir}/video${i + 1}.mp4`;
+    vid.src = `${dir}/video${Math.round(Math.random() * 59)}.mp4`;
+    const audioSource = context.createMediaElementSource(vid);
     vid.addEventListener("click", function () {
       Array.from(document.getElementById("sp_insta").getElementsByTagName("video")).forEach((v) => (v.muted = true));
       vid.muted = !vid.muted;
+      vid.currentTime = 0;
       if (vid.muted) {
         divN.getElementsByClassName("fa-volume-high")[0].style.display = "none";
         divN.getElementsByClassName("fa-volume-xmark")[0].style.display = "initial";
+        audioSource.disconnect();
       } else {
         if (sendChannel && sendChannel.readyState === "open") sendChannel.send(JSON.stringify({ clientId: myID, event: `video${i}`, mess: `User #${myID.substring(0, 5)} is watching video${i}` }));
+        audioSource.connect(myPeer);
+        audioSource.connect(context.destination);
+        let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");
+        audioSender.replaceTrack(myPeer.stream.getTracks()[0]);
+        // let videoSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "video");
+        // videoSender.replaceTrack(userCanvasStream.getTracks()[0]);
         divN.getElementsByClassName("fa-volume-high")[0].style.display = "initial";
         divN.getElementsByClassName("fa-volume-xmark")[0].style.display = "none";
       }
