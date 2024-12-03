@@ -661,6 +661,13 @@ function OnTrackFunction(event) {
     divS.appendChild(vid);
 
     if (currentSel != 0 && currentSel != 9) divS.style.display = "none";
+
+    divS = document.createElement("div");
+    divS.classList.add("divS", "divS12", "sp_sensors_ball");
+    document.getElementById("sp_sensors_canvas").appendChild(divS);
+    divS.setAttribute("id", "ball" + currentClientId);
+
+    if (currentSel != 0 && currentSel != 12) divS.style.display = "none";
   } else {
     let vid = document.getElementById(`userVid${currentClientId}`);
     vid.srcObject = event.streams[0];
@@ -680,10 +687,19 @@ function onReceiveChannelMessageCallback(event) {
   console.log("Received Message : " + event.data);
   data = JSON.parse(event.data);
   let client = clientS.find((c) => c.clientId == data.clientId);
-  client.div.style.background = "red";
-  setTimeout(() => {
-    client.div.style.background = "black";
-  }, 1000);
+  if (data.rotRate) {
+    const ball = document.getElementById(`ball${data.clientId}`);
+    ball.style.top = 90 + data.beta * 5 + "px";
+    ball.style.left = 90 + data.gamma * 2 + "px";
+    ball.style.transform = `scaleX(${Math.max(1, data.rotRate)})
+                            scaleY(${Math.max(1, data.acc)})`;
+  } else {
+    client.div.style.background = "red";
+    setTimeout(() => {
+      client.div.style.background = "black";
+    }, 1000);
+  }
+
   if (data.mess) {
     let p = document.getElementById("sp_VJ_text");
     p.innerText = data.mess + "\n" + p.innerText;
@@ -724,7 +740,13 @@ function sendData(event) {
         for (const child of scenes.children) {
           child.style.border = "none";
         }
+        Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
+        Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
         switch (scene.getAttribute("id")) {
+          case "btn_scene12":
+            currentSceneNb = 12;
+            data = { scene: currentSceneNb };
+            break;
           case "btn_scene11":
             currentSceneNb = 11;
             data = { scene: currentSceneNb };
@@ -744,54 +766,40 @@ function sendData(event) {
             if (currentSceneNb == 20 || currentSceneNb == 21 || currentSceneNb == 3 || currentSceneNb == 7) doTwice = true;
             currentSceneNb = 1;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
-            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene20":
             currentSceneNb = 20;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
             Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.play());
             break;
           case "btn_scene21":
             currentSceneNb = 21;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
-            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene21_random":
             currentSceneNb = 5;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
-            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_scene3":
             // data = {"scene": 6};
             currentSceneNb = 3;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             change2Crac();
             break;
           case "btn_scene6":
             data = { scene: 6 };
             currentSceneNb = 6;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
-            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_sceneTHEEND":
             data = { scene: 7 };
             currentSceneNb = 7;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
-            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           case "btn_sceneWAIT":
             data = { scene: 8 };
             currentSceneNb = 8;
             data = { scene: currentSceneNb };
-            Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
-            Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
             break;
           default:
             alert("Sélectionne une scène ! (1)");
@@ -948,7 +956,9 @@ function changeScene(event) {
       case "btn_scene11":
         Array.from(document.getElementsByClassName("divS1")).forEach((d) => (d.style.display = "flex"));
       default:
-        const divs = Array.from(document.getElementsByClassName(`divS${event.target.getAttribute("id").substring(9)}`)).forEach((d) => (d.style.display = "flex"));
+        const divs = Array.from(document.getElementsByClassName(`divS${event.target.getAttribute("id").substring(9)}`)).forEach(
+          (d) => (d.style.display = "flex")
+        );
         currentSel = parseInt(event.target.getAttribute("id").substring(9));
         break;
     }
@@ -1174,7 +1184,19 @@ function onMIDIMessage(event) {
 }
 
 function logger(container, label, data) {
-  messages = label + " [channel: " + (data[0] & 0xf) + ", cmd: " + (data[0] >> 4) + ", type: " + (data[0] & 0xf0) + " , note: " + data[1] + " , velocity: " + data[2] + "]";
+  messages =
+    label +
+    " [channel: " +
+    (data[0] & 0xf) +
+    ", cmd: " +
+    (data[0] >> 4) +
+    ", type: " +
+    (data[0] & 0xf0) +
+    " , note: " +
+    data[1] +
+    " , velocity: " +
+    data[2] +
+    "]";
   container.textContent = messages;
 }
 
@@ -1221,5 +1243,17 @@ function onStateChange(event) {
 
 function listInputs(inputs) {
   var input = inputs.value;
-  log("Input port : [ type:'" + input.type + "' id: '" + input.id + "' manufacturer: '" + input.manufacturer + "' name: '" + input.name + "' version: '" + input.version + "']");
+  log(
+    "Input port : [ type:'" +
+      input.type +
+      "' id: '" +
+      input.id +
+      "' manufacturer: '" +
+      input.manufacturer +
+      "' name: '" +
+      input.name +
+      "' version: '" +
+      input.version +
+      "']"
+  );
 }

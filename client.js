@@ -32,6 +32,7 @@ const overlayWAIT = document.getElementById("overlayWAIT");
 const myGUI = document.getElementById("GUI");
 const atablee = document.getElementById("atablee");
 const sp_insta = document.getElementById("sp_insta");
+const sp_sensors = document.getElementById("sp_sensors");
 const btn_fullscreen = document.getElementById("btn_fullscreen");
 let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
 if (fullscreenElement === undefined) btn_fullscreen.style.display = "none";
@@ -112,6 +113,7 @@ let myPeer;
 let audio_nico_source;
 let timer_rec;
 let timer_nico;
+let timer_sensors;
 let gain_nico;
 let isDraggingSlider = false;
 
@@ -494,6 +496,7 @@ function init() {
   }
   gain_nico.connect(analyser);
   clearInterval(timer_nico);
+  clearInterval(timer_sensors);
   adminVideo.muted = false;
   adminVideo.pause();
   adminVideo.volume = 0.0;
@@ -513,19 +516,68 @@ function init() {
     DeviceMotionEvent.requestPermission()
       .then((response) => {
         if (response == "granted") {
-          window.addEventListener("devicemotion", (e) => {
-            document.getElementById("sp_motion_text").innerText = `${Number.parseFloat(e.acceleration.x).toFixed(2)} m/s`;
-          });
+          window.addEventListener("devicemotion", handleMotionEvent, true);
         }
       })
-      .catch(alert("pas de motion capture (2)!!"));
+      .catch((e) => alert("pas de motion capture (2)!!"));
   } else {
     alert("pas de motion capture (1)!!");
   }
-  // window.addEventListener("deviceorientation", (event) => {
-  //   document.getElementById("sp_motion_text").innerText = `${Number.parseFloat(event.alpha).toFixed(2)} deg`;
-  // });
+  if (typeof DeviceOrientationEvent.requestPermission === "function") {
+    DeviceMotionEvent.requestPermission()
+      .then((response) => {
+        if (response == "granted") {
+          window.addEventListener("deviceorientation", handleOrientationEvent, true);
+        }
+      })
+      .catch((e) => alert("pas de motion capture (2)!!"));
+  } else {
+    alert("pas de motion capture (1)!!");
+  }
   // instru_Setup(instru_div);
+}
+
+let initialX = null;
+let initialY = null;
+let sensors = {
+  clientId: null,
+  rotRate: 0,
+  acc: 0,
+  alpha: 0,
+  beta: 0,
+  gamma: 0,
+};
+const ball = document.getElementById("sp_sensors_ball");
+function handleMotionEvent(event) {
+  document.getElementById("sp_motion_text").innerText =
+    `${Number.parseFloat(event.acceleration.x).toFixed(2)} m/s2\n` +
+    `${Number.parseFloat(event.acceleration.y).toFixed(2)} m/s2\n` +
+    `${Number.parseFloat(event.acceleration.z).toFixed(2)} m/s2\n` +
+    `${Number.parseFloat(event.rotationRate.alpha).toFixed(2)} deg/s\n` +
+    `${Number.parseFloat(event.rotationRate.beta).toFixed(2)} deg/s\n` +
+    `${Number.parseFloat(event.rotationRate.gamma).toFixed(2)} deg/s\n` +
+    `${Number.parseFloat(event.interval).toFixed(2)} ms\n`;
+  sensors.rotRate = 0.02 * Math.abs(event.rotationRate.alpha + event.rotationRate.beta + event.rotationRate.gamma);
+  sensors.acc = 0.5 * Math.abs(event.acceleration.x + event.acceleration.y + event.acceleration.z);
+  ball.style.transform = `scaleX(${Math.max(1, sensors.rotRate)})
+                          scaleY(${Math.max(1, sensors.acc)})`;
+}
+function handleOrientationEvent(event) {
+  document.getElementById("sp_orientation_text").innerText =
+    `${Number.parseFloat(event.alpha).toFixed(2)} deg\n` +
+    `${Number.parseFloat(event.beta).toFixed(2)} deg\n` +
+    `${Number.parseFloat(event.gamma).toFixed(2)} deg\n`;
+
+  if (!initialX && !initialY) {
+    initialX = event.beta;
+    initialY = event.gamma;
+  } else {
+    sensors.alpha = event.alpha;
+    sensors.beta = initialX - event.beta;
+    sensors.gamma = initialY - event.gamma;
+    ball.style.top = 90 + (initialX - event.beta) * 5 + "px";
+    ball.style.left = 90 + (initialY - event.gamma) * 2 + "px";
+  }
 }
 
 // Triggered when a room is succesfully created.
@@ -653,7 +705,34 @@ function changeScene(data) {
   Array.from(document.getElementById("sp_insta").getElementsByTagName("video")).forEach((v) => (v.muted = true));
   adminVideo.muted = true;
   clearInterval(timer_nico);
+  clearInterval(timer_sensors);
   switch (data.scene) {
+    case 12: // SENSORS
+      if (streamVisualizer4Clients)
+        try {
+          streamVisualizer4Clients.stop();
+        } catch (e) {
+          console.log(e);
+        }
+      sp_sensors.style.display = "flex";
+      sp_insta.style.display = "none";
+      myGUI.style.display = "none";
+      atablee.style.display = "none";
+      adminVideo_webrtc.pause();
+      adminVideo_webrtc.volume = 0;
+      adminVideo.volume = 0;
+      adminVideo.pause();
+      overlay.style.visibility = "hidden";
+      overlayTHEEND.style.visibility = "hidden";
+      overlayWAIT.style.visibility = "hidden";
+      audio_nico.pause();
+      if (!sensors.clientId) sensors.clientId = myID;
+      timer_sensors = setInterval(() => {
+        if (sendChannel && sendChannel.readyState === "open") {
+          sendChannel.send(JSON.stringify(sensors));
+        }
+      }, 32);
+      break;
     case 11: // INSTA
       if (!myPeer || !myPeer.stream.active) {
         myPeer = context.createMediaStreamDestination();
@@ -670,6 +749,7 @@ function changeScene(data) {
         context.resume();
       }
       sp_insta.style.display = "initial";
+      sp_sensors.style.display = "none";
       myGUI.style.display = "none";
       atablee.style.display = "none";
       adminVideo_webrtc.pause();
@@ -699,6 +779,7 @@ function changeScene(data) {
         }
       atablee.style.display = "initial";
       userCanvas.style.display = "none";
+      sp_sensors.style.display = "none";
       myGUI.style.display = "none";
       adminVideo.style.display = "none";
       adminVideo_webrtc.style.display = "initial";
@@ -759,6 +840,7 @@ function changeScene(data) {
         }
       atablee.style.display = "initial";
       myGUI.style.display = "none";
+      sp_sensors.style.display = "none";
       adminVideo.style.display = "none";
       userCanvas.style.display = "none";
       adminVideo_webrtc.style.display = "none";
@@ -771,7 +853,10 @@ function changeScene(data) {
       audio_nico.pause();
       sp_insta.style.display = "none";
 
-      if (userStream.getVideoTracks()[0].getConstraints().facingMode && userStream.getVideoTracks()[0].getConstraints().facingMode !== "environment") {
+      if (
+        userStream.getVideoTracks()[0].getConstraints().facingMode &&
+        userStream.getVideoTracks()[0].getConstraints().facingMode !== "environment"
+      ) {
         userStream.getTracks().forEach((track) => {
           track.stop();
         });
@@ -799,6 +884,7 @@ function changeScene(data) {
       break;
     case 8: // WAIT
       overlay.style.visibility = "hidden";
+      sp_sensors.style.display = "none";
       overlayTHEEND.style.visibility = "hidden";
       overlayWAIT.style.visibility = "visible";
       atablee.style.display = "none";
@@ -891,6 +977,7 @@ function changeScene(data) {
             .then(() => {
               atablee.style.display = "initial";
               userCanvas.style.display = "initial";
+              sp_sensors.style.display = "none";
               adminVideo.style.display = "none";
               adminVideo.muted = true;
               adminVideo.play();
@@ -908,6 +995,7 @@ function changeScene(data) {
         } else {
           atablee.style.display = "initial";
           userCanvas.style.display = "initial";
+          sp_sensors.style.display = "none";
           adminVideo.style.display = "none";
           adminVideo.muted = true;
           adminVideo.play();
@@ -974,6 +1062,7 @@ function changeScene(data) {
         }
       atablee.style.display = "initial";
       userCanvas.style.display = "none";
+      sp_sensors.style.display = "none";
       myGUI.style.display = "none";
       adminVideo.style.display = "none";
       //document.getElementById("overlay").remove(); // TODO
@@ -1038,6 +1127,7 @@ function changeScene(data) {
           }
         atablee.style.display = "initial";
         userCanvas.style.display = "none";
+        sp_sensors.style.display = "none";
         myGUI.style.display = "none";
         adminVideo_webrtc.style.display = "none";
         //document.getElementById("overlay").remove(); // TODO
@@ -1088,6 +1178,7 @@ function changeScene(data) {
         }
       atablee.style.display = "initial";
       userCanvas.style.display = "none";
+      sp_sensors.style.display = "none";
       myGUI.style.display = "none";
       adminVideo.style.display = "none";
       //document.getElementById("overlay").remove(); // TODO
@@ -1176,6 +1267,7 @@ function changeScene(data) {
         audio_nico.play();
         audio_nico.loop = true;
         atablee.style.display = "initial";
+        sp_sensors.style.display = "none";
         userCanvas.style.display = "initial";
         adminVideo.style.display = "none";
         adminVideo.pause();
@@ -1216,6 +1308,7 @@ function changeScene(data) {
     case 7: // THE END
       overlay.style.visibility = "hidden";
       overlayTHEEND.style.visibility = "visible";
+      sp_sensors.style.display = "none";
       overlayWAIT.style.visibility = "hidden";
       atablee.style.display = "none";
       myGUI.style.display = "none";
@@ -2283,31 +2376,58 @@ function set_insta(dir) {
     }
     let vid = divN.getElementsByTagName("video")[0];
     let like = divN.getElementsByClassName("sp_insta_el_like")[0];
-    console.log(like);
     like.onclick = () => {
       let nolike = divN.getElementsByClassName("fa-heart")[0].style.display != "none";
       if (nolike) {
-        if (sendChannel && sendChannel.readyState === "open") sendChannel.send(JSON.stringify({ clientId: myID, event: "like", mess: `User #${myID.substring(0, 5)} like video${i}` }));
+        if (sendChannel && sendChannel.readyState === "open")
+          sendChannel.send(
+            JSON.stringify({
+              clientId: myID,
+              event: "like",
+              mess: `User #${myID.substring(0, 5)} like video${i}`,
+            })
+          );
         divN.getElementsByClassName("fa-heart")[0].style.display = "none";
         divN.getElementsByClassName("fa-heart")[1].style.display = "initial";
       } else {
-        if (sendChannel && sendChannel.readyState === "open") sendChannel.send(JSON.stringify({ clientId: myID, event: "dislike", mess: `User #${myID.substring(0, 5)} dislike video${i}` }));
+        if (sendChannel && sendChannel.readyState === "open")
+          sendChannel.send(
+            JSON.stringify({
+              clientId: myID,
+              event: "dislike",
+              mess: `User #${myID.substring(0, 5)} dislike video${i}`,
+            })
+          );
         divN.getElementsByClassName("fa-heart")[0].style.display = "initial";
         divN.getElementsByClassName("fa-heart")[1].style.display = "none";
       }
     };
     vid.src = `${dir}/video${Math.round(Math.random() * 59)}.mp4`;
+    vid.playsInline = true;
+    vid.muted = true;
+    vid.autoplay = true;
+    vid.loop = true;
+    // vid.play().then(() => vid.pause());
     const audioSource = context.createMediaElementSource(vid);
     vid.addEventListener("click", function () {
       Array.from(document.getElementById("sp_insta").getElementsByTagName("video")).forEach((v) => (v.muted = true));
       vid.muted = !vid.muted;
       vid.currentTime = 0;
       if (vid.muted) {
+        // vid.pause();
         divN.getElementsByClassName("fa-volume-high")[0].style.display = "none";
         divN.getElementsByClassName("fa-volume-xmark")[0].style.display = "initial";
         audioSource.disconnect();
       } else {
-        if (sendChannel && sendChannel.readyState === "open") sendChannel.send(JSON.stringify({ clientId: myID, event: `video${i}`, mess: `User #${myID.substring(0, 5)} is watching video${i}` }));
+        // vid.play();
+        if (sendChannel && sendChannel.readyState === "open")
+          sendChannel.send(
+            JSON.stringify({
+              clientId: myID,
+              event: `video${i}`,
+              mess: `User #${myID.substring(0, 5)} is watching video${i}`,
+            })
+          );
         audioSource.connect(myPeer);
         audioSource.connect(context.destination);
         let audioSender = rtcPeerConnection.getSenders().find((s) => s.track.kind === "audio");

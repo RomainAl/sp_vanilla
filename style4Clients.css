@@ -51,7 +51,7 @@ body,
   padding: 0;
   outline: none;
 }
-#sp_motion {
+#sp_sensors {
   position: fixed;
   font-size: 12px;
   font-family: "InterVar";
@@ -65,7 +65,30 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   overflow-y: scroll;
+}
+
+#sp_sensors_canvas {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  border: 5px solid gray;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  transform: translate(-100px, 100px);
+}
+
+#sp_sensors_ball {
+  background: var(--orange);
+  position: relative;
+  width: 20px;
+  height: 20px;
+  left: 90px;
+  top: 90px;
+  border-radius: 20px;
 }
 
 #sp_cin,
