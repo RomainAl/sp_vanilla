@@ -218,6 +218,7 @@ function startContext(event) {
   console.log(ctx);
   document.body.style.background = "black";
   document.getElementById("btn_scene1").click();
+  document.body.ondblclick = changeFullScreen;
   // 4SPAT :
   // for (let i=0; i<ctx.destination.maxChannelCount; i++){
   //   let speaker = document.createElement('div');
@@ -230,6 +231,29 @@ function startContext(event) {
   setInterval(() => {
     document.getElementById("btn_stopAll").click();
   }, 30000);
+}
+
+function changeFullScreen() {
+  try {
+    fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fullscreenElement !== undefined) {
+      if (!fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 // Display statistics
@@ -381,7 +405,7 @@ socket.on("offer", function (offer, clientId) {
               break;
             case "connected":
               console.log("Online");
-              clientS.find((t) => t.rtcPeerCoID.includes(ev.currentTarget.remoteDescription.sdp.slice(9, 29))).div.style.borderColor = "green";
+              clientS.find((t) => t.rtcPeerCoID.includes(ev.currentTarget.remoteDescription.sdp.slice(9, 29))).div.style.borderColor = "white";
               break;
             case "disconnected":
               console.log("Disconnecting…");
@@ -670,6 +694,7 @@ function OnTrackFunction(event) {
     if (currentSel != 0 && currentSel != 12) divS.style.display = "none";
   } else {
     let vid = document.getElementById(`userVid${currentClientId}`);
+    vid.style.filter = "grayscale(1) contrast(300%) brightness(130%) saturate(200%)";
     vid.srcObject = event.streams[0];
     vid.autoplay = true;
   }
@@ -1035,7 +1060,7 @@ function removeAllChildNodes(parent) {
 
 function removeAllStoped() {
   clientS.filter((c) => c.rtcPeerConnection.connectionState !== "connected").forEach((c) => removeClient(c.clientId));
-  console.log(clientS);
+  console.log("Clients nb :" + clientS.length);
 }
 
 function changeBackgroundColor(event) {
@@ -1095,13 +1120,16 @@ function onMIDISuccess(midiAccess) {
 }
 
 function onMIDIMessage(event) {
+  data = event.data;
+  cmd = data[0] >> 4;
+  channel = data[0] & 0xf;
+  type = data[0] & 0xf0; // channel agnostic message type. Thanks, Phil Burk.
+  note = data[1];
+  velocity = data[2];
+  // if (note != 248) console.log(event.data);
+
+  if (event.data[0] != 248) console.log(channel + " " + type + " " + note + " " + velocity);
   // console.log(event.data);
-  (data = event.data),
-    (cmd = data[0] >> 4),
-    (channel = data[0] & 0xf),
-    (type = data[0] & 0xf0), // channel agnostic message type. Thanks, Phil Burk.
-    (note = data[1]),
-    (velocity = data[2]);
   // with pressure and tilt off
   // note off: 128, cmd: 8
   // note on: 144, cmd: 9
@@ -1121,50 +1149,10 @@ function onMIDIMessage(event) {
   //log('data', data, 'cmd', cmd, 'channel', channel);
   // logger(keyData, 'key data', data);
 
-  if (note == 46 && velocity == 127) {
-    let randNumber = Math.max(Math.round(Math.random() * clientS.length), 1);
-    try {
-      data = { scene: 4 };
-      for (let i = 0; i < randNumber; i++) {
-        clientS[(iterKey + i) % clientS.length].rtcDataSendChannel.send(JSON.stringify(data));
-        let audioCrac = document.getElementsByName("audioCrac" + clientS[(iterKey + i) % clientS.length].clientId)[0];
-        audioCrac.playbackRate = Math.random() + 0.1;
-        audioCrac.play();
-        setTimeout(() => {
-          audioCrac.pause();
-        }, 1500);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    iterKey += randNumber;
-  } else if (note == 60) {
-    if (velocity == 80) {
-      const scene = scenes_array.find((c) => c.style.background == "orange");
-      if (scene == undefined || scene.getAttribute("id") !== "btn_scene6") {
-        document.getElementById("btn_scene6").click();
-      }
-      document.getElementById("btn_lauch").click();
-    } else {
-      document.getElementById("btn_scene1").click();
-      document.getElementById("btn_lauch").click();
-    }
-  } else if (note == 41 && velocity == 127) {
+  if (currentSceneNb == 9 && note == 60 && velocity == 80) {
     document.getElementById("btn_lauch").click();
-  } else if (note == 59 && velocity == 127) {
-    const scenes = Array.from(document.getElementsByClassName("scene"));
-    const index = scenes.findIndex((c) => c.style.background == "orange");
-    console.log(index);
-    if (index > -1 && index < scenes_array.length - 2) {
-      scenes[index + 1].click();
-    }
-  } else if (note == 58 && velocity == 127) {
-    const scenes = Array.from(document.getElementsByClassName("scene"));
-    const index = scenes.findIndex((c) => c.style.background == "orange");
-    if (index > 0 && index < scenes_array.length - 1) {
-      scenes[index - 1].click();
-    }
   }
+
   /*try {
     data = {"scene": 4};
     switch (note){
@@ -1183,22 +1171,22 @@ function onMIDIMessage(event) {
   }*/
 }
 
-function logger(container, label, data) {
-  messages =
-    label +
-    " [channel: " +
-    (data[0] & 0xf) +
-    ", cmd: " +
-    (data[0] >> 4) +
-    ", type: " +
-    (data[0] & 0xf0) +
-    " , note: " +
-    data[1] +
-    " , velocity: " +
-    data[2] +
-    "]";
-  container.textContent = messages;
-}
+// function logger(container, label, data) {
+//   messages =
+//     label +
+//     " [channel: " +
+//     (data[0] & 0xf) +
+//     ", cmd: " +
+//     (data[0] >> 4) +
+//     ", type: " +
+//     (data[0] & 0xf0) +
+//     " , note: " +
+//     data[1] +
+//     " , velocity: " +
+//     data[2] +
+//     "]";
+//   container.textContent = messages;
+// }
 
 function onMIDIFailure(e) {
   log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e);

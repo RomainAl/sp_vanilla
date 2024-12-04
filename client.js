@@ -347,57 +347,57 @@ const effects = [
   //     },
   //   ],
   // },
-  {
-    name: "glitches",
-    title: "GLITCHES (Del/Chance/Feed/Range/Speed)",
-    device: null,
-    div: null,
-    activ: true,
-    visible: true,
-    gain: null,
-    userParams: [
-      {
-        name: "DEL",
-        title: "DEL",
-        defaultValue: null,
-        param: null,
-        visible: true,
-        type: "real",
-      },
-      {
-        name: "CHANCE",
-        title: "CHANCE",
-        defaultValue: null,
-        param: null,
-        visible: true,
-        type: "real",
-      },
-      {
-        name: "FEED",
-        title: "FEED",
-        defaultValue: null,
-        param: null,
-        visible: true,
-        type: "real",
-      },
-      {
-        name: "RANGE",
-        title: "RANGE",
-        defaultValue: null,
-        param: null,
-        visible: true,
-        type: "real",
-      },
-      {
-        name: "SPEED",
-        title: "SPEED",
-        defaultValue: null,
-        param: null,
-        visible: true,
-        type: "real",
-      },
-    ],
-  },
+  // {
+  //   name: "glitches",
+  //   title: "GLITCHES (Del/Chance/Feed/Range/Speed)",
+  //   device: null,
+  //   div: null,
+  //   activ: true,
+  //   visible: true,
+  //   gain: null,
+  //   userParams: [
+  //     {
+  //       name: "DEL",
+  //       title: "DEL",
+  //       defaultValue: null,
+  //       param: null,
+  //       visible: true,
+  //       type: "real",
+  //     },
+  //     {
+  //       name: "CHANCE",
+  //       title: "CHANCE",
+  //       defaultValue: null,
+  //       param: null,
+  //       visible: true,
+  //       type: "real",
+  //     },
+  //     {
+  //       name: "FEED",
+  //       title: "FEED",
+  //       defaultValue: null,
+  //       param: null,
+  //       visible: true,
+  //       type: "real",
+  //     },
+  //     {
+  //       name: "RANGE",
+  //       title: "RANGE",
+  //       defaultValue: null,
+  //       param: null,
+  //       visible: true,
+  //       type: "real",
+  //     },
+  //     {
+  //       name: "SPEED",
+  //       title: "SPEED",
+  //       defaultValue: null,
+  //       param: null,
+  //       visible: true,
+  //       type: "real",
+  //     },
+  //   ],
+  // },
   {
     name: "sampler",
     title: "SAMPLER",
@@ -980,7 +980,7 @@ function changeScene(data) {
               sp_sensors.style.display = "none";
               adminVideo.style.display = "none";
               adminVideo.muted = true;
-              adminVideo.play();
+              // adminVideo.play();
               adminVideo_webrtc.style.display = "none";
               // adminVideo_webrtc.volume = 0;
               adminVideo_webrtc.pause();
@@ -998,7 +998,7 @@ function changeScene(data) {
           sp_sensors.style.display = "none";
           adminVideo.style.display = "none";
           adminVideo.muted = true;
-          adminVideo.play();
+          // adminVideo.play();
           adminVideo_webrtc.style.display = "none";
           // adminVideo_webrtc.volume = 0;
           adminVideo_webrtc.pause();
@@ -1373,7 +1373,7 @@ function errStream(err) {
   userCanvas.style.display = "none";
   adminVideo.style.display = "none";
   adminVideo.muted = true;
-  adminVideo.play();
+  // adminVideo.play();
   adminVideo_webrtc.style.display = "none";
   sp_insta.style.display = "none";
   // adminVideo_webrtc.volume = 0;
@@ -2237,7 +2237,7 @@ function onoffSampler(ev) {
 
 function nodeConnection(mode) {
   // TODO
-  filter.gain.disconnect(0);
+  filter.gain.disconnect(0); // TODO
   analyser.disconnect(0);
   gain.disconnect(0);
   effects
@@ -2405,7 +2405,7 @@ function set_insta(dir) {
     vid.src = `${dir}/video${Math.round(Math.random() * 59)}.mp4`;
     vid.playsInline = true;
     vid.muted = true;
-    vid.autoplay = true;
+    // vid.autoplay = true;
     vid.loop = true;
     // vid.play().then(() => vid.pause());
     const audioSource = context.createMediaElementSource(vid);
