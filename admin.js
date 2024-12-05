@@ -265,6 +265,7 @@ setInterval(() => {
       for (let i = 0; i < clientS.length; i++) {
         let clientId = clientS[i].clientId;
         let divStats = document.getElementsByName("divStats" + clientId)[0];
+        divStats.style.color = "white";
         let statsPrev = {
           t: divStats.getAttribute("data-t"),
           raB: divStats.getAttribute("data-raB"),
@@ -709,15 +710,17 @@ function receiveChannelCallback(event) {
 }
 
 function onReceiveChannelMessageCallback(event) {
-  console.log("Received Message : " + event.data);
+  // console.log("Received Message : " + event.data);
   data = JSON.parse(event.data);
   let client = clientS.find((c) => c.clientId == data.clientId);
+  let iclient = clientS.findIndex((c) => c.clientId == data.clientId);
   if (data.rotRate) {
     const ball = document.getElementById(`ball${data.clientId}`);
     ball.style.top = 90 + data.beta * 5 + "px";
     ball.style.left = 90 + data.gamma * 2 + "px";
     ball.style.transform = `scaleX(${Math.max(1, data.rotRate)})
                             scaleY(${Math.max(1, data.acc)})`;
+    sendMidiCC(iclient, Math.min(Math.max(0, parseInt((127 * (data.beta + 90)) / 180))), 127);
   } else {
     client.div.style.background = "red";
     setTimeout(() => {
@@ -1094,7 +1097,8 @@ var log = console.log.bind(console),
   keyData = document.getElementById("key_data"),
   deviceInfoInputs = document.getElementById("inputs"),
   deviceInfoOutputs = document.getElementById("outputs"),
-  midi;
+  midi,
+  midioutput;
 
 if (navigator.requestMIDIAccess) {
   navigator.requestMIDIAccess({ sysex: false }).then(onMIDISuccess, onMIDIFailure);
@@ -1105,6 +1109,7 @@ if (navigator.requestMIDIAccess) {
 // midi functions
 function onMIDISuccess(midiAccess) {
   midi = midiAccess;
+  midioutput = midi.outputs.get("1473120832");
   var inputs = midi.inputs.values();
   // loop through all inputs
   for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
@@ -1117,6 +1122,10 @@ function onMIDISuccess(midiAccess) {
   midi.onstatechange = onStateChange;
 
   showMIDIPorts(midi);
+}
+
+function sendMidiCC(i, value) {
+  midioutput.send([176, i, value]); //omitting the timestamp means send immediately.
 }
 
 function onMIDIMessage(event) {
