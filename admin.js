@@ -771,6 +771,10 @@ function sendData(event) {
         Array.from(document.getElementsByClassName("audioCrac2")).forEach((a) => a.pause());
         Array.from(document.getElementsByClassName("videoRTC")).forEach((a) => a.pause());
         switch (scene.getAttribute("id")) {
+          case "btn_scene13":
+            currentSceneNb = 13;
+            data = { scene: currentSceneNb };
+            break;
           case "btn_scene12":
             currentSceneNb = 12;
             data = { scene: currentSceneNb };
@@ -830,7 +834,7 @@ function sendData(event) {
             data = { scene: currentSceneNb };
             break;
           default:
-            alert("Sélectionne une scène ! (1)");
+            console.log("Sélectionne une scène ! (1)");
             break;
         }
         scene.style.border = "solid";
@@ -1159,6 +1163,9 @@ function onMIDIMessage(event) {
   // logger(keyData, 'key data', data);
 
   if (currentSceneNb == 9 && note == 60 && velocity == 80) {
+    document.getElementById("btn_lauch").click();
+  } else if (note == 80 && velocity == 100) {
+    document.getElementById("btn_scene13").click();
     document.getElementById("btn_lauch").click();
   }
 
