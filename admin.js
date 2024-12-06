@@ -1162,7 +1162,9 @@ function onMIDIMessage(event) {
   //log('data', data, 'cmd', cmd, 'channel', channel);
   // logger(keyData, 'key data', data);
 
-  if (currentSceneNb == 9 && note == 60 && velocity == 80) {
+  if (currentSceneNb == 9 && note == 60) {
+    console.log("millsec = " + Math.round(250 / ((velocity * 4) / 60)));
+    document.getElementById("S9_param1").value = Math.round(250 / ((velocity * 4) / 60));
     document.getElementById("btn_lauch").click();
   } else if (note == 80 && velocity == 100) {
     document.getElementById("btn_scene13").click();
