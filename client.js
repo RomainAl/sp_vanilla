@@ -2,582 +2,7 @@ if (location.protocol !== "https:") {
   alert("Go https !");
   location.replace(`https:${location.href.substring(location.protocol.length)}`);
 }
-const txt_hack = `You have 8 outdated formulae installed.
-You can upgrade them with brew upgrade
-or list them with brew outdated.
-romainal@MonAL2 ~ % brew upgrade
-==> Upgrading 8 outdated packages:
-flyctl 0.3.39 -> 0.3.46
-micropython 1.24.0 -> 1.24.1
-sqlite 3.47.0 -> 3.47.1
-nginx 1.27.2 -> 1.27.3
-ca-certificates 2024-09-24 -> 2024-11-26
-node 23.2.0_1 -> 23.3.0
-python@3.11 3.11.10 -> 3.11.11
-git 2.47.0 -> 2.47.1
-==> Pouring sqlite--3.47.1.ventura.bottle.tar.gz
-  /usr/local/Cellar/sqlite/3.47.1: 12 files, 4.9MB
-==> Running 'brew cleanup sqlite'...
-Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
-Hide these hints with HOMEBREW_NO_ENV_HINTS (see 'man brew').
-Removing: /usr/local/Cellar/sqlite/3.47.0... (12 files, 4.9MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/sqlite_bottle_manifest--3.47.0... (9.4KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/sqlite--3.47.0... (2.3MB)
-==> Upgrading micropython
-  1.24.0 -> 1.24.1 
-==> Pouring micropython--1.24.1.ventura.bottle.tar.gz
-  /usr/local/Cellar/micropython/1.24.1: 7 files, 1MB
-==> Running 'brew cleanup micropython'...
-Removing: /usr/local/Cellar/micropython/1.24.0... (7 files, 1MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/micropython_bottle_manifest--1.24.0... (9.5KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/micropython--1.24.0... (492.2KB)
-==> Upgrading ca-certificates
-  2024-09-24 -> 2024-11-26 
-==> Pouring ca-certificates--2024-11-26.all.bottle.tar.gz
-==> Regenerating CA certificate bundle from keychain, this may take a while...
-  /usr/local/Cellar/ca-certificates/2024-11-26: 4 files, 239.4KB
-==> Running 'brew cleanup ca-certificates'...
-Removing: /usr/local/Cellar/ca-certificates/2024-09-24... (4 files, 237.4KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/ca-certificates_bottle_manifest--2024-09-24... (1.9KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/ca-certificates--2024-09-24... (132.6KB)
-==> Upgrading nginx
-  1.27.2 -> 1.27.3 
-==> Pouring nginx--1.27.3.ventura.bottle.1.tar.gz
-==> Caveats
-Docroot is: /usr/local/var/www
-The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
-nginx can run without sudo.
-nginx will load all files in /usr/local/etc/nginx/servers/.
-To start nginx now and restart at login:
-  brew services start nginx
-Or, if you don't want/need a background service you can just run:
-  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
-==> Summary
-  /usr/local/Cellar/nginx/1.27.3: 27 files, 2.5MB
-==> Running 'brew cleanup nginx'...
-Removing: /usr/local/Cellar/nginx/1.27.2... (27 files, 2.5MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/nginx_bottle_manifest--1.27.2... (10KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/nginx--1.27.2... (1.4MB)
-==> Upgrading node
-  23.2.0_1 -> 23.3.0 
-==> Pouring node--23.3.0.ventura.bottle.tar.gz
-/usr/local/Cellar/node/23.3.0: 2,676 files, 88.2MB
-==> Running 'brew cleanup node'...
-Removing: /usr/local/Cellar/node/23.2.0_1... (2,676 files, 88.2MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/node_bottle_manifest--23.2.0_1... (16.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/node--23.2.0_1... (21.1MB)
-==> Upgrading python@3.11
-  3.11.10 -> 3.11.11 
-==> Pouring python@3.11--3.11.11.ventura.bottle.tar.gz
-==> /usr/local/Cellar/python@3.11/3.11.11/bin/python3.11 -Im ensurepip
-==> /usr/local/Cellar/python@3.11/3.11.11/bin/python3.11 -Im pip install -v --no-index --upgrade --isolated --target=/usr/local/lib/python3.11/site-
-==> Caveats
-Python is installed as
-  /usr/local/bin/python3.11
-Unversioned and major-versioned symlinks 'python', 'python3', 'python-config', 'python3-config', 'pip', 'pip3', etc. pointing to
-'python3.11', 'python3.11-config', 'pip3.11' etc., respectively, are installed into
-  /usr/local/opt/python@3.11/libexec/bin
-You can install Python packages with
-  pip3.11 install <package>
-They will install into the site-package directory
-  /usr/local/lib/python3.11/site-packages
-tkinter is no longer included with this formula, but it is available separately:
-  brew install python-tk@3.11
-gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
-  brew install python-gdbm@3.11
-'dbm.ndbm' changed database backends in Homebrew Python 3.11.
-If you need to read a database from a previous Homebrew Python created via 'dbm.ndbm',
-you'll need to read your database using the older version of Homebrew Python and convert to another format.
-'dbm' still defaults to 'dbm.gnu' when it is installed.
-If you do not need a specific version of Python, and always want Homebrew's 'python3' in your PATH:
-  brew install python3
-For more information about Homebrew and Python, see: https://docs.brew.sh/Homebrew-and-Python
-==> Summary
-/usr/local/Cellar/python@3.11/3.11.11: 3,304 files, 61.3MB
-==> Running 'brew cleanup python@3.11'...
-Removing: /usr/local/Cellar/python@3.11/3.11.10... (3,304 files, 61.3MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/python@3.11_bottle_manifest--3.11.10... (28.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/python@3.11--3.11.10... (15MB)
-==> Upgrading flyctl
-  0.3.39 -> 0.3.46 
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡟⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡟⢁⠿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⢹⡉⢠⠟⢷⡀⢀⣴⣿⣦⣀⣴⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠈⡏⠁⣠⡿⠛⠉⠁⢀⡼⡻⠛⡞⡷⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠚⢯⠟⠂⠀⢹⣞⡟⠁⡠⠔⢒⡾⡼⠁⠀⡇⣇⠀⠙⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⢠⡼⠻⡇⢸⢀⣴⣿⣱⠁⠀⢀⠇⡏⠑⢄⠀⠙⢧⣀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠋⠀⠀⠳⢌⣾⡷⠀⠁⠀⠀⡼⢀⣧⡀⠈⢣⡀⡼⠉⣷⡄⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠉⢳⠤⠴⠟⠁⣰⣿⠛⢶⡄⠀⠀⠀⠀
-⠀⠀⠀⢀⣤⠞⠉⠀⠀⢀⣾⡋⣻⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣦⣠⣴⡾⡟⠉⠣⡀⠹⡄⠀⠀⠀
-⠀⣠⠞⠋⣽⠀⠀⠀⠀⠘⣿⣿⣿⣾⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⢸⠀⡇⠀⠀⣇⠀⢿⠀⠀⠀
-⢰⠏⢿⡆⠸⡄⠀⠀⠀⠀⠈⠛⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡜⢀⡞⣰⢧⡀⠀⢸⠀⠸⣆⣴⡆
-⢸⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠿⢴⠿⠚⢇⠀⠳⣄⡀⠳⠤⢤⡾⠃
-⠘⢧⡀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣄⠀⠈⠢⣄⡀⠉⠙⢻⠛⣧⠀
-⠀⠀⠙⠒⠦⠼⠗⠒⠲⠦⢤⣀⠀⠀⠀⣀⣠⣶⠇⠀⠀⠀⠀⠀⠀⠀⠘⣦⣀⠀⠀⠉⢦⠀⢸⠀⢸⡆
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⣠⠇⠈⢳⣄⠀⢸⢀⣾⠀⢸⠃
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⢴⣴⣚⡁⣀⡠⠊⣨⣧⡾⢫⠃⢀⡟⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠉⠓⡾⠓⢲⠋⠉⠁⠀⡎⢀⡾⠁⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠃⠀⡎⠀⠀⠀⠀⢇⣼⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⢣⠀⠀⠀⠀⠀⠉⣹⠇⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⡀⠀⠓⠤⣀⣀⠤⣶⠟⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠓⠒⠒⠒⠒⠒⠒⠚⠋⠙⠲⠦⠤⠤⠶⠛⠁⠀⠀⠀
-==> Pouring flyctl--0.3.46.ventura.bottle.tar.gz
-==> Caveats
-zsh completions have been installed to:
-  /usr/local/share/zsh/site-functions
-==> Summary
-/usr/local/Cellar/flyctl/0.3.46: 13 files, 62.7MB
-==> Running 'brew cleanup flyctl'...
-Removing: /usr/local/Cellar/flyctl/0.3.39... (13 files, 62.9MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/flyctl_bottle_manifest--0.3.39... (7.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/flyctl--0.3.39... (20.9MB)
-==> Upgrading git
-  2.47.0 -> 2.47.1 
-==> Pouring git--2.47.1.ventura.bottle.tar.gz
-==> Caveats
-The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
-Subversion interoperability (git-svn) is now in the 'git-svn' formula.
-zsh completions and functions have been installed to:
-  /usr/local/share/zsh/site-functions
-==> Summary
-/usr/local/Cellar/git/2.47.1: 1,685 files, 54.6MB
-==> Running 'brew cleanup git'...
-Removing: /usr/local/Cellar/git/2.47.0... (1,684 files, 54.6MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/git_bottle_manifest--2.47.0... (14.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/git--2.47.0... (19.9MB)
-==> Caveats
-==> nginx
-Docroot is: /usr/local/var/www
-The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
-nginx can run without sudo.
-nginx will load all files in /usr/local/etc/nginx/servers/.
-To start nginx now and restart at login:
-  brew services start nginx
-Or, if you don't want/need a background service you can just run:
-  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
-==> python@3.11
-Python is installed as
-  /usr/local/bin/python3.11
-Unversioned and major-versioned symlinks 'python', 'python3', 'python-config', 'python3-config', 'pip', 'pip3', etc. pointing to
-'python3.11', 'python3.11-config', 'pip3.11' etc., respectively, are installed into
-  /usr/local/opt/python@3.11/libexec/bin
-You can install Python packages with
-  pip3.11 install <package>
-They will install into the site-package directory
-  /usr/local/lib/python3.11/site-packages
-tkinter is no longer included with this formula, but it is available separately:
-  brew install python-tk@3.11
-gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
-  brew install python-gdbm@3.11
-'dbm.ndbm' changed database backends in Homebrew Python 3.11.
-If you need to read a database from a previous Homebrew Python created via 'dbm.ndbm',
-you'll need to read your database using the older version of Homebrew Python and convert to another format.
-'dbm' still defaults to 'dbm.gnu' when it is installed.
-If you do not need a specific version of Python, and always want Homebrew's 'python3' in your PATH:
-  brew install python3
-For more information about Homebrew and Python, see: https://docs.brew.sh/Homebrew-and-Python
-==> flyctl
-zsh completions have been installed to:
-  /usr/local/share/zsh/site-functions
-==> git
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⣿⣿⣿⣿⣷⡀⣀⣠⡤⠤⠤⠤⠤⠤⣄⣀⡀⣴⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⢿⡿⠁⠀⠀⠀⣠⣤⣤⣄⠀⠀⠀⠀⢠⣤⣤⣄⡀⠀⠀⠀⢻⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠃⠀⠀⢀⣾⣿⣿⣿⡟⣀⣀⣀⣀⢸⣿⣿⣿⣷⡄⠀⠀⠀⣧⡀⣀⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⡟⠀⠀⠀⢸⣿⣿⣿⡏⠘⢿⣿⣿⣿⠏⠙⣿⣿⣿⡇⢀⣴⣾⡿⢿⡿⢿⣶⣦⡀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⣴⣾⣿⣿⣿⣿⣶⣄⠀⠀⠻⣿⠿⠃⠠⣀⣨⣏⣀⡀⠀⠻⠿⡿⠁⢸⣿⣹⡷⠿⠿⢿⣍⣿⡇⠀⠀⠀⠀
-⣀⣀⣀⣀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣧⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣘⣿⣿⣄⣀⣀⣀⣿⣿⣇⣀⣀⣀⣤
-⠀⠀⠀⠀⠘⠿⢿⣿⣿⣿⣿⣿⠿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
-Subversion interoperability (git-svn) is now in the 'git-svn' formula.
-zsh completions and functions have been installed to:
-  /usr/local/share/zsh/site-functions
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.47.1
-==> Fetching sqlite
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/manifests/1.24.1
-==> Fetching micropython
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
-==> Fetching ca-certificates
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
-==> Fetching nginx
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
-==> Downloading https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
-==> Fetching node
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⠿⠿⠿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣶⣿⣿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣾⣿⣶⣶⣤⡀⠀⠀v
-⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠘⢿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠈⠻⣿⣿⣿⣿⣆⠀⠀⠀⢀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⣀⣤⣶⣶⣌⠻⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⠁⣰⣿⣿⣿⣿⣿⣦⣙⢿⣿⣿⣿⠄⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⡿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣦⣹⣟⣫⣼⣿⣿⣶⣿⣿⣿⣿⣿⣿⣯⡉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⡆⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⡇⠀⢻⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⣠⣴⣶⣶⣶⣶⣶⣶⣾⣿⣿⣿⣿⣿⡇⠀⠸⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢰⣶⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣧⣄⣐⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠉⠉⠙⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠁⠛⠛⠛⠛⠛⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-==> Downloading https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/manifests/3.11.11
-==> Fetching python@3.11
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/manifests/0.3.46
-==> Fetching flyctl
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
-==> Downloading https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
-==> Fetching git
-==> Downloading https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.47.1
-==> Fetching sqlite
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/manifests/1.24.1
-==> Fetching micropython
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
-==> Fetching ca-certificates
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
-==> Fetching nginx
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
-==> Downloading https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
-==> Fetching node
-==> Downloading https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/manifests/3.11.11
-==> Fetching python@3.11
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/manifests/0.3.46
-==> Fetching flyctl
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
-==> Downloading https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
-==> Fetching git
-==> Downloading https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.47.1
-==> Fetching sqlite
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/manifests/1.24.1
-==> Fetching micropython
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
-==> Fetching ca-certificates
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
-==> Fetching nginx
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
-==> Downloading https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
-==> Fetching node
-==> Downloading https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/manifests/3.11.11
-==> Fetching python@3.11
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/manifests/0.3.46
-==> Fetching flyctl
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
-==> Downloading https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
-==> Fetching git
-==> Downloading https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.47.1
-==> Fetching sqlite
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/manifests/1.24.1
-⠀⠀⠀⠀⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⢀⣴⣿⣿⠿⣟⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⢸⣏⡏⠀⠀⠀⢣⢻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⢸⣟⠧⠤⠤⠔⠋⠀⢿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣿⡆⠀⠀⠀⠀⠀⠸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠘⣿⡀⢀⣶⠤⠒⠀⢻⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢹⣧⠀⠀⠀⠀⠀⠈⢿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⡆⠀⠀⠀⠀⠀⠈⢿⣆⣠⣤⣤⣤⣤⣴⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢀⣾⢿⢿⠀⠀⠀⢀⣀⣀⠘⣿⠋⠁⠀⠙⢇⠀⠀⠙⢿⣦⡀⠀⠀⠀⠀⠀
-⠀⠀⠀⢀⣾⢇⡞⠘⣧⠀⢖⡭⠞⢛⡄⠘⣆⠀⠀⠀⠈⢧⠀⠀⠀⠙⢿⣄⠀⠀⠀⠀
-⠀⠀⣠⣿⣛⣥⠤⠤⢿⡄⠀⠀⠈⠉⠀⠀⠹⡄⠀⠀⠀⠈⢧⠀⠀⠀⠈⠻⣦⠀⠀⠀
-⠀⣼⡟⡱⠛⠙⠀⠀⠘⢷⡀⠀⠀⠀⠀⠀⠀⠹⡀⠀⠀⠀⠈⣧⠀⠀⠀⠀⠹⣧⡀⠀
-⢸⡏⢠⠃⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠸⣷⡀
-⠸⣧⠘⡇⠀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⢹⡇⠀⠀⠀⠀⣿⠇
-⠀⣿⡄⢳⠀⠀⠀⠀⠀⠀⠀⠈⣷⠀⠀⠀⠀⠀⠀⠈⠆⠀⠀⠀⠀⠀⠀⠀⠀⣼⡟⠀
-⠀⢹⡇⠘⣇⠀⠀⠀⠀⠀⠀⠰⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⣼⡟⠀⠀
-⠀⢸⡇⠀⢹⡆⠀⠀⠀⠀⠀⠀⠙⠁⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⢳⣼⠟⠀⠀⠀
-⠀⠸⣧⣀⠀⢳⡀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⢃⠀⢀⣴⡿⠁⠀⠀⠀⠀
-⠀⠀⠈⠙⢷⣄⢳⡀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⣠⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠈⠻⢿⣷⣦⣄⣀⣀⣠⣤⠾⠷⣦⣤⣤⡶⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-==> Fetching micropython
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
-==> Fetching ca-certificates
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
-==> Fetching nginx
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
-==> Downloading https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
-==> Fetching node
-==> Downloading https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/manifests/3.11.11
-==> Fetching python@3.11
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/manifests/0.3.46
-==> Fetching flyctl
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
-==> Downloading https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
-==> Fetching git
-==> Downloading https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/manifests/3.47.1
-==> Fetching sqlite
-==> Downloading https://ghcr.io/v2/homebrew/core/sqlite/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/manifests/1.24.1
-==> Fetching micropython
-==> Downloading https://ghcr.io/v2/homebrew/core/micropython/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
-==> Fetching ca-certificates
-==> Downloading https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
-==> Fetching nginx
-==> Downloading https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
-==> Downloading https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
-==> Fetching node
-==> Downloading https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/manifests/3.11.11
-==> Fetching python@3.11
-==> Downloading https://ghcr.io/v2/homebrew/core/python/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/manifests/0.3.46
-==> Fetching flyctl
-==> Downloading https://ghcr.io/v2/homebrew/core/flyctl/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
-==> Downloading https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
-==> Fetching git
-==> Downloading https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
-==> Upgrading sqlite
-  3.47.0 -> 3.47.1 
-==> Pouring sqlite--3.47.1.ventura.bottle.tar.gz
-  /usr/local/Cellar/sqlite/3.47.1: 12 files, 4.9MB
-==> Running 'brew cleanup sqlite'...
-Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
-Hide these hints with HOMEBREW_NO_ENV_HINTS (see 'man brew').
-Removing: /usr/local/Cellar/sqlite/3.47.0... (12 files, 4.9MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/sqlite_bottle_manifest--3.47.0... (9.4KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/sqlite--3.47.0... (2.3MB)
-==> Upgrading micropython
-  1.24.0 -> 1.24.1 
-==> Pouring micropython--1.24.1.ventura.bottle.tar.gz
-  /usr/local/Cellar/micropython/1.24.1: 7 files, 1MB
-==> Running 'brew cleanup micropython'...
-Removing: /usr/local/Cellar/micropython/1.24.0... (7 files, 1MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/micropython_bottle_manifest--1.24.0... (9.5KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/micropython--1.24.0... (492.2KB)
-==> Upgrading ca-certificates
-⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣠⣤⣤⣼⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀
-⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀
-⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀
-⠀⠀⠀⠘⣿⣿⣿⣿⠟⠁⠀⠀⠀⠹⣿⣿⣿⣿⣿⠟⠁⠀⠀⠹⣿⣿⡿⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣿⣿⣿⡇⠀⠀⠀⢼⣿⠀⢿⣿⣿⣿⣿⠀⣾⣷⠀⠀⢿⣿⣷⠀⠀⠀⠀⠀
-⠀⠀⠀⢠⣿⣿⣿⣷⡀⠀⠀⠈⠋⢀⣿⣿⣿⣿⣿⡀⠙⠋⠀⢀⣾⣿⣿⠀⠀⠀⠀⠀
-⢀⣀⣀⣀⣿⣿⣿⣿⣿⣶⣶⣶⣶⣿⣿⣿⣿⣾⣿⣷⣦⣤⣴⣿⣿⣿⣿⣤⠤⢤⣤⡄
-⠈⠉⠉⢉⣙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣀⣀⣀⡀⠀
-⠐⠚⠋⠉⢀⣬⡿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣥⣀⡀⠈⠀⠈⠛
-⠀⠀⠴⠚⠉⠀⠀⠀⠉⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠋⠁⠀⠀⠀⠉⠛⠢⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀
-  2024-09-24 -> 2024-11-26 
-==> Pouring ca-certificates--2024-11-26.all.bottle.tar.gz
-==> Regenerating CA certificate bundle from keychain, this may take a while...
-  /usr/local/Cellar/ca-certificates/2024-11-26: 4 files, 239.4KB
-==> Running 'brew cleanup ca-certificates'...
-Removing: /usr/local/Cellar/ca-certificates/2024-09-24... (4 files, 237.4KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/ca-certificates_bottle_manifest--2024-09-24... (1.9KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/ca-certificates--2024-09-24... (132.6KB)
-==> Upgrading nginx
-  1.27.2 -> 1.27.3 
-==> Pouring nginx--1.27.3.ventura.bottle.1.tar.gz
-==> Caveats
-Docroot is: /usr/local/var/www
-The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
-nginx can run without sudo.
-nginx will load all files in /usr/local/etc/nginx/servers/.
-To start nginx now and restart at login:
-  brew services start nginx
-Or, if you don't want/need a background service you can just run:
-  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
-==> Summary
-  /usr/local/Cellar/nginx/1.27.3: 27 files, 2.5MB
-==> Running 'brew cleanup nginx'...
-Removing: /usr/local/Cellar/nginx/1.27.2... (27 files, 2.5MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/nginx_bottle_manifest--1.27.2... (10KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/nginx--1.27.2... (1.4MB)
-==> Upgrading node
-  23.2.0_1 -> 23.3.0 
-==> Pouring node--23.3.0.ventura.bottle.tar.gz
-/usr/local/Cellar/node/23.3.0: 2,676 files, 88.2MB
-==> Running 'brew cleanup node'...
-Removing: /usr/local/Cellar/node/23.2.0_1... (2,676 files, 88.2MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/node_bottle_manifest--23.2.0_1... (16.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/node--23.2.0_1... (21.1MB)
-==> Upgrading python@3.11
-  3.11.10 -> 3.11.11 
-==> Pouring python@3.11--3.11.11.ventura.bottle.tar.gz
-==> /usr/local/Cellar/python@3.11/3.11.11/bin/python3.11 -Im ensurepip
-==> /usr/local/Cellar/python@3.11/3.11.11/bin/python3.11 -Im pip install -v --no-index --upgrade --isolated --target=/usr/local/lib/python3.11/site-
-==> Caveats
-Python is installed as
-  /usr/local/bin/python3.11
-Unversioned and major-versioned symlinks 'python', 'python3', 'python-config', 'python3-config', 'pip', 'pip3', etc. pointing to
-'python3.11', 'python3.11-config', 'pip3.11' etc., respectively, are installed into
-  /usr/local/opt/python@3.11/libexec/bin
-You can install Python packages with
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡀⠀⠀⠀⠀⠀⣿⣿⠇⠀⠀⠀⣴⣶⡄⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧⠀⠀⠀⠀⠀⣾⣯⠀⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⡀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⣾⣏⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀⠀⠀⣹⣿⠀⠀⠀⠀⣿⡟⠀⠀⠀⠀⣠⣦
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣧⠀⠀⠀⠀⢻⣿⠀⠀⠀⢀⣿⠇⠀⠀⠀⠠⣿⠇
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⡄⠀⠀⠀⠀⠁⠀⠀⠀⠿⠟⠀⠀⠀⢀⣼⡟⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠁⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣶⣶⣿⣶⣄⣀⠀⠀⠀⠀⢸⡟⠁⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣤⡈⠀⠀⠀⠀
-⣴⣶⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀⠀⠀
-⠹⣿⣿⣿⡆⠀⠀⠀⠀⠀⢀⣤⣿⣿⡿⠀⠉⠉⢁⣾⣿⣽⣿⣿⡟⠀⠀⠀⠀⠀
-⠀⠈⠻⣿⣧⡄⠀⠀⠀⠀⣨⣿⣿⢿⣿⠀⠀⠀⢨⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
-⠀⠀⠀⠈⠙⠁⠀⣀⠀⣈⣿⣿⣿⣾⣿⣦⡀⠀⢸⣿⣿⣿⣿⣿⡗⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣯⣿⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣿⣿⣿⠿⠿⠿⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀
-  pip3.11 install <package>
-They will install into the site-package directory
-  /usr/local/lib/python3.11/site-packages
-tkinter is no longer included with this formula, but it is available separately:
-  brew install python-tk@3.11
-gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
-  brew install python-gdbm@3.11
-'dbm.ndbm' changed database backends in Homebrew Python 3.11.
-If you need to read a database from a previous Homebrew Python created via 'dbm.ndbm',
-you'll need to read your database using the older version of Homebrew Python and convert to another format.
-'dbm' still defaults to 'dbm.gnu' when it is installed.
-If you do not need a specific version of Python, and always want Homebrew's 'python3' in your PATH:
-  brew install python3
-For more information about Homebrew and Python, see: https://docs.brew.sh/Homebrew-and-Python
-==> Summary
-/usr/local/Cellar/python@3.11/3.11.11: 3,304 files, 61.3MB
-==> Running 'brew cleanup python@3.11'...
-Removing: /usr/local/Cellar/python@3.11/3.11.10... (3,304 files, 61.3MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/python@3.11_bottle_manifest--3.11.10... (28.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/python@3.11--3.11.10... (15MB)
-==> Upgrading flyctl
-  0.3.39 -> 0.3.46 
-==> Pouring flyctl--0.3.46.ventura.bottle.tar.gz
-==> Caveats
-zsh completions have been installed to:
-  /usr/local/share/zsh/site-functions
-==> Summary
-/usr/local/Cellar/flyctl/0.3.46: 13 files, 62.7MB
-==> Running 'brew cleanup flyctl'...
-Removing: /usr/local/Cellar/flyctl/0.3.39... (13 files, 62.9MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/flyctl_bottle_manifest--0.3.39... (7.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/flyctl--0.3.39... (20.9MB)
-==> Upgrading git
-  2.47.0 -> 2.47.1 
-==> Pouring git--2.47.1.ventura.bottle.tar.gz
-==> Caveats
-The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
-Subversion interoperability (git-svn) is now in the 'git-svn' formula.
-zsh completions and functions have been installed to:
-  /usr/local/share/zsh/site-functions
-==> Summary
-/usr/local/Cellar/git/2.47.1: 1,685 files, 54.6MB
-==> Running 'brew cleanup git'...
-Removing: /usr/local/Cellar/git/2.47.0... (1,684 files, 54.6MB)
-Removing: /Users/romainal/Library/Caches/Homebrew/git_bottle_manifest--2.47.0... (14.2KB)
-Removing: /Users/romainal/Library/Caches/Homebrew/git--2.47.0... (19.9MB)
-==> Caveats
-==> nginx
-Docroot is: /usr/local/var/www
-The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
-nginx can run without sudo.
-nginx will load all files in /usr/local/etc/nginx/servers/.
-To start nginx now and restart at login:
-  brew services start nginx
-Or, if you don't want/need a background service you can just run:
-  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
-==> python@3.11
-Python is installed as
-  /usr/local/bin/python3.11
-Unversioned and major-versioned symlinks 'python', 'python3', 'python-config', 'python3-config', 'pip', 'pip3', etc. pointing to
-'python3.11', 'python3.11-config', 'pip3.11' etc., respectively, are installed into
-  /usr/local/opt/python@3.11/libexec/bin
-You can install Python packages with
-  pip3.11 install <package>
-They will install into the site-package directory
-  /usr/local/lib/python3.11/site-packages
-tkinter is no longer included with this formula, but it is available separately:
-  brew install python-tk@3.11
-gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
-  brew install python-gdbm@3.11
-'dbm.ndbm' changed database backends in Homebrew Python 3.11.
-If you need to read a database from a previous Homebrew Python created via 'dbm.ndbm',
-you'll need to read your database using the older version of Homebrew Python and convert to another format.
-'dbm' still defaults to 'dbm.gnu' when it is installed.
-If you do not need a specific version of Python, and always want Homebrew's 'python3' in your PATH:
-  brew install python3
-For more information about Homebrew and Python, see: https://docs.brew.sh/Homebrew-and-Python
-==> flyctl
-zsh completions have been installed to:
-  /usr/local/share/zsh/site-functions
-==> git
-The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
-Subversion interoperability (git-svn) is now in the 'git-svn' formula.
-zsh completions and functions have been installed to:
-  /usr/local/share/zsh/site-functions
 
-⠀⠀⠀⠀⠀⠀⠀Nicolas CANOT -  DJing
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Romain AL. - VJing
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣤⣤⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡿⠟⠋⠁⠀⠀⠀⠀⠀⠈⠉⠛⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢠⡼⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢦⣶⣶⣶⣦⣄⠀
-⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣦
-⠀⢀⣀⣀⡀⠀⠀⡿⠀⠀⢀⣴⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⡟
-⢀⣿⣿⣿⣿⣦⣄⡇⠈⠋⢸⣿⣿⣯⣼⠏⠀⠀⠀⠀⠀⢀⣰⣦⣄⠀⠀⠀⠀⢹⡿⠋⠀
-⠈⣿⣿⣿⣿⣿⣿⣿⠀⠀⢀⣙⠛⠛⠁⠀⠀⣦⣤⡀⠀⣾⡟⣿⣿⣷⠀⠀⠀⢸⠂⠀⠀
-⠀⠹⣿⣿⣿⣿⣿⣿⣧⡀⠉⠁⠀⠀⠀⠻⣤⣿⣉⣩⠀⠹⣷⣿⣿⡿⠀⠀⠀⣼⠀⠀⠀
-⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣶⣄⡀⠀⠀⠀⠀⠈⠉⠁⠀⠀⢨⡉⠉⠀⢸⠀⣼⠃⠀⠀⠀
-⠀⠀⠀⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣄⣀⠀⠀⠀⠀⠀⠀⠑⠆⠀⣠⡾⠁⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠙⡟⠛⠻⠿⠿⠿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣶⣶⣿⣏⠁⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢰⠃⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢸⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠈⣿⣿⣷⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣿⣿⠈⠙⠛⠉⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⡗⠒⠶⠤⠤⣶⣶⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠙⠿⠿⠿⠃⠀⠀⠀⠀⠀⠀⠙⠿⠿⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-'`;
 const socket = io.connect("https://mywebrtcserver-thrumming-resonance-5604.fly.dev/");
 // const socket = io.connect("https://192.168.10.2:1337");
 console.log("flyio ok");
@@ -1087,7 +512,7 @@ function init() {
   socket.connect();
   console.log(socket.id);
   socket.emit("join", roomName, false);
-  set_insta("videosNEW");
+  // set_insta("videosNEW");
   if (typeof DeviceMotionEvent.requestPermission === "function") {
     DeviceMotionEvent.requestPermission()
       .then((response) => {
@@ -1096,8 +521,6 @@ function init() {
         }
       })
       .catch((e) => alert("pas de motion capture (2)!!"));
-  } else {
-    alert("pas de motion capture (1)!!");
   }
   if (typeof DeviceOrientationEvent.requestPermission === "function") {
     DeviceMotionEvent.requestPermission()
@@ -1107,8 +530,6 @@ function init() {
         }
       })
       .catch((e) => alert("pas de motion capture (2)!!"));
-  } else {
-    alert("pas de motion capture (1)!!");
   }
   // instru_Setup(instru_div);
 }
@@ -2143,26 +1564,20 @@ function flash(color) {
 }
 
 function torchflash(time) {
-  console.log("tamere1");
-
   console.log(userStream.getVideoTracks()[0].getConstraints());
   userStream.getVideoTracks()[0].applyConstraints({ advanced: [{ torch: true }] });
   atablee.style.background = "white";
-  if (navigator.vibrate) {
-    navigator.vibrate(
-      [400, 0, 300, 0, 200, 0, 100].map(function (x) {
-        return (x + 200) * Math.random();
-      })
-    );
-  }
+  // if (navigator.vibrate) {
+  //   navigator.vibrate(
+  //     [400, 0, 300, 0, 200, 0, 100].map(function (x) {
+  //       return (x + 200) * Math.random();
+  //     })
+  //   );
+  // }
   setTimeout(() => {
-    console.log(userStream.getVideoTracks()[0].getConstraints());
     atablee.style.background = "black";
     userStream.getVideoTracks()[0].applyConstraints({ advanced: [{ torch: false }] });
-    console.log("tamere3");
-    console.log(userStream.getVideoTracks()[0].getConstraints());
   }, time);
-  console.log("tamere2");
 }
 
 function goBackHome() {
@@ -3053,14 +2468,669 @@ function set_insta(dir) {
   }
 }
 
+const txt_hack = `You have 8 outdated formulae installed.
+You can upgrade them with brew upgrade
+or list them with brew outdated.
+smart.phonics@MonAL2 ~ % brew upgrade
+==> <strong>Upgrading </strong>8 outdated packages:
+<strong>flyctl</strong> 0.3.39 -> 0.3.46
+<strong><strong>micro<strong>smart.phonics</strong></strong></strong> 1.24.0 -> 1.24.1
+<strong>sqlite</strong> 3.47.0 -> 3.47.1
+nginx 1.27.2 -> 1.27.3
+ca-certificates 2024-09-24 -> 2024-11-26
+node 23.2.0_1 -> 23.3.0
+<strong>smart.phonics</strong>@3.11 3.11.10 -> 3.11.11
+<strong>git</strong>2.47.0 -> 2.47.1
+==> Pouring <strong>sqlite</strong>--3.47.1.ventura.bottle.tar.gz
+  /usr/local/Cellar/<strong>sqlite</strong>/3.47.1: 12 files, 4.9MB
+==> Running 'brew cleanup <strong>sqlite</strong>'...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see 'man brew').
+<strong>Removing: </strong>/usr/local/Cellar/<strong>sqlite</strong>/3.47.0... (12 files, 4.9MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>sqlite</strong>_bottle_manifest--3.47.0... (9.4KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>sqlite</strong>--3.47.0... (2.3MB)
+==> <strong>Upgrading </strong><strong><strong>micro<strong>smart.phonics</strong></strong></strong>
+  1.24.0 -> 1.24.1 
+==> Pouring <strong><strong>micro<strong>smart.phonics</strong></strong></strong>--1.24.1.ventura.bottle.tar.gz
+  /usr/local/Cellar/<strong>micro<strong>smart.phonics</strong></strong>/1.24.1: 7 files, 1MB
+==> Running 'brew cleanup <strong><strong>micro<strong>smart.phonics</strong></strong></strong>'...
+<strong>Removing: </strong>/usr/local/Cellar/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>/1.24.0... (7 files, 1MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>_bottle_manifest--1.24.0... (9.5KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>--1.24.0... (492.2KB)
+==> <strong>Upgrading </strong>ca-certificates
+  2024-09-24 -> 2024-11-26 
+==> Pouring ca-certificates--2024-11-26.all.bottle.tar.gz
+==> Regenerating CA certificate bundle from keychain, this may take a while...
+  /usr/local/Cellar/ca-certificates/2024-11-26: 4 files, 239.4KB
+==> Running 'brew cleanup ca-certificates'...
+<strong>Removing: </strong>/usr/local/Cellar/ca-certificates/2024-09-24... (4 files, 237.4KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/ca-certificates_bottle_manifest--2024-09-24... (1.9KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/ca-certificates--2024-09-24... (132.6KB)
+==> <strong>Upgrading </strong>nginx
+  1.27.2 -> 1.27.3 
+==> Pouring nginx--1.27.3.ventura.bottle.1.tar.gz
+==> Caveats
+Docroot is: /usr/local/var/www
+The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+nginx will load all files in /usr/local/etc/nginx/servers/.
+To start nginx now and restart at login:
+  brew services start nginx
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
+==> Summary
+  /usr/local/Cellar/nginx/1.27.3: 27 files, 2.5MB
+==> Running 'brew cleanup nginx'...
+<strong>Removing: </strong>/usr/local/Cellar/nginx/1.27.2... (27 files, 2.5MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/nginx_bottle_manifest--1.27.2... (10KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/nginx--1.27.2... (1.4MB)
+==> <strong>Upgrading </strong>node
+  23.2.0_1 -> 23.3.0 
+==> Pouring node--23.3.0.ventura.bottle.tar.gz
+/usr/local/Cellar/node/23.3.0: 2,676 files, 88.2MB
+==> Running 'brew cleanup node'...
+<strong>Removing: </strong>/usr/local/Cellar/node/23.2.0_1... (2,676 files, 88.2MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/node_bottle_manifest--23.2.0_1... (16.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/node--23.2.0_1... (21.1MB)
+==> <strong>Upgrading </strong><strong>smart.phonics</strong>@3.11
+  3.11.10 -> 3.11.11 
+==> Pouring <strong>smart.phonics</strong>@3.11--3.11.11.ventura.bottle.tar.gz
+==> /usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.11/bin/<strong>smart.phonics</strong>3.11 -Im ensurepip
+==> /usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.11/bin/<strong>smart.phonics</strong>3.11 -Im pip <strong>install </strong>-v --no-index --upgrade --isolated --target=/usr/local/lib/<strong>smart.phonics</strong>3.11/site-
+==> Caveats
+<strong>smart.phonics</strong> is installed as
+  /usr/local/bin/<strong>smart.phonics</strong>3.11
+Unversioned and major-versioned symlinks '<strong>smart.phonics</strong>', '<strong>smart.phonics</strong>3', '<strong>smart.phonics</strong>-config', '<strong>smart.phonics</strong>3-config', 'pip', 'pip3', etc. pointing to
+'<strong>smart.phonics</strong>3.11', '<strong>smart.phonics</strong>3.11-config', 'pip3.11' etc., respectively, are installed into
+  /usr/local/opt/<strong>smart.phonics</strong>@3.11/libexec/bin
+You can <strong>install </strong><strong>smart.phonics</strong> packages with
+  pip3.11 <strong>install </strong><package>
+They will <strong>install </strong>into the site-package directory
+  /usr/local/lib/<strong>smart.phonics</strong>3.11/site-packages
+tkinter is no longer included with this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-tk@3.11
+gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-gdbm@3.11
+'dbm.ndbm' changed database backends in Homebrew <strong>smart.phonics</strong> 3.11.
+If you need to read a database from a previous Homebrew <strong>smart.phonics</strong> created via 'dbm.ndbm',
+you'll need to read your database using the older version of Homebrew <strong>smart.phonics</strong> and convert to another format.
+'dbm' still defaults to 'dbm.gnu' when it is installed.
+If you do not need a specific version of <strong>smart.phonics</strong>, and always want Homebrew's '<strong>smart.phonics</strong>3' in your PATH:
+  brew <strong>install </strong><strong>smart.phonics</strong>3
+For more information about Homebrew and <strong>smart.phonics</strong>, see: https://docs.brew.sh/Homebrew-and-<strong>smart.phonics</strong>
+==> Summary
+/usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.11: 3,304 files, 61.3MB
+==> Running 'brew cleanup <strong>smart.phonics</strong>@3.11'...
+<strong>Removing: </strong>/usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.10... (3,304 files, 61.3MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>smart.phonics</strong>@3.11_bottle_manifest--3.11.10... (28.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>smart.phonics</strong>@3.11--3.11.10... (15MB)
+==> <strong>Upgrading </strong><strong>flyctl</strong>
+  0.3.39 -> 0.3.46 
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀<strong>smart.phonics</strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡟⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡟⢁⠿⣦⠀⠀⠀⠀⠀⠀⠀Subversion interoperability
+⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⢹⡉⢠⠟⢷⡀⢀⣴⣿⣦⣀⣴⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠈⡏⠁⣠⡿⠛⠉⠁⢀⡼⡻⠛⡞⡷⢦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠚⢯⠟⠂⠀⢹⣞⡟⠁⡠⠔⢒⡾⡼⠁⠀⡇⣇⠀⠙⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⢠⡼⠻⡇⢸⢀⣴⣿⣱⠁⠀⢀⠇⡏⠑⢄⠀⠙⢧⣀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠋⠀⠀⠳⢌⣾⡷⠀⠁⠀⠀⡼⢀⣧⡀⠈⢣⡀⡼⠉⣷⡄⠀⠀⠀⠀⠀⠀manifest--2024-09-24... (1.9KB)
+⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠉⢳⠤⠴⠟⠁⣰⣿⠛⢶⡄⠀⠀⠀⠀
+⠀⠀⠀⢀⣤⠞⠉⠀⠀⢀⣾⡋⣻⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣦⣠⣴⡾⡟⠉⠣⡀⠹⡄⠀⠀⠀
+⠀⣠⠞⠋⣽⠀⠀⠀⠀⠘⣿⣿⣿⣾⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⢸⠀⡇⠀⠀⣇⠀⢿⠀⠀⠀
+⢰⠏⢿⡆⠸⡄⠀⠀⠀⠀⠈⠛⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡜⢀⡞⣰⢧⡀⠀⢸⠀⠸⣆⣴⡆
+⢸⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠿⢴⠿⠚⢇⠀⠳⣄⡀⠳⠤⢤⡾⠃(103.9KB)
+⠘⢧⡀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣄⠀⠈⠢⣄⡀⠉⠙⢻⠛⣧⠀
+⠀⠀⠙⠒⠦⠼⠗⠒⠲⠦⢤⣀⠀⠀⠀⣀⣠⣶⠇⠀⠀⠀⠀⠀⠀⠀⠘⣦⣀⠀⠀⠉⢦⠀⢸⠀⢸⡆
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⣠⠇⠈⢳⣄⠀⢸⢀⣾⠀⢸⠃
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⢴⣴⣚⡁⣀⡠⠊⣨⣧⡾⢫⠃⢀⡟⠀
+⠀⠀⠀___________⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠉⠓⡾⠓⢲⠋⠉⠁⠀⡎⢀⡾⠁⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠃⠀⡎⠀⠀⠀⠀⢇⣼⠀⠀⠀
+⠀⠀___________⠀⠀⢸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⢣⠀⠀⠀⠀⠀⠉⣹⠇⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⡀⠀⠓⠤⣀⣀⠤⣶⠟⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠓⠒⠒⠒⠒⠒⠒⠚⠋⠙⠲⠦⠤⠤⠶⠛⠁⠀⠀⠀
+==> Pouring <strong>flyctl</strong>--0.3.46.ventura.bottle.tar.gz
+==> Caveats
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> Summary
+/usr/local/Cellar/<strong>flyctl</strong>/0.3.46: 13 files, 62.7MB
+==> Running 'brew cleanup <strong>flyctl</strong>'...
+<strong>Removing: </strong>/usr/local/Cellar/<strong>flyctl</strong>/0.3.39... (13 files, 62.9MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>flyctl</strong>_bottle_manifest--0.3.39... (7.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>flyctl</strong>--0.3.39... (20.9MB)
+==> <strong>Upgrading </strong>git
+  2.47.0 -> 2.47.1 
+==> Pouring git--2.47.1.ventura.bottle.tar.gz
+==> Caveats
+The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
+Subversion interoperability (git-svn) is now in the 'git-svn' formula.
+zsh completions and functions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> Summary
+/usr/local/Cellar/git/2.47.1: 1,685 files, 54.6MB
+==> Running 'brew cleanup git'...
+<strong>Removing: </strong>/usr/local/Cellar/git/2.47.0... (1,684 files, 54.6MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/git_bottle_manifest--2.47.0... (14.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/git--2.47.0... (19.9MB)
+==> Caveats
+==> nginx
+Docroot is: /usr/local/var/www
+The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+nginx will load all files in /usr/local/etc/nginx/servers/.
+To start nginx now and restart at login:
+  brew services start nginx
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
+==> <strong>smart.phonics</strong>@3.11
+<strong>smart.phonics</strong> is installed as
+  /usr/local/bin/<strong>smart.phonics</strong>3.11
+Unversioned and major-versioned symlinks '<strong>smart.phonics</strong>', '<strong>smart.phonics</strong>3', '<strong>smart.phonics</strong>-config', '<strong>smart.phonics</strong>3-config', 'pip', 'pip3', etc. pointing to
+'<strong>smart.phonics</strong>3.11', '<strong>smart.phonics</strong>3.11-config', 'pip3.11' etc., respectively, are installed into
+  /usr/local/opt/<strong>smart.phonics</strong>@3.11/libexec/bin
+You can <strong>install </strong><strong>smart.phonics</strong> packages with
+  pip3.11 <strong>install </strong><package>
+They will <strong>install </strong>into the site-package directory
+  /usr/local/lib/<strong>smart.phonics</strong>3.11/site-packages
+tkinter is no longer included with this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-tk@3.11
+gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-gdbm@3.11
+'dbm.ndbm' changed database backends in Homebrew <strong>smart.phonics</strong> 3.11.
+If you need to read a database from a previous Homebrew <strong>smart.phonics</strong> created via 'dbm.ndbm',
+you'll need to read your database using the older version of Homebrew <strong>smart.phonics</strong> and convert to another format.
+'dbm' still defaults to 'dbm.gnu' when it is installed.
+If you do not need a specific version of <strong>smart.phonics</strong>, and always want Homebrew's '<strong>smart.phonics</strong>3' in your PATH:
+  brew <strong>install </strong><strong>smart.phonics</strong>3
+For more information about Homebrew and <strong>smart.phonics</strong>, see: https://docs.brew.sh/Homebrew-and-<strong>smart.phonics</strong>
+==> <strong>flyctl</strong>
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> git
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀______________⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⣿⣿⣿⣿⣷⡀⣀⣠⡤⠤⠤⠤⠤⠤⣄⣀⡀⣴⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⡟⠀⠀⠀⠀<strong>Downloading</strong>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⢿⡿⠁⠀⠀⠀⣠⣤⣤⣄⠀⠀⠀⠀⢠⣤⣤⣄⡀⠀⠀⠀⢻⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠃⠀⠀⢀⣾⣿⣿⣿⡟⣀⣀⣀⣀⢸⣿⣿⣿⣷⡄⠀⠀⠀⣧⡀⣀⡀⠀⠀⠀⠀⠀⠀⠀Subversion interoperability
+⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⡟⠀⠀⠀⢸⣿⣿⣿⡏⠘⢿⣿⣿⣿⠏⠙⣿⣿⣿⡇⢀⣴⣾⡿⢿⡿⢿<strong>Downloading</strong>
+⠀⠀⠀⠀⠀⣴⣾⣿⣿⣿⣿⣶⣄⠀⠀⠻⣿⠿⠃⠠⣀⣨⣏⣀⡀⠀⠻⠿⡿⠁⢸⣿⣹⡷⠿⠿⢿⣍⣿⡇⠀⠀⠀⠀
+⣀⣀⣀⣀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣧⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣘⣿⣿⣄⣀⣀⣀⣿⣿⣇⣀⣀⣀⣤
+⠀⠀⠀⠀⠘⠿⢿⣿⣿⣿⣿⣿⠿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀___Downloading___________⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀______________⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
+Subversion interoperability (git-svn) is now in the 'git-svn' formula.
+zsh completions and functions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/manifests/3.47.1
+==> <strong>Fetching </strong><strong>sqlite</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>/manifests/1.24.1
+==> <strong>Fetching </strong><strong><strong>micro<strong>smart.phonics</strong></strong></strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
+==> <strong>Fetching </strong>ca-certificates
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
+==> <strong>Fetching </strong>nginx
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
+==> <strong>Fetching </strong>node
+⠀⠀⠀⠀⠀⠀______________⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣤⣄⡀⠀⠀Subversion interoperability⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⣿⣿⣿⣿⣿⣿⣿⠀______________⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⠿⠿⠿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣶⣿⣿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀_______________⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀______________⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀Subversion interoperability⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⡟⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣾⣿⣶⣶⣤⡀⠀⠀v
+⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠘⢿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠈⠻⣿⣿⣿⣿⣆⠀⠀⠀⢀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀______________
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⣀⣤⣶⣶⣌⠻⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⠁⣰⣿⣿⣿⣿⣿⣦⣙⢿⣿⣿⣿⠄⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⡿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿______________⣿⣿⣿⣿⣦⣹⣟⣫⣼⣿⣿⣶⣿⣿⣿⣿⣿⣿⣯⡉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀_____________⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⡆⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⡇⠀⢻⣿⣿⣿⣿⣿⡇manifest--2024-09-24... (1.9KB)⠀⣿⣿⣿⣿⣿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⣠⣴⣶⣶⣶⣶⣶⣶⣾⣿⣿⣿⣿⣿⡇⠀⠸⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢰⣶⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣧⣄⣐⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠉⠉⠙⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠁⠛⠛⠛⠛⠛⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/manifests/3.11.11
+==> <strong>Fetching </strong><strong>smart.phonics</strong>@3.11
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/manifests/0.3.46
+==> <strong>Fetching </strong><strong>flyctl</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
+==> <strong>Fetching </strong>git
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/manifests/3.47.1
+==> <strong>Fetching </strong><strong>sqlite</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>/manifests/1.24.1
+==> <strong>Fetching </strong><strong><strong>micro<strong>smart.phonics</strong></strong></strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
+==> <strong>Fetching </strong>ca-certificates
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
+==> <strong>Fetching </strong>nginx
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
+==> <strong>Fetching </strong>node
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/manifests/3.11.11
+==> <strong>Fetching </strong><strong>smart.phonics</strong>@3.11
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/manifests/0.3.46
+==> <strong>Fetching </strong><strong>flyctl</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
+==> <strong>Fetching </strong>git
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/manifests/3.47.1
+==> <strong>Fetching </strong><strong>sqlite</strong>
+==> Pouring ca-certificates--2024-11-26.all.bottle.tar.gz
+==> Regenerating CA certificate bundle from keychain, this may take a while...
+  /usr/local/Cellar/ca-certificates/2024-11-26: 4 files, 239.4KB
+==> Running 'brew cleanup ca-certificates'...
+<strong>Removing: </strong>/usr/local/Cellar/ca-certificates/2024-09-24... (4 files, 237.4KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/ca-certificates_bottle_manifest--2024-09-24... (1.9KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/ca-certificates--2024-09-24... (132.6KB)
+==> <strong>Upgrading </strong>nginx
+  1.27.2 -> 1.27.3 
+==> Pouring nginx--1.27.3.ventura.bottle.1.tar.gz
+==> Caveats
+Docroot is: /usr/local/var/www
+The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+nginx will load all files in /usr/local/etc/nginx/servers/.
+To start nginx now and restart at login:
+  brew services start nginx
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
+==> Summary
+  /usr/local/Cellar/nginx/1.27.3: 27 files, 2.5MB
+==> Running 'brew cleanup nginx'...
+<strong>Removing: </strong>/usr/local/Cellar/nginx/1.27.2... (27 files, 2.5MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/nginx_bottle_manifest--1.27.2... (10KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/nginx--1.27.2... (1.4MB)
+==> <strong>Upgrading </strong>node
+  23.2.0_1 -> 23.3.0 
+==> Pouring node--23.3.0.ventura.bottle.tar.gz
+/usr/local/Cellar/node/23.3.0: 2,676 files, 88.2MB
+==> Running 'brew cleanup node'...
+<strong>Removing: </strong>/usr/local/Cellar/node/23.2.0_1... (2,676 files, 88.2MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/node_bottle_manifest--23.2.0_1... (16.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/node--23.2.0_1... (21.1MB)
+==> <strong>Upgrading </strong><strong>smart.phonics</strong>@3.11
+  3.11.10 -> 3.11.11 
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong><strong>micro<strong>smart.phonics</strong></strong></strong>/manifests/1.24.1
+==> <strong>Fetching </strong><strong>micro<strong>smart.phonics</strong></strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>micro<strong>smart.phonics</strong></strong>/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
+==> <strong>Fetching </strong>ca-certificates
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
+==> <strong>Fetching </strong>nginx
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
+==> <strong>Fetching </strong>node
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/manifests/3.11.11
+==> <strong>Fetching </strong><strong>smart.phonics</strong>@3.11
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/manifests/0.3.46
+==> <strong>Fetching </strong><strong>flyctl</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
+==> <strong>Fetching </strong>git
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/manifests/3.47.1
+==> <strong>Fetching </strong><strong>sqlite</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>micro<strong>smart.phonics</strong></strong>/manifests/1.24.1
+⠀⠀⠀⠀⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣴⣿⣿⠿⣟⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢸⣏⡏⠀⠀⠀⢣⢻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Disable this behaviour
+⠀⠀⠀⢸⣟⠧⠤⠤⠔⠋⠀⢿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Subversion interoperability /Library/Caches
+⠀⠀⠀⠀⣿⡆⠀⠀⠀⠀⠀⠸⣷⠀⠀⠀⠀⠀⠀Disable this behaviour
+⠀⠀⠀⠀⠘⣿⡀⢀⣶⠤⠒⠀⢻⣇⠀⠀⠀⠀⠀<strong>Downloading</strong>
+⠀⠀⠀⠀⠀⢹⣧⠀⠀⠀⠀⠀⠈⢿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣿⡆⠀⠀⠀⠀⠀⠈⢿⣆⣠⣤⣤/Library/Caches/Library/Caches/Library/Caches
+⠀⠀⠀⠀⢀⣾⢿⢿⠀⠀⠀⢀⣀⣀⠘⣿⠋⠁⠀⠙⢇⠀⠀⠙⢿⣦⡀⠀⠀⠀⠀⠀Subversion interoperability
+⠀⠀Subversion interoperability ⠀⢀⣾⢇⡞⠘⣧⠀⢖⡭⠞⢛⡄⠘⣆⠀⠀⠀⠈⢧⠀⠀⠀⠙⢿⣄⠀⠀⠀⠀
+⠀⠀⣠⣿⣛⣥⠤⠤⢿⡄⠀⠀⠈⠉⠀⠀⠹⡄⠀⠀⠀⠈⢧⠀⠀⠀⠈⠻⣦⠀⠀⠀/Library/Caches/Library/Caches/Library/Caches/Library/Caches/Library/Caches
+⠀⣼⡟⡱⠛⠙⠀⠀⠘⢷⡀⠀⠀⠀⠀⠀⠀⠹⡀⠀⠀⠀⠈⣧⠀⠀⠀⠀⠹⣧⡀⠀
+⢸⡏⢠⠃⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠸⣷⡀<strong>Downloading</strong>
+⠸⣧⠘⡇⠀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⢹⡇⠀⠀⠀⠀⣿⠇certificates
+
+⠀⢹⡇⠘⣇⠀⠀⠀⠀⠀⠀⠰⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⠀⣼⡟⠀⠀
+⠀⢸⡇⠀⢹⡆⠀⠀⠀⠀⠀⠀⠙⠁⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⢳⣼⠟⠀⠀⠀can run without sudo.
+⠀⠸⣧⣀⠀⢳⡀⠀⠀⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⢃⠀⢀⣴⡿⠁⠀⠀⠀⠀
+⠀⠀⠈⠙⢷⣄Subversion interoperability ⢳⡀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⣠⡿⠟⠛⠉⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⠻⢿⣷⣦⣄⣀⣀⣠⣤⠾⠷⣦⣤⣤⡶⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+==> <strong>Fetching </strong><strong>micro<strong>smart.phonics</strong></strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>micro<strong>smart.phonics</strong></strong>/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
+==> <strong>Fetching </strong>ca-certificates
+<strong>smart.phonics</strong> is installed as
+  /usr/local/bin/<strong>smart.phonics</strong>3.11
+Unversioned and major-versioned symlinks '<strong>smart.phonics</strong>', '<strong>smart.phonics</strong>3', '<strong>smart.phonics</strong>-config', '<strong>smart.phonics</strong>3-config', 'pip', 'pip3', etc. pointing to
+'<strong>smart.phonics</strong>3.11', '<strong>smart.phonics</strong>3.11-config', 'pip3.11' etc., respectively, are installed into
+  /usr/local/opt/<strong>smart.phonics</strong>@3.11/libexec/bin
+You can <strong>install </strong><strong>smart.phonics</strong> packages with
+  pip3.11 <strong>install </strong><package>
+They will <strong>install </strong>into the site-package directory
+  /usr/local/lib/<strong>smart.phonics</strong>3.11/site-packages
+tkinter is no longer included with this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-tk@3.11
+gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-gdbm@3.11
+'dbm.ndbm' changed database backends in Homebrew <strong>smart.phonics</strong> 3.11.
+If you need to read a database from a previous Homebrew <strong>smart.phonics</strong> created via 'dbm.ndbm',
+you'll need to read your database using the older version of Homebrew <strong>smart.phonics</strong> and convert to another format.
+'dbm' still defaults to 'dbm.gnu' when it is installed.
+If you do not need a specific version of <strong>smart.phonics</strong>, and always want Homebrew's '<strong>smart.phonics</strong>3' in your PATH:
+  brew <strong>install </strong><strong>smart.phonics</strong>3
+For more information about Homebrew and <strong>smart.phonics</strong>, see: https://docs.brew.sh/Homebrew-and-<strong>smart.phonics</strong>
+==> <strong>flyctl</strong>
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> <strong>git</strong>
+The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
+Subversion interoperability (git-svn) is now in the 'git-svn' formula.
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
+==> <strong>Fetching </strong>nginx
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
+==> <strong>Fetching </strong>node
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/manifests/3.11.11
+==> <strong>Fetching </strong><strong>smart.phonics</strong>@3.11
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/manifests/0.3.46
+==> <strong>Fetching </strong><strong>flyctl</strong>
+Docroot is: /usr/local/var/www
+The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+nginx will load all files in /usr/local/etc/nginx/servers/.
+To start nginx now and restart at login:
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
+==> <strong>Fetching </strong>git
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/manifests/3.47.1
+==> <strong>Fetching </strong><strong>sqlite</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>sqlite</strong>/blobs/sha256:3ec83a8caed77476623d709d6d980698f09c0fb267907a2bf8323e6fc5b8439b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>micro<strong>smart.phonics</strong></strong>/manifests/1.24.1
+==> <strong>Fetching </strong><strong>micro<strong>smart.phonics</strong></strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>micro<strong>smart.phonics</strong></strong>/blobs/sha256:6601736a89957321cdb26111f3d6da67575ee7a5324b1af791cf2370240b259b
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/manifests/2024-11-26
+==> <strong>Fetching </strong>ca-certificates
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:7a3b5f75ca44d330e0f37432af09f58e37bfa873f25d340dece3c3e6c7927657
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/manifests/1.27.3-1
+  3.47.0 -> 3.47.1 
+==> Pouring <strong>sqlite</strong>--3.47.1.ventura.bottle.tar.gz
+  /usr/local/Cellar/<strong>sqlite</strong>/3.47.1: 12 files, 4.9MB
+==> Running 'brew cleanup <strong>sqlite</strong>'...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see 'man brew').
+<strong>Removing: </strong>/usr/local/Cellar/<strong>sqlite</strong>/3.47.0... (12 files, 4.9MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>sqlite</strong>_bottle_manifest--3.47.0... (9.4KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>sqlite</strong>--3.47.0... (2.3MB)
+==> <strong>Upgrading </strong><strong>micro<strong>smart.phonics</strong></strong>
+  1.24.0 -> 1.24.1 
+==> Pouring <strong>micro<strong>smart.phonics</strong></strong>--1.24.1.ventura.bottle.tar.gz
+  /usr/local/Cellar/<strong>micro<strong>smart.phonics</strong></strong>/1.24.1: 7 files, 1MB
+==> Running 'brew cleanup <strong>micro<strong>smart.phonics</strong></strong>'...
+<strong>Removing: </strong>/usr/local/Cellar/<strong>micro<strong>smart.phonics</strong></strong>/1.24.0... (7 files, 1MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>micro<strong>smart.phonics</strong></strong>_bottle_manifest--1.24.0... (9.5KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>micro<strong>smart.phonics</strong></strong>--1.24.0... (492.2KB)
+==> <strong>Upgrading </strong>ca-certificates
+⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿<strong>Disable this behaviour</strong>⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣠⣤⣤⣼⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀
+⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿/Users/smart.phonics/Library/Caches/
+<strong>⠀⠀⠀⠘⣿⣿⣿⣿⠟⠁⠀⠀⠀⠹⣿⣿⣿⣿⣿⠟⠁⠀⠀⠹⣿⣿⡿⠀/Users/smart.phonics/Library/Caches/</strong>
+<strong>⠀⠀⠀⠀⣿⣿⣿⡇⠀⠀⠀⢼⣿⠀⢿⣿⣿⣿⣿⠀⣾⣷⠀⠀⢿⣿⣷⠀⠀⠀⠀⠀/Users/smart.phonics/Library/Caches/</strong>
+<strong>⠀⠀⠀⢠⣿⣿⣿⣷⡀⠀⠀⠈⠋⢀⣿⣿⣿⣿⣿⡀⠙⠋⠀⢀⣾⣿⣿⠀⠀⠀⠀⠀</strong>
+<strong>⢀⣀⣀⣀⣿⣿⣿⣿⣿⣶⣶⣶⣶⣿⣿⣿⣿⣾⣿⣷⣦⣤⣴⣿⣿⣿⣿⣤⠤⢤⣤⡄</strong>
+⠈⠉⠉⢉⣙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣀⣀⣀⡀⠀
+⠐⠚⠋⠉⢀⣬⡿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣥⣀⡀⠈⠀⠈⠛
+⠀⠀⠴⠚⠉⠀⠀⠀⠉⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠋⠁⠀⠀⠀⠉⠛⠢⠀⠀
+/Users/smart.phonics/Library/Caches/⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  2024-09-24 -> 2024-11-26 
+==> Pouring ca-certificates--2024-11-26.all.bottle.tar.gz
+==> Regenerating CA certificate bundle from keychain, this may take a while...
+  /usr/local/Cellar/ca-certificates/2024-11-26: 4 files, 239.4KB
+==> Running 'brew cleanup ca-certificates'...
+<strong>Removing: </strong>/usr/local/Cellar/ca-certificates/2024-09-24... (4 files, 237.4KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/ca-certificates_bottle_manifest--2024-09-24... (1.9KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/ca-certificates--2024-09-24... (132.6KB)
+==> <strong>Upgrading </strong>nginx
+  1.27.2 -> 1.27.3 
+==> Pouring nginx--1.27.3.ventura.bottle.1.tar.gz
+==> Caveats
+Docroot is: /usr/local/var/www
+The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+nginx will load all files in /usr/local/etc/nginx/servers/.
+To start nginx now and restart at login:
+  brew services start nginx
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
+==> Summary
+  /usr/local/Cellar/nginx/1.27.3: 27 files, 2.5MB
+==> Running 'brew cleanup nginx'...
+<strong>Removing: </strong>/usr/local/Cellar/nginx/1.27.2... (27 files, 2.5MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/nginx_bottle_manifest--1.27.2... (10KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/nginx--1.27.2... (1.4MB)
+==> <strong>Upgrading </strong>node
+  23.2.0_1 -> 23.3.0 
+==> Pouring node--23.3.0.ventura.bottle.tar.gz
+/usr/local/Cellar/node/23.3.0: 2,676 files, 88.2MB
+==> Running 'brew cleanup node'...
+<strong>Removing: </strong>/usr/local/Cellar/node/23.2.0_1... (2,676 files, 88.2MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/node_bottle_manifest--23.2.0_1... (16.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/node--23.2.0_1... (21.1MB)
+==> <strong>Upgrading </strong><strong>smart.phonics</strong>@3.11
+  3.11.10 -> 3.11.11 
+==> Pouring <strong>smart.phonics</strong>@3.11--3.11.11.ventura.bottle.tar.gz
+==> /usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.11/bin/<strong>smart.phonics</strong>3.11 -Im ensurepip
+==> /usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.11/bin/<strong>smart.phonics</strong>3.11 -Im pip <strong>install </strong>-v --no-index --upgrade --isolated --target=/usr/local/lib/<strong>smart.phonics</strong>3.11/site-
+==> Caveats
+<strong>smart.phonics</strong> is installed as
+  /usr/local/bin/<strong>smart.phonics</strong>3.11
+Unversioned and major-versioned symlinks '<strong>smart.phonics</strong>', '<strong>smart.phonics</strong>3', '<strong>smart.phonics</strong>-config', '<strong>smart.phonics</strong>3-config', 'pip', 'pip3', etc. pointing to
+'<strong>smart.phonics</strong>3.11', '<strong>smart.phonics</strong>3.11-config', 'pip3.11' etc., respectively, are installed into
+  /usr/local/opt/<strong>smart.phonics</strong>@3.11/libexec/bin
+You can <strong>install </strong><strong>smart.phonics</strong> packages with
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡀⠀⠀⠀⠀⠀⣿⣿⠇⠀⠀⠀⣴⣶⡄⠀⠀⠀⠀⠀</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧⠀⠀⠀⠀⠀⣾⣯⠀⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀⠀Disable this behaviour</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⡀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⣾⣏⠀⠀⠀⠀⠀⠀Disable this behaviour</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀⠀⠀⣹⣿⠀⠀⠀⠀⣿⡟⠀⠀⠀⠀⣠⣦</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣧⠀⠀⠀⠀⢻⣿⠀⠀⠀⢀⣿⠇⠀⠀⠀⠠⣿⠇</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⡄⠀⠀⠀⠀⠁⠀⠀⠀⠿⠟⠀⠀⠀⢀⣼⡟⠀</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠁⠀</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣶⣶⣿⣶⣄⣀⠀⠀⠀⠀⢸⡟⠁⠀⠀</strong>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣤⡈⠀⠀⠀⠀
+⣴⣶⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀⠀⠀Disable this behaviour
+⠹⣿⣿⣿⡆⠀⠀⠀⠀⠀⢀⣤⣿⣿⡿⠀⠉⠉Disable this behaviour
+⠀⠈⠻⣿⣧⡄⠀⠀⠀⠀⣨⣿⣿⢿⣿⠀⠀⠀⢨⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠈⠙⠁⠀⣀⠀⣈⣿⣿⣿⣾⣿⣦⡀⠀⢸⣿⣿⣿⣿⣿⡗⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣯⣿⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀Disable this behaviour
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣿⣿⣿⠿⠿⠿⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀
+  pip3.11 <strong>install </strong><package>
+They will <strong>install </strong>into the site-package directory
+  /usr/local/lib/<strong>smart.phonics</strong>3.11/site-packages
+tkinter is no longer included with this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-tk@3.11
+gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-gdbm@3.11
+'dbm.ndbm' changed database backends in Homebrew <strong>smart.phonics</strong> 3.11.
+If you need to read a database from a previous Homebrew <strong>smart.phonics</strong> created via 'dbm.ndbm',
+you'll need to read your database using the older version of Homebrew <strong>smart.phonics</strong> and convert to another format.
+'dbm' still defaults to 'dbm.gnu' when it is installed.
+If you do not need a specific version of <strong>smart.phonics</strong>, and always want Homebrew's '<strong>smart.phonics</strong>3' in your PATH:
+  brew <strong>install </strong><strong>smart.phonics</strong>3
+For more information about Homebrew and <strong>smart.phonics</strong>, see: https://docs.brew.sh/Homebrew-and-<strong>smart.phonics</strong>
+==> Summary
+/usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.11: 3,304 files, 61.3MB
+==> Running 'brew cleanup <strong>smart.phonics</strong>@3.11'...
+<strong>Removing: </strong>/usr/local/Cellar/<strong>smart.phonics</strong>@3.11/3.11.10... (3,304 files, 61.3MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>smart.phonics</strong>@3.11_bottle_manifest--3.11.10... (28.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>smart.phonics</strong>@3.11--3.11.10... (15MB)
+==> <strong>Upgrading </strong><strong>flyctl</strong>
+  0.3.39 -> 0.3.46 
+==> Pouring <strong>flyctl</strong>--0.3.46.ventura.bottle.tar.gz
+==> Caveats
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> Summary
+/usr/local/Cellar/<strong>flyctl</strong>/0.3.46: 13 files, 62.7MB
+==> Running 'brew cleanup <strong>flyctl</strong>'...
+<strong>Removing: </strong>/usr/local/Cellar/<strong>flyctl</strong>/0.3.39... (13 files, 62.9MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>flyctl</strong>_bottle_manifest--0.3.39... (7.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/<strong>flyctl</strong>--0.3.39... (20.9MB)
+==> <strong>Upgrading </strong>git
+  2.47.0 -> 2.47.1 
+==> Pouring git--2.47.1.ventura.bottle.tar.gz
+==> Caveats
+The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
+Subversion interoperability (git-svn) is now in the 'git-svn' formula.
+zsh completions and functions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> <strong>Fetching </strong>nginx
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/nginx/blobs/sha256:a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/manifests/23.3.0
+==> <strong>Fetching </strong>node
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/node/blobs/sha256:28a491eda835e37fed1f69d12c5967d86c25d5e8aa43c4c5664c6f042d8f6fa7
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/manifests/3.11.11
+==> <strong>Fetching </strong><strong>smart.phonics</strong>@3.11
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>smart.phonics</strong>/3.11/blobs/sha256:ee9aaacdb633337b49e6294d76317bcbfbab475b6f220f2ee62e67353250c8a6
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/manifests/0.3.46
+==> <strong>Fetching </strong><strong>flyctl</strong>
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/<strong>flyctl</strong>/blobs/sha256:3b7de3da2e6243d4af5035bce6f93055e4883f2277ae7c8722c149f8c45f4b72
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/manifests/2.47.1
+==> <strong>Fetching </strong>git
+==> <strong>Downloading</strong> https://ghcr.io/v2/homebrew/core/git/blobs/sha256:aaa8aee7e2147287d742c407139fad74126ef2d97fc13655657f9bd511b1c818
+==> <strong>Upgrading </strong><strong>sqlite</strong>
+==> Summary
+/usr/local/Cellar/git/2.47.1: 1,685 files, 54.6MB
+==> Running 'brew cleanup git'...
+<strong>Removing: </strong>/usr/local/Cellar/git/2.47.0... (1,684 files, 54.6MB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/git_bottle_manifest--2.47.0... (14.2KB)
+<strong>Removing: </strong>/Users/smart.phonics/Library/Caches/Homebrew/git--2.47.0... (19.9MB)
+==> Caveats
+==> nginx
+Docroot is: /usr/local/var/www
+The default port has been set in /usr/local/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+nginx will load all files in /usr/local/etc/nginx/servers/.
+To start nginx now and restart at login:
+  brew services start nginx
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/nginx/bin/nginx -g daemon\ off\;
+==> <strong>smart.phonics</strong>@3.11
+<strong>smart.phonics</strong> is installed as
+  /usr/local/bin/<strong>smart.phonics</strong>3.11
+Unversioned and major-versioned symlinks '<strong>smart.phonics</strong>', '<strong>smart.phonics</strong>3', '<strong>smart.phonics</strong>-config', '<strong>smart.phonics</strong>3-config', 'pip', 'pip3', etc. pointing to
+'<strong>smart.phonics</strong>3.11', '<strong>smart.phonics</strong>3.11-config', 'pip3.11' etc., respectively, are installed into
+  /usr/local/opt/<strong>smart.phonics</strong>@3.11/libexec/bin
+You can <strong>install </strong><strong>smart.phonics</strong> packages with
+  pip3.11 <strong>install </strong><package>
+They will <strong>install </strong>into the site-package directory
+  /usr/local/lib/<strong>smart.phonics</strong>3.11/site-packages
+tkinter is no longer included with this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-tk@3.11
+gdbm ('dbm.gnu') is no longer included in this formula, but it is available separately:
+  brew <strong>install </strong><strong>smart.phonics</strong>-gdbm@3.11
+'dbm.ndbm' changed database backends in Homebrew <strong>smart.phonics</strong> 3.11.
+If you need to read a database from a previous Homebrew <strong>smart.phonics</strong> created via 'dbm.ndbm',
+you'll need to read your database using the older version of Homebrew <strong>smart.phonics</strong> and convert to another format.
+'dbm' still defaults to 'dbm.gnu' when it is installed.
+If you do not need a specific version of <strong>smart.phonics</strong>, and always want Homebrew's '<strong>smart.phonics</strong>3' in your PATH:
+  brew <strong>install </strong><strong>smart.phonics</strong>3
+For more information about Homebrew and <strong>smart.phonics</strong>, see: https://docs.brew.sh/Homebrew-and-<strong>smart.phonics</strong>
+==> <strong>flyctl</strong>
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+==> <strong>git</strong>
+The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the 'git-gui' formula.
+Subversion interoperability (git-svn) is now in the 'git-svn' formula.
+zsh completions and functions have been installed to:
+/usr/local/Cellar/git/2.47.1: 1,685 files, 54.6MB Subversion interoperability
+<br>
+<br>
+<strong>smart.phonics</strong>
+⠀⠀⠀⠀⠀⠀⠀<strong>Nicolas CANOT</strong> - DJing
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<strong>Romain AL.</strong> - VJing
+<br>
+<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣤⣤⣄⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡿⠟⠋⠁⠀⠀⠀⠀⠀⠈⠉⠛⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⠀⢠⡼⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢦⣶⣶⣶⣦⣄⠀</strong>
+<strong>⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣦</strong>
+<strong>⠀⢀⣀⣀⡀⠀⠀⡿⠀⠀⢀⣴⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⡟</strong>
+<strong>⢀⣿⣿⣿⣿⣦⣄⡇⠈⠋⢸⣿⣿⣯⣼⠏⠀⠀⠀⠀⠀⢀⣰⣦⣄⠀⠀⠀⠀⢹⡿⠋⠀</strong>
+<strong>⠈⣿⣿⣿⣿⣿⣿⣿⠀⠀⢀⣙⠛⠛⠁⠀⠀⣦⣤⡀⠀⣾⡟⣿⣿⣷⠀⠀⠀⢸⠂⠀⠀</strong>
+<strong>⠀⠹⣿⣿⣿⣿⣿⣿⣧⡀⠉⠁⠀⠀⠀⠻⣤⣿⣉⣩⠀⠹⣷⣿⣿⡿⠀⠀⠀⣼⠀⠀⠀</strong>
+<strong>⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣶⣄⡀⠀⠀⠀⠀⠈⠉⠁⠀⠀⢨⡉⠉⠀⢸⠀⣼⠃⠀⠀⠀</strong>
+<strong>⠀⠀⠀⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣄⣀⠀⠀⠀⠀⠀⠀⠑⠆⠀⣠⡾⠁⠀⠀⠀⠀</strong>
+<strong>⠀⠀⠀⠀⠀⠙⡟⠛⠻⠿⠿⠿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣶⣶⣿⣏⠁⠀⠀⠀⠀⠀⠀</strong>
+⠀⠀⠀⠀⠀⢰⠃⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢸⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠈⣿⣿⣷⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣿⣿⠈⠙⠛⠉⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⡗⠒⠶⠤⠤⣶⣶⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠙⠿⠿⠿⠃⠀⠀⠀⠀⠀⠀⠙⠿⠿⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+<br>
+<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<strong>Disable this behaviour</strong>
+⠀⠀⠀⠀⠀⠀⠀Subversion interoperability`.split(/\r?\n|\r|\n/g);
 function set_hack() {
-  let separateLines = txt_hack.split(/\r?\n|\r|\n/g);
-  p = document.getElementById("sp_hacker");
   let time = 0;
-  separateLines.forEach((l) => {
-    time += Math.round(Math.random() * Math.random() * Math.random() * Math.random() * 10);
-    setTimeout(() => {
-      p.innerText += l + "\n";
-    }, time);
-  });
+  let i = 0;
+  let timer_hack;
+  timer_hack = setInterval(
+    () => {
+      let r = Math.random();
+      if (r < 0.02) {
+        sp_hacker.style.background = "orange";
+        sp_hacker.style.color = "black";
+      } else {
+        sp_hacker.style.background = "black";
+        sp_hacker.style.color = "orange";
+      }
+      sp_hacker.innerHTML += "<p>" + txt_hack[i] + "</p>";
+      i++;
+      if (i > txt_hack.length) clearInterval(timer_hack);
+    },
+    1,
+    i
+  );
 }

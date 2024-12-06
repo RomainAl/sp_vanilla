@@ -102,7 +102,7 @@ document.getElementById("S1_param1").addEventListener("input", (event) => {
 });
 
 document.getElementById("SN_param1").addEventListener("input", (event) => {
-  const data = { scene: 6, vol: event.target.value };
+  const data = { scene: currentSceneNb, vol: event.target.value };
   for (let i = 0; i < clientS.length; i++) {
     if (clientS[i].rtcDataSendChannel.readyState === "open") {
       clientS[i].rtcDataSendChannel.send(JSON.stringify(data));
